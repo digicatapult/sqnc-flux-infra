@@ -24,3 +24,14 @@ node:
     enabled: true
     namespace: match2
 storageClass: managed-csi-premium
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+                - sqnc-node
+        topologyKey: kubernetes.io/hostname
+        namespaceSelector: {}
