@@ -34,3 +34,4 @@ affinity:
               values:
                 - sqnc-node
         topologyKey: kubernetes.io/hostname
+        namespaceSelector: {}
