@@ -24,3 +24,13 @@ node:
     enabled: true
     namespace: demanda
 storageClass: managed-csi-premium
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+                - sqnc-node
+        topologyKey: kubernetes.io/hostname
