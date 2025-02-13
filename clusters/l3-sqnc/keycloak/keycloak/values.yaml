@@ -30,6 +30,9 @@ metrics:
         sourceLabels: [namespace]
         targetLabel: kubernetes_namespace
 postgresql:
+  global:
+    imagePullSecrets:
+      - name: dockerhub
   primary:
     persistence:
       storageClass: managed-csi-premium
