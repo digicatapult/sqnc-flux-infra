@@ -21,6 +21,8 @@ node:
     enabled: true
     namespace: capacity
 storageClass: managed-csi-premium
+imagePullSecrets:
+  - name: dockerhub
 affinity:
   podAntiAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:

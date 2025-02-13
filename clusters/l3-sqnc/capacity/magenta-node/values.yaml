@@ -20,6 +20,8 @@ node:
   serviceMonitor:
     enabled: true
     namespace: capacity
+imagePullSecrets:
+  - name: dockerhub
 storageClass: managed-csi-premium
 affinity:
   podAntiAffinity:
