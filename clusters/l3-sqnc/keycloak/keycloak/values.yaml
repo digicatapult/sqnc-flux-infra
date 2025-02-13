@@ -1,3 +1,6 @@
+global:
+  imagePullSecrets:
+    - name: dockerhub
 production: true
 proxy: edge
 ingress:
