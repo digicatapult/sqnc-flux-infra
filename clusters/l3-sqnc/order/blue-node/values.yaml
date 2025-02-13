@@ -34,3 +34,5 @@ affinity:
                 - sqnc-node
         topologyKey: kubernetes.io/hostname
         namespaceSelector: {}
+imagePullSecrets:
+  - name: dockerhub
