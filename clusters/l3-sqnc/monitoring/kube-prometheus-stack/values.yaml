@@ -1,3 +1,6 @@
+global:
+  imagePullSecrets:
+    - name: dockerhub
 alertmanager:
   enabled: true
   serviceMonitor:
