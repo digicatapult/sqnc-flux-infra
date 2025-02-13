@@ -19,6 +19,9 @@ ingress:
 node:
   enabled: false
 postgresql:
+  global:
+    imagePullSecrets:
+      - name: dockerhub
   primary:
     persistence:
       storageClass: managed-csi-premium
@@ -32,3 +35,6 @@ postgresql:
         - action: replace
           sourceLabels: [namespace]
           targetLabel: kubernetes_namespace
+global:
+  imagePullSecrets:
+    - name: dockerhub
