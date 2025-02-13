@@ -1,6 +1,7 @@
 installCRDs: true
-imagePullSecrets:
-  - name: dockerhub
+global:
+  imagePullSecrets:
+    - name: dockerhub
 metrics:
   enabled: true
   serviceMonitor:
