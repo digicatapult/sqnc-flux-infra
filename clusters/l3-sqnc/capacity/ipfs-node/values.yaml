@@ -6,3 +6,6 @@ persistence:
   size: 60Gi
 sqncNode:
   enabled: false
+global:
+  imagePullSecrets:
+    - name: dockerhub
