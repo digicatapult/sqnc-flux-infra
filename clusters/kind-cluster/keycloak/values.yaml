@@ -14,9 +14,14 @@ extraEnvVars:
     value: "http://localhost:3080/auth/"
   - name: KC_HOSTNAME_DEBUG
     value: "true"
+extraStartupArgs: "--import-realm"
+extraVolumes:
+  - name: realm-volume
+    configMap:
+      name: keycloak-realms
+extraVolumeMounts:
+  - mountPath: /opt/bitnami/keycloak/data/import
+    name: realm-volume
 postgresql:
   auth:
     password: postgres
-keycloakConfigCli:
-  enabled: false
-  backoffLimit: 5
