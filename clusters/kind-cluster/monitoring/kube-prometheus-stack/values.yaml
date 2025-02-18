@@ -24,7 +24,8 @@ prometheus:
 grafana:
   ingress:
     enabled: true
-    hosts: localhost
+    hosts:
+      - localhost
     ingressClassName: nginx
   defaultDashboardsEnabled: true
   serviceMonitor:
