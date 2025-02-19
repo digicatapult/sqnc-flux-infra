@@ -25,3 +25,5 @@ extraVolumeMounts:
 postgresql:
   auth:
     password: postgres
+logging:
+  level: DEBUG
