@@ -8,6 +8,9 @@ configMapGenerator:
   - name: keycloak-values
     files:
       - values.yaml=values.yaml
+  - name: keycloak-realms
+    files:
+      - realms.yaml
 configurations:
   - kustomize-config.yaml
 generatorOptions:
