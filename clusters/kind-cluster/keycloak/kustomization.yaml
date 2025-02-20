@@ -10,7 +10,7 @@ configMapGenerator:
       - values.yaml=values.yaml
   - name: keycloak-realms
     files:
-      - realms.yaml
+      - realms.yaml=realms.yaml
 configurations:
   - kustomize-config.yaml
 generatorOptions:
