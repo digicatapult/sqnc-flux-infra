@@ -24,3 +24,4 @@ spec:
       valuesKey: values.yaml
     - kind: ConfigMap
       name: keycloak-realms
+      valuesKey: realms.yaml
