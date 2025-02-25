@@ -15,4 +15,4 @@ spec:
       protocol: TCP  
       targetPort: 9944
   selector:
-    app.kubernetes.io/component: sqnc-node
+    app.kubernetes.io/name: sqnc-node
