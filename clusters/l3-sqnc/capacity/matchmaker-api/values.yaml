@@ -1,6 +1,6 @@
 logLevel: debug
 externalSqncNode:
-  host: magenta-sqnc-node-0
+  host: sqnc-node
   port: 9944
 externalSqncIpfs:
   host: ipfs-capacity-sqnc-ipfs-api

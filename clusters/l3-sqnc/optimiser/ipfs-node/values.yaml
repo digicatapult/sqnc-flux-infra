@@ -1,5 +1,5 @@
 externalSqncNode:
-  host: yellow-node-sqnc-node-0
+  host: sqnc-node
   port: 9944
 ipfs:
   bootNodeAddress: /dns4/ipfs-capacity-sqnc-ipfs-0-swarm.capacity.svc.cluster.local/tcp/4001/p2p/12D3KooWLMN2Afe5e6WcoAQKDsmhzPxj1YuDGKhn9T4vgVmwu9Vz
