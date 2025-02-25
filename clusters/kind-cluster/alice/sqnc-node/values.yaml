@@ -13,6 +13,8 @@ node:
     - "--unsafe-rpc-external"
     - "--alice"
     - "--prometheus-external"
+    - "--state-pruning archive"
+    - "--blocks-pruning archive"
   serviceMonitor:
     enabled: true
     namespace: monitoring
