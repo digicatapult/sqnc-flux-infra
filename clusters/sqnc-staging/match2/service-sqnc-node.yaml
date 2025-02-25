@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sqnc-node
+  namespace: match2
+spec:
+  type: ClusterIP
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10
+  ports:
+    - name: rpc
+      port: 9944
+      protocol: TCP  
+      targetPort: 9944
+  selector:
+    app.kubernetes.io/component: sqnc-node

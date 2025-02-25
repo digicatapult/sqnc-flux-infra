@@ -11,6 +11,7 @@ resources:
   - open-api-merger
   - chainspec-configmap.yaml
   - source.yaml
+  - service-sqnc-node.yaml
 configMapGenerator:
   - name: match2-values
     files:

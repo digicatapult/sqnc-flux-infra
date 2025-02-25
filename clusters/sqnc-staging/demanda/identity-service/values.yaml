@@ -1,7 +1,7 @@
 logLevel: info
 selfAddress: 5CBBTHTaV1VkcCoaRcaPJnQZwGusNgamRkE8ZBzXwkpZvjho
 externalSqncNode:
-  host: magenta-sqnc-node-0
+  host: sqnc-node
   port: 9944
 auth:
   clientId: 'sqnc'
