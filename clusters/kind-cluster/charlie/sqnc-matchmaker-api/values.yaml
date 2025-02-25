@@ -1,4 +1,4 @@
-logLevel: debug
+logLevel: trace
 userUri: //Charlie
 externalSqncNode:
   host: charlie-node-sqnc-node-0
