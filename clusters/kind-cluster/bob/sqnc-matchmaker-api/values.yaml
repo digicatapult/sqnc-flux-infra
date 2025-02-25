@@ -1,4 +1,4 @@
-logLevel: info
+logLevel: debug
 userUri: //Bob
 externalSqncNode:
   host: bob-node-sqnc-node-0
