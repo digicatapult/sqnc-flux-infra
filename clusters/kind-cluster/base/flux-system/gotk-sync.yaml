@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: bug/automate_kind_realm_import
+    branch: main
   url: https://github.com/digicatapult/sqnc-flux-infra.git
 
 ---
