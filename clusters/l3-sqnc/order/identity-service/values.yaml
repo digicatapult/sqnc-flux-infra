@@ -1,7 +1,7 @@
 logLevel: info
 selfAddress: 5Df4d56pDyPz3RM3RBLYC7nyhhL9mGXchrV1dkyYPt5u8H88
 externalSqncNode:
-  host: blue-node-sqnc-node-0
+  host: sqnc-node
   port: 9944
 auth:
   clientId: 'l3'

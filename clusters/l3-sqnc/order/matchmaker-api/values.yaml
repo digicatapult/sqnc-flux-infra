@@ -1,6 +1,6 @@
 logLevel: trace
 externalSqncNode:
-  host: blue-node-sqnc-node-0
+  host: sqnc-node
   port: 9944
 externalSqncIpfs:
   host: ipfs-order-sqnc-ipfs-api
