@@ -27,4 +27,4 @@ postgresql:
   auth:
     password: postgres
 logging:
-  level: INFO
+  level: DEBUG
