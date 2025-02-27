@@ -26,5 +26,6 @@ extraVolumeMounts:
 postgresql:
   auth:
     password: postgres
+resourcesPreset: none
 logging:
   level: INFO
