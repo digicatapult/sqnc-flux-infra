@@ -28,4 +28,4 @@ postgresql:
     password: postgres
 resourcesPreset: none
 logging:
-  level: INFO
+  level: DEBUG
