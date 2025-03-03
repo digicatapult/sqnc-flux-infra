@@ -26,6 +26,8 @@ grafana:
   serviceMonitor:
     enabled: true
     namespace: monitoring
+    labels:
+      release: kube-prometheus-stack
   ingress:
     enabled: true
     ingressClassName: nginx
@@ -89,11 +91,7 @@ grafana:
 prometheus-node-exporter:
   prometheus:
     monitor:
-      scheme: https
       relabelings:
       - action: replace
         sourceLabels: [__meta_kubernetes_pod_node_name]
-        separator: ;
-        regex: ^(.*)$
         targetLabel: nodename
-        replacement: $1
