@@ -26,6 +26,11 @@ grafana:
   serviceMonitor:
     enabled: true
     namespace: monitoring
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - localhost
   persistence:
     enabled: true
   adminPassword: grafana
@@ -77,3 +82,14 @@ grafana:
         gnetId: 13840
         revision: 4
         datasource: Prometheus
+      node-exporter-full:
+        gnetId: 1860
+        revision: 37
+        datasource: Prometheus
+prometheus-node-exporter:
+  prometheus:
+    monitor:
+      relabelings:
+      - action: replace
+        sourceLabels: [__meta_kubernetes_pod_node_name]
+        targetLabel: nodename
