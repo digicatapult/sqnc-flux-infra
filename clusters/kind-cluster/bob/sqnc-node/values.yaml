@@ -18,3 +18,8 @@ node:
     enabled: true
     namespace: monitoring
 storageClass: standard
+tests:
+  blockHeight:
+    waitSeconds: 30
+  nodeConnection:
+    waitSeconds: 30
