@@ -95,3 +95,18 @@ prometheus-node-exporter:
       - action: replace
         sourceLabels: [__meta_kubernetes_pod_node_name]
         targetLabel: nodename
+prometheusOperator:
+  extraArgs:
+   - --labels="cluster=kind-sqnc-flux-infra"
+kubelet:
+  enabled: true
+  serviceMonitor:
+    cAdvisor: true
+    attachMetadata:
+      node: true
+    additionalLabels:
+      release: kube-prometheus-stack
+    cAdvisorRelabelings:
+    - sourceLabels: [__address__]
+      targetLabel: cluster
+      replacement: kind-sqnc-flux-infra
