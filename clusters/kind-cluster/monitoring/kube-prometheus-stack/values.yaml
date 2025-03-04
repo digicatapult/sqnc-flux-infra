@@ -26,8 +26,6 @@ grafana:
   serviceMonitor:
     enabled: true
     namespace: monitoring
-    labels:
-      release: kube-prometheus-stack
   ingress:
     enabled: true
     ingressClassName: nginx
@@ -100,5 +98,4 @@ kubelet:
     attachMetadata:
       node: true
     additionalLabels:
-      release: kube-prometheus-stack
       cluster: kind-sqnc-flux-infra
