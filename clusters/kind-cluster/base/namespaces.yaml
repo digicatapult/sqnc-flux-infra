@@ -45,3 +45,19 @@ metadata:
   labels:
     app.kubernetes.io/component: loki
     pod-security.kubernetes.io/enforce: privileged
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: otel
+  labels:
+    app.kubernetes.io/component: otel
+    pod-security.kubernetes.io/enforce: privileged
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cert-manager
+  labels:
+    app.kubernetes.io/component: cert-manager
+    pod-security.kubernetes.io/enforce: privileged
