@@ -1,0 +1,16 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: collector-sync
+  namespace: otel
+spec:
+  interval: 1m
+  path: ./clusters/kind-cluster/otel/collector
+  prune: true
+  dependsOn:
+    - name: otel-sync
+      namespace: otel
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system

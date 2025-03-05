@@ -4,6 +4,7 @@ namespace: otel
 resources:
   - release.yaml
   - source.yaml
+  - collector-sync.yaml
 configMapGenerator:
   - name: otel-values
     files:
