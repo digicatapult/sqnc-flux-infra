@@ -21,8 +21,6 @@ prometheus:
     podMonitorSelector:
       matchLabels:
         app.kubernetes.io/component: monitoring
-    externalLabels:
-      cluster: kind-sqnc-flux-infra
 grafana:
   defaultDashboardsEnabled: true
   serviceMonitor:
@@ -84,14 +82,8 @@ grafana:
         gnetId: 13840
         revision: 4
         datasource: Prometheus
-      node-exporter-full:
-        gnetId: 1860
-        revision: 37
-        datasource: Prometheus
 prometheus-node-exporter:
   prometheus:
-    # podLabels:
-    #   cluster: kind-sqnc-flux-infra
     monitor:
       relabelings:
       - action: replace
@@ -99,16 +91,4 @@ prometheus-node-exporter:
         targetLabel: image
       - action: replace
         sourceLabels: [__meta_kubernetes_pod_node_name]
-        targetLabel: kubernetes_node
-kube-state-metrics:
-  prometheus:
-    podLabels:
-      cluster: kind-sqnc-flux-infra
-    monitor:
-      relabelings:
-      - action: replace
-        sourceLabels: [__meta_kubernetes_pod_container_image]
-        targetLabel: image
-      - action: replace
-        sourceLabels: [__meta_kubernetes_pod_node_name]
-        targetLabel: kubernetes_node
+        targetLabel: node

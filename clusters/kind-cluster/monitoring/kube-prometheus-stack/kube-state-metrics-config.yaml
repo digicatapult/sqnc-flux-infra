@@ -1,9 +1,17 @@
 # pulled from https://github.com/fluxcd/flux2-monitoring-example/blob/main/monitoring/controllers/kube-prometheus-stack/kube-state-metrics-config.yaml
 # configuration docs: https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-state-metrics#configuration
 kube-state-metrics:
-  collectors: [ ]
+  prometheus:
+    monitor:
+      relabelings:
+      - action: replace
+        sourceLabels: [__meta_kubernetes_pod_container_image]
+        targetLabel: image
+      - action: replace
+        sourceLabels: [__meta_kubernetes_pod_node_name]
+        targetLabel: node
   extraArgs:
-    - --custom-resource-state-only=true
+    - --custom-resource-state-only=false
   rbac:
     extraRules:
       - apiGroups:
