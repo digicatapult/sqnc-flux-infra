@@ -12,7 +12,7 @@ spec:
   chart:
     spec:
       version: 1.4.12
-      chart: cert-manager  
+      chart: cert-manager
       sourceRef:
         kind: HelmRepository
         name: bitnami
