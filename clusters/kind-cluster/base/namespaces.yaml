@@ -57,6 +57,14 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
+  name: jaeger
+  labels:
+    app.kubernetes.io/component: jaeger
+    pod-security.kubernetes.io/enforce: privileged
+---
+apiVersion: v1
+kind: Namespace
+metadata:
   name: cert-manager
   labels:
     app.kubernetes.io/component: cert-manager
