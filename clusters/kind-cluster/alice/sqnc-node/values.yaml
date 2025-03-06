@@ -13,6 +13,7 @@ node:
     - "--unsafe-rpc-external"
     - "--alice"
     - "--prometheus-external"
+    - "--unsafe-force-node-key-generation"
   serviceMonitor:
     enabled: true
     namespace: monitoring
