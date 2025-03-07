@@ -8,9 +8,14 @@ spec:
   install:
     remediation:
       retries: -1
+  upgrade:
+    remediation:
+      retries: -1
+  test:
+    enable: true
   chart:
     spec:
-      version: 7.0.1
+      version: 7.1.5
       chart: sqnc-node
       sourceRef:
         kind: HelmRepository
