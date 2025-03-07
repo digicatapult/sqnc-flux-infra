@@ -8,6 +8,11 @@ spec:
   install:
     remediation:
       retries: -1
+  upgrade:
+    remediation:
+      retries: -1
+  test:
+    enable: true
   chart:
     spec:
       chart: sqnc-node
@@ -15,7 +20,7 @@ spec:
         kind: HelmRepository
         name: digicatapult
   valuesFrom:
-  - kind: ConfigMap
-    name: alice-values
-    valuesKey: values-sqnc-node.yaml
+    - kind: ConfigMap
+      name: alice-values
+      valuesKey: values-sqnc-node.yaml
   interval: 10m

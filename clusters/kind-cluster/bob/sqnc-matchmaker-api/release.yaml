@@ -8,6 +8,11 @@ spec:
   install:
     remediation:
       retries: -1
+  upgrade:
+    remediation:
+      retries: -1
+  test:
+    enable: true
   dependsOn:
     - name: bob-ipfs
   chart:
@@ -17,7 +22,7 @@ spec:
         kind: HelmRepository
         name: digicatapult
   valuesFrom:
-  - kind: ConfigMap
-    name: bob-values
-    valuesKey: values-sqnc-matchmaker-api.yaml
+    - kind: ConfigMap
+      name: bob-values
+      valuesKey: values-sqnc-matchmaker-api.yaml
   interval: 10m0s
