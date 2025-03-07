@@ -15,7 +15,7 @@ spec:
       retries: -1
   chart:
     spec:
-      version: 4.0.35
+      version: 4.0.34
       chart: sqnc-ipfs
       sourceRef:
         kind: HelmRepository
