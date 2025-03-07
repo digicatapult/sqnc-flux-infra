@@ -13,6 +13,7 @@ spec:
   upgrade:
     remediation:
       retries: -1
+    force: true
   chart:
     spec:
       version: 4.0.36
