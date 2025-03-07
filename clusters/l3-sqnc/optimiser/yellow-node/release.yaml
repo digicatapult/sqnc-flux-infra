@@ -10,7 +10,7 @@ spec:
       retries: -1
   upgrade:
     remediation:
-      retries: -1
+      retries: 5
   test:
     enable: true
   chart:
