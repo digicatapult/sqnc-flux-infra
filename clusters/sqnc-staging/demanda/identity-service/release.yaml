@@ -5,11 +5,14 @@ metadata:
   name: demanda-identity-service
   namespace: demanda
 spec:
+  dependsOn:
+    - name: magenta
   install:
     remediation:
       retries: -1
-  dependsOn:
-    - name: magenta
+  upgrade:
+    remediation:
+      retries: -1
   chart:
     spec:
       version: 4.0.1

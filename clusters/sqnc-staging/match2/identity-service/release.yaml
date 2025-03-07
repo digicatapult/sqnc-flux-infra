@@ -5,11 +5,14 @@ metadata:
   name: match2-identity-service
   namespace: match2
 spec:
+  dependsOn:
+    - name: green-node
   install:
     remediation:
       retries: -1
-  dependsOn:
-    - name: green-node
+  upgrade:
+    remediation:
+      retries: -1
   chart:
     spec:
       version: 4.0.1
