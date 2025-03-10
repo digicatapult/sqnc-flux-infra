@@ -27,8 +27,6 @@ jobs:
         with:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
-          installation_retrieval_mode: organization
-          installation_retrieval_payload: elastic
 
       - name: Check-out repository
         uses: actions/checkout@v4
