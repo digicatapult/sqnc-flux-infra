@@ -1,21 +1,21 @@
 name: Renovate
 
 on:
-  repository_dispatch:
-    types:
-      - renovate
+  # repository_dispatch:
+  #   types:
+  #     - renovate
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - 'renovate.config.js'
-      - '.github/workflows/renovate.yaml'
-      - 'clusters/kind-cluster/**'
-      - 'scripts/**'
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - 'renovate.config.js'
+  #     - '.github/workflows/renovate.yaml'
+  #     - 'clusters/kind-cluster/**'
+  #     - 'scripts/**'
   # Run every hour between midnight and 6am, and 6pm and midnight
-  schedule:
-    - cron: "0 0-5,18-23 * * *"
+  # schedule:
+  #   - cron: "0 0-5,18-23 * * *"
 
 jobs:
   renovate:
