@@ -33,7 +33,7 @@ module.exports = (config = {}) => {
     // ],
     flux: {
       fileMatch: [
-        "clusters/kind-cluster/**\\.ya?ml$",
+        "clusters/kind-cluster/**/*.ya?ml$",
       ],
       ignorePaths: [
         "clusters/l3-sqnc",
