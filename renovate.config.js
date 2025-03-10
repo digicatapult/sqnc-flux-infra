@@ -33,26 +33,7 @@ module.exports = (config = {}) => {
     // ],
     flux: {
       fileMatch: [
-        "clusters/kind-cluster/base/flux-system/gotk-components.ya?ml$",
-      ],
-      ignorePaths: [
-        "clusters/l3-sqnc",
-        "clusters/sqnc-staging",
-      ]
-    },
-    kubernetes: {
-      fileMatch: [
-        "clusters/kind-cluster/.*\\.ya?ml$",
-      ],
-      ignorePaths: [
-        "clusters/l3-sqnc",
-        "clusters/sqnc-staging",
-        "**/flux-system/**",
-      ]
-    },
-    kustomize: {
-      fileMatch: [
-        "clusters/kind-cluster/**kustomization.ya?ml$",
+        "clusters/kind-cluster/**\\.ya?ml$",
       ],
       ignorePaths: [
         "clusters/l3-sqnc",
