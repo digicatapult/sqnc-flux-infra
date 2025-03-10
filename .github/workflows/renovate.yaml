@@ -37,6 +37,8 @@ jobs:
           token: ${{ steps.get_token.outputs.token }}
           configurationFile: renovate.config.js
           renovate-version: full
+          docker-user: root
+          docker-cmd-file: .github/renovate-flux-installer.sh
         env:
           LOG_LEVEL: debug
           RENOVATE_SELF_HOSTED: true
