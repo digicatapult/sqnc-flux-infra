@@ -1,13 +1,14 @@
 name: renovate
 
 on:
-  # repository_dispatch:
-  #   types:
-  #     - renovate
+  repository_dispatch:
+    types:
+      - renovate
   workflow_dispatch:
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
+      - feature/add_renovate_flux_manager
   #   paths:
   #     - 'renovate.config.js'
   #     - '.github/workflows/renovate.yaml'
