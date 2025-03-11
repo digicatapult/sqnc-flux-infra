@@ -31,7 +31,16 @@ module.exports = (config = {}) => {
       ]
     },
     packageRules: [
-      //
+      {
+        matchManagers: [
+          "flux",
+        ],
+        matchPackageNames: [
+          "keycloak",
+          "kube-prometheus-stack",
+        ],
+        pinDigests: false
+      }
     ],
   };
 };
