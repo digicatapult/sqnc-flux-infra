@@ -30,15 +30,6 @@ module.exports = (config = {}) => {
         "clusters/sqnc-staging",
       ]
     },
-    kubernetes: {
-      fileMatch: [
-        "clusters/kind-cluster/\\.ya?ml$",
-      ],
-      ignorePaths: [
-        "clusters/l3-sqnc",
-        "clusters/sqnc-staging",
-      ]
-    },
     packageRules: [
       //
     ],
