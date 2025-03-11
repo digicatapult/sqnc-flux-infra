@@ -23,7 +23,7 @@ module.exports = (config = {}) => {
     recreateWhen: "always",
     flux: {
       fileMatch: [
-        "clusters/kind-cluster/\\.ya?ml$",
+        "clusters/kind-cluster/.*\\.ya?ml$",
       ],
       ignorePaths: [
         "clusters/l3-sqnc",
@@ -34,7 +34,7 @@ module.exports = (config = {}) => {
       {
         "customType": "regex",
         "fileMatch": [
-          "clusters/kind-cluster/\\release.ya?ml$",
+          "clusters/kind-cluster/.*\\release.ya?ml$",
         ],
         "matchStrings": [
           "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
