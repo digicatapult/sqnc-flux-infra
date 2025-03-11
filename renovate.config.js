@@ -21,16 +21,6 @@ module.exports = (config = {}) => {
     prHourlyLimit: 20,
     prConcurrentLimit: 20,
     recreateWhen: "always",
-    extends: [
-      "config:best-practices"
-    ],
-    // configMigration: true,
-    // extends: [
-    //   "config:recommended",
-    //   "docker:pinDigests",
-    //   "helpers:pinGitHubActionDigests",
-    //   ":pinDevDependencies"
-    // ],
     flux: {
       fileMatch: [
         "clusters/kind-cluster/\\.ya?ml$",
