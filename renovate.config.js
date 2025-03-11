@@ -30,10 +30,11 @@ module.exports = (config = {}) => {
         "clusters/sqnc-staging",
       ]
     },
-    regexManagers: [
+    customManagers: [
       {
+        "customType": "regex",
         "fileMatch": [
-          "clusters/kind-cluster/release\\.ya?ml$",
+          "clusters/kind-cluster/\\release.ya?ml$",
         ],
         "matchStrings": [
           "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
