@@ -18,9 +18,6 @@ module.exports = (config = {}) => {
     ],
     onboarding: false,
     requireConfig: false,
-    allowedPostUpgradeCommands: [
-      //
-    ],
     prHourlyLimit: 20,
     prConcurrentLimit: 20,
     recreateWhen: "always",
@@ -37,10 +34,6 @@ module.exports = (config = {}) => {
       {
         matchManagers: [
           "flux",
-        ],
-        matchPackageNames: [
-          "keycloak",
-          "kube-prometheus-stack",
         ],
         pinDigests: false
       }
