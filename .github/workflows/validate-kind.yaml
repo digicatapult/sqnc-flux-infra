@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@main
       - name: Init Flux action
-        uses: fluxcd/flux2/action@2.3
+        uses: fluxcd/flux2/action@896e0fa46d5107a05e953dd0a5261d78a145ec8c
       - name: Init Kind action
         uses: helm/kind-action@v1.12.0
         with:
