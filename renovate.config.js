@@ -13,6 +13,9 @@ module.exports = (config = {}) => {
 
   return {
     $schema: "https://docs.renovatebot.com/renovate-schema.json",
+    baseBranches: [
+      "feature/add_renovate_flux_manager",
+    ],
     onboarding: false,
     requireConfig: false,
     allowedPostUpgradeCommands: [
