@@ -55,6 +55,16 @@ jobs:
           kubectl -n alice wait helmrelease --all --for=condition=ready --timeout=10m
           kubectl -n bob wait helmrelease --all --for=condition=ready --timeout=10m
           kubectl -n charlie wait helmrelease --all --for=condition=ready --timeout=10m
+      # - name: Comment with test results
+      #   run: |
+      #     node="alice"
+      #     echo "test results for $node/sqnc-node-test-suite:\n" >> comment.txt
+      #     kubectl logs -n $node job/$node-node-sqnc-node-0-post-install-test-suite >> comment.txt
+      #     echo "test results for $node/sqnc-matchmaker-api-test-suite:\n" >> comment.txt
+      #     kubectl logs -n $node job/$node-sqnc-matchmaker-api-test-suite >> comment.txt
+      #     gh pr comment ${{ github.event.number }} --body-file comment.txt
+      #   env:
+      #     GH_TOKEN: ${{ github.token }}
       - name: Debug Flux controller state
         if: failure()
         run: |
