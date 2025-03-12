@@ -19,7 +19,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@main
       - name: Install Flux
-        run: brew install fluxcd/tap/flux@2.3
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          brew install fluxcd/tap/flux@2.3
+          flux -v
       - name: Init Kind action
         uses: helm/kind-action@v1.12.0
         with:
