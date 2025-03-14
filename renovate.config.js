@@ -14,7 +14,7 @@ module.exports = (config = {}) => {
   return {
     $schema: "https://docs.renovatebot.com/renovate-schema.json",
     baseBranches: [
-      "feature/add_renovate_flux_manager",
+      "main",
     ],
     extends: [
       ":timezone(Europe/London)"
