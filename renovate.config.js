@@ -16,6 +16,9 @@ module.exports = (config = {}) => {
     baseBranches: [
       "feature/add_renovate_flux_manager",
     ],
+    extends: [
+      ":timezone(Europe/London)"
+    ],
     onboarding: false,
     requireConfig: false,
     prHourlyLimit: 20,
@@ -36,6 +39,11 @@ module.exports = (config = {}) => {
           "flux",
         ],
         pinDigests: false
+      },
+      {
+        schedule: [
+          "0 9-17 * * *"
+        ]
       }
     ],
   };

@@ -13,9 +13,9 @@ on:
   #     - '.github/workflows/renovate.yaml'
   #     - 'clusters/kind-cluster/**'
   #     - 'scripts/**'
-  # Run every hour between midnight and 6am, and 6pm and midnight
-  # schedule:
-  #   - cron: "0 0-5,18-23 * * *"
+  # Run every hour
+  schedule:
+    - cron: "0 * * * *"
 
 jobs:
   renovate:
