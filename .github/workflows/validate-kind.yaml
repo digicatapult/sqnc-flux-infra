@@ -89,3 +89,6 @@ jobs:
         if: failure()
         run: |
           flux get all --all-namespaces
+      - name: get all svc
+        if: failure()
+        run: kubectl get svc -n kube-system
