@@ -8,11 +8,11 @@ spec:
   chart:
     spec:
       chart: promtail
-      version: "6.16.6"
       sourceRef:
         kind: HelmRepository
         name: grafana
         namespace: loki
+      version: "6.16.6"
   valuesFrom:
     - kind: ConfigMap
       name: promtail-values
