@@ -72,24 +72,19 @@ jobs:
       #     GH_TOKEN: ${{ github.token }}
       - name: Debug Flux controller state
         if: failure()
-        run: |
-          kubectl -n flux-system get all
+        run: kubectl -n flux-system get all
       - name: Debug source-controller logs
         if: failure()
-        run: |
-          kubectl -n flux-system logs deploy/source-controller
+        run: kubectl -n flux-system logs deploy/source-controller
       - name: Debug kustomize-controller logs
         if: failure()
-        run: |
-          kubectl -n flux-system logs deploy/kustomize-controller
+        run: kubectl -n flux-system logs deploy/kustomize-controller
       - name: Debug helm-controller logs
         if: failure()
-        run: |
-          kubectl -n flux-system logs deploy/helm-controller
+        run: kubectl -n flux-system logs deploy/helm-controller
       - name: Report all resources
         if: failure()
-        run: |
-          flux get all --all-namespaces
-      - name: get all svc
+        run: flux get all --all-namespaces
+      - name: Report all services
         if: failure()
         run: kubectl get svc -n kube-system
