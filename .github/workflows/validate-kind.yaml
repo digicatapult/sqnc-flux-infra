@@ -129,10 +129,10 @@ jobs:
         if: failure()
         run: |
           namespaces=$(kubectl get namespaces -A | tail -n +2 | awk '{print $1}')
-          for $ns in $(echo $namespaces); do
+          for ns in $(echo $namespaces); do
             pods=$(kubectl get pods -o jsonpath='{range .items[?(@.status.containerStatuses[-1:].state.waiting)]}{.metadata.name}: {@.status.containerStatuses[*].state.waiting.reason}{"\n"}{end}' -n $ns | tail -n +2 | awk '{print $1}')
             if [ ! -z $pods ]; then
-              for $pod in $(echo $pods); do
+              for pod in $(echo $pods); do
                 kubectl describe pod $pod -n $ns
                 kubectl logs $pod -n $ns
               done
