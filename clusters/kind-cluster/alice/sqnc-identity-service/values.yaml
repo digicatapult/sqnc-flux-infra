@@ -30,5 +30,5 @@ postgresql:
         - action: replace
           sourceLabels: [namespace]
           targetLabel: kubernetes_namespace
-annotations:
+podAnnotations:
   instrumentation.opentelemetry.io/inject-nodejs: "otel/nodejs-instrumentation"
