@@ -21,7 +21,7 @@ spec:
         timeout: 10s
 
     exporters:
-      jaeger:
+      otlp/jaeger:
         endpoint: "jaeger-collector.jaeger.svc.cluster.local:14250"
         tls:
           insecure: true
@@ -31,4 +31,4 @@ spec:
         traces:
           receivers: [otlp]
           processors: [memory_limiter, batch]
-          exporters: [jaeger]
+          exporters: [otlp/jaeger]
