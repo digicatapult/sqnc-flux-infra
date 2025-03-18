@@ -35,23 +35,12 @@ jobs:
         run: |
           git config user.name ${GITHUB_ACTOR}
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-      - name: Patch GitOps branch to match PR
-        if: |
-          github.event_name == 'pull_request' &&
-          contains('refs/heads/renovate', github.ref)
-        run: |
-          patch=${GITHUB_REF#refs/heads/}
-          sed -i -r "s#(branch:).*#\1 $patch#" \
-            ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
-          git add ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
-          git commit -am "Patch GitOps branch to match PR"
-          git push -u origin $patch
-      - name: Source repository and reconcile
+      - name: Create source and kustomization on main
         if: success()
         run: |
           flux create source git flux-system \
           --url=${{ github.event.repository.html_url }} \
-          --branch=${GITHUB_REF#refs/heads/} \
+          --branch=main \
           --username=${GITHUB_ACTOR} \
           --password=${{ secrets.GITHUB_TOKEN }}
           flux create kustomization flux-system \
@@ -76,6 +65,33 @@ jobs:
           kubectl -n alice wait helmrelease --all --for=condition=ready --timeout=10m
           kubectl -n bob wait helmrelease --all --for=condition=ready --timeout=10m
           kubectl -n charlie wait helmrelease --all --for=condition=ready --timeout=10m
+      - name: Patch GitOps branch to match PR
+        if: |
+          success() &&
+          github.event_name == 'pull_request' &&
+          contains('refs/heads/renovate', github.ref)
+        run: |
+          patch=${GITHUB_REF#refs/heads/}
+          sed -i -r "s#(branch:).*#\1 $patch#" \
+            ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
+          git add ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
+          git commit -am "Patch GitOps branch to match PR"
+          git push -u origin $patch
+      - name: Reconcile the update
+        if: |
+          success() &&
+          github.event_name == 'pull_request' &&
+          contains('refs/heads/renovate', github.ref)
+        run: |
+          flux suspend kustomization --all
+          flux create source git flux-system \
+          --url=${{ github.event.repository.html_url }} \
+          --branch=${GITHUB_REF#refs/heads/} \
+          --username=${GITHUB_ACTOR} \
+          --password=${{ secrets.GITHUB_TOKEN }}
+          flux resume kustomization --all
+          kubectl wait kustomization --all --all-namespaces --for=condition=ready --timeout=10m
+          kubectl wait helmrelease --all --all-namespaces --for=condition=ready --timeout=10m
       - name: Comment with test results
         if: |
           success() &&
@@ -83,11 +99,19 @@ jobs:
           contains('refs/heads/renovate', github.ref)
         run: |
           node="alice"
-          echo "test results for $node/sqnc-node-test-suite:\n" >> comment.txt
-          kubectl logs -n $node job/$node-node-sqnc-node-0-post-install-test-suite >> comment.txt
-          echo "test results for $node/sqnc-matchmaker-api-test-suite:\n" >> comment.txt
-          kubectl logs -n $node job/$node-sqnc-matchmaker-api-test-suite >> comment.txt
-          gh pr comment ${{ github.event.number }} --body-file comment.txt
+          if [ $(flux logs -n $node | grep -Eo "$node-node.$node.+'upgrade'" | tail -n 1) ]; then
+            echo "upgrade test results for $node/sqnc-node-test-suite:\n" >> comment.txt
+            kubectl logs -n $node job/$node-node-sqnc-node-0-post-install-test-suite >> comment.txt || \
+            echo "error querying $node-node-sqnc-node-0-post-install-test-suite" >> comment.txt
+          fi
+          if [ $(flux logs -n $node | grep -Eo "$node-sqnc-matchmaker-api.+'upgrade'" | tail -n 1) ]; then
+            echo "upgrade test results for $node/sqnc-matchmaker-api-test-suite:\n" >> comment.txt
+            kubectl logs -n $node job/$node-sqnc-matchmaker-api-test-suite >> comment.txt || \
+            echo "error querying $node-sqnc-matchmaker-api-test-suite" >> comment.txt
+          fi
+          if [ -f comment.txt ]; then
+            gh pr comment ${{ github.event.number }} --body-file comment.txt
+          fi
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Return GitOps branch to main
@@ -101,6 +125,12 @@ jobs:
           git add ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
           git commit -am "Return GitOps branch to main"
           git push -u origin ${GITHUB_REF#refs/heads/}
+      - name: Debug Flux logs
+        if: failure()
+        run: flux logs --level=debug --all-namespaces
+      - name: Return Flux log errors
+        if: failure()
+        run: flux logs --level=error --all-namespaces
       - name: Debug Flux controller state
         if: failure()
         run: kubectl -n flux-system get all
@@ -116,6 +146,3 @@ jobs:
       - name: Report all resources
         if: failure()
         run: flux get all --all-namespaces
-      - name: Report all services
-        if: failure()
-        run: kubectl get svc -n kube-system
