@@ -32,7 +32,7 @@ metadata:
     app.kubernetes.io/instance: sqnc
     app.kubernetes.io/version: latest
   annotations:
-    instrumentation.opentelemetry.io/inject-go: "otel/go-instrumentation"
+    instrumentation.opentelemetry.io/inject-java: "otel/java-instrumentation"
   name: keycloak
 ---
 apiVersion: v1
