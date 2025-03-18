@@ -8,3 +8,5 @@ persistence:
   storageClass: standard
 sqncNode:
   enabled: false
+podAnnotations:
+  instrumentation.opentelemetry.io/inject-nodejs: "otel/nodejs-instrumentation"
