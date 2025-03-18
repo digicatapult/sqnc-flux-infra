@@ -12,7 +12,6 @@ spec:
             max_recv_msg_size_mib: 10
           http:
             endpoint: 0.0.0.0:4318
-            max_recv_msg_size_mib: 10
     processors:
       memory_limiter:
         check_interval: 1s
