@@ -4,6 +4,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: sqnc
     app.kubernetes.io/version: latest
+  annotations:
+    instrumentation.opentelemetry.io/inject-go: "otel/nodejs-instrumentation"
   name: alice
 ---
 apiVersion: v1
@@ -28,6 +30,9 @@ metadata:
   labels:
     app.kubernetes.io/instance: sqnc
     app.kubernetes.io/version: latest
+  annotation:
+    instrumentation.opentelemetry.io/inject-go: "otel/go-instrumentation"
+
   name: keycloak
 ---
 apiVersion: v1

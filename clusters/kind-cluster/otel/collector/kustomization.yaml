@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: otel
 resources:
   - collector.yaml
+  - instrumentation.yaml
