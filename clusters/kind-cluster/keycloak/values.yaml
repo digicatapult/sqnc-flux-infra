@@ -30,4 +30,4 @@ resourcesPreset: none
 logging:
   level: INFO
 podAnnotations:
-    instrumentation.opentelemetry.io/inject-java: "otel/java-instrumentation"
+    instrumentation.opentelemetry.io/inject-java: "monitoring/java-instrumentation"

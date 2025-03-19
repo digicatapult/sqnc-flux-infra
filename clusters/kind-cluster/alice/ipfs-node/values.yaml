@@ -10,7 +10,7 @@ persistence:
 sqncNode:
   enabled: false
 podAnnotations:
-  instrumentation.opentelemetry.io/inject-sdk: "otel/go-instrumentation"
+  instrumentation.opentelemetry.io/inject-sdk: "monitoring/go-instrumentation"
 securityContext:
   privileged: true
   runAsUser: 0
