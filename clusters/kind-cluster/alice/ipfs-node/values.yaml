@@ -4,6 +4,7 @@ externalSqncNode:
 ipfs:
   privateKey: CAESQLfNGaEqtlj1juOeV1/yqS2RxYIXFCnSffHqmRDQtMyGZ5nW90T0ULaquqNLe6waWAu6154bKsIqanNezT+m+sg=
   publicKey: 12D3KooWGnnDccXt956NhFkUki48216AwogbfWTcN33mjinFkNNT
+  logLevel: info
 persistence:
   storageClass: standard
 sqncNode:
@@ -16,5 +17,3 @@ securityContext:
 extraEnvVars:
   - name: IPFS_TRACING
     value: "true"
-  - name: IPFS_LOGGING
-    value: "info"
