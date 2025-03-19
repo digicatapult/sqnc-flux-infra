@@ -17,3 +17,5 @@ securityContext:
 extraEnvVars:
   - name: IPFS_TRACING
     value: "true"
+  - name: OTEL_TRACES_EXPORTER
+    value: "otlp"
