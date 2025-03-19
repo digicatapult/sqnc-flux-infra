@@ -9,8 +9,12 @@ persistence:
 sqncNode:
   enabled: false
 podAnnotations:
-  instrumentation.opentelemetry.io/inject-go: "otel/go-instrumentation"
-  instrumentation.opentelemetry.io/otel-go-auto-target-exe: '/usr/local/bin/ipfs'
+  instrumentation.opentelemetry.io/inject-nodejs: "otel/nodejs-instrumentation"
 securityContext:
   privileged: true
   runAsUser: 0
+extraEnvVars:
+  - name: IPFS_TRACING
+    value: "true"
+  - name: IPFS_LOGGING
+    value: "info"
