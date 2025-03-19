@@ -1,13 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: otel
+namespace: monitoring
 resources:
   - release.yaml
-  - source.yaml
   - collector-sync.yaml
-configMapGenerator:
-  - name: otel-values
-    files:
-      - values.yaml=values.yaml
-configurations:
-  - kustomize-config.yaml
