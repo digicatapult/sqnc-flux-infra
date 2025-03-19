@@ -19,3 +19,5 @@ extraEnvVars:
     value: "true"
   - name: OTEL_TRACES_EXPORTER
     value: "otlp"
+  - name: OTEL_EXPORTER_OTLP_PROTOCOL
+    value: "http/protobuf"
