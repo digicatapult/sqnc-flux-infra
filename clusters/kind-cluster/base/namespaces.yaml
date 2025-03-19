@@ -28,8 +28,6 @@ metadata:
   labels:
     app.kubernetes.io/instance: sqnc
     app.kubernetes.io/version: latest
-  annotations:
-    instrumentation.opentelemetry.io/inject-java: "otel/java-instrumentation"
   name: keycloak
 ---
 apiVersion: v1
@@ -38,30 +36,6 @@ metadata:
   name: monitoring
   labels:
     app.kubernetes.io/component: monitoring
-    pod-security.kubernetes.io/enforce: privileged
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: loki
-  labels:
-    app.kubernetes.io/component: loki
-    pod-security.kubernetes.io/enforce: privileged
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: otel
-  labels:
-    app.kubernetes.io/component: otel
-    pod-security.kubernetes.io/enforce: privileged
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: jaeger
-  labels:
-    app.kubernetes.io/component: jaeger
     pod-security.kubernetes.io/enforce: privileged
 ---
 apiVersion: v1

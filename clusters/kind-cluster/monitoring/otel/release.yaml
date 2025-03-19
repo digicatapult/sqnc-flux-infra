@@ -2,9 +2,13 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: otel
-  namespace: otel
+  namespace: monitoring
 spec:
   interval: 1m
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   chart:
     spec:
       chart: opentelemetry-operator
@@ -12,8 +16,8 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: otel
-        namespace: otel
+        namespace: monitoring
   valuesFrom:
     - kind: ConfigMap
-      name: otel-values
-      valuesKey: values.yaml
+      name: monitoring-values
+      valuesKey: values-otel.yaml

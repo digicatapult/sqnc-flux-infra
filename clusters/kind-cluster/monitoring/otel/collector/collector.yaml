@@ -1,7 +1,7 @@
 apiVersion: opentelemetry.io/v1beta1
 kind: OpenTelemetryCollector
 metadata:
-  name: otel
+  name: monitoring
 spec:
   config:
     receivers:
@@ -23,7 +23,7 @@ spec:
 
     exporters:
       otlp/jaeger:
-        endpoint: "jaeger-collector.jaeger.svc.cluster.local:4317"
+        endpoint: "jaeger-collector.monitoring.svc.cluster.local:4317"
         tls:
           insecure: true
 

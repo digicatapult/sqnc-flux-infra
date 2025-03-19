@@ -1,0 +1,36 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: prometheus-community
+  namespace: monitoring
+spec:
+  interval: 10m
+  type: oci
+  url: oci://ghcr.io/prometheus-community/charts
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: otel
+  namespace: monitoring
+spec:
+  interval: 1m
+  url: https://open-telemetry.github.io/opentelemetry-helm-charts
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: jaeger
+  namespace: monitoring
+spec:
+  interval: 1m
+  url: https://jaegertracing.github.io/helm-charts
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  interval: 1m
+  url: https://grafana.github.io/helm-charts
