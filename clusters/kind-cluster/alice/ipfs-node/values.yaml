@@ -10,7 +10,7 @@ persistence:
 sqncNode:
   enabled: false
 podAnnotations:
-  instrumentation.opentelemetry.io/inject-nodejs: "otel/nodejs-instrumentation"
+  instrumentation.opentelemetry.io/inject-go: "otel/go-instrumentation"
 securityContext:
   privileged: true
   runAsUser: 0
@@ -19,5 +19,3 @@ extraEnvVars:
     value: "true"
   - name: OTEL_TRACES_EXPORTER
     value: "otlp"
-  - name: OTEL_EXPORTER_OTLP_PROTOCOL
-    value: "http/protobuf"
