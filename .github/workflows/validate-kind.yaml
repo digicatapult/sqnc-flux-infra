@@ -2,15 +2,14 @@ name: validate-kind-e2e
 
 on:
   workflow_dispatch:
-  # pull_request:
-  #   types:
-  #     - opened
-  #     - reopened
-  #   branches:
-  #     - 'renovate/**'
-  push:
+  pull_request:
+    types:
+      - opened
+      - reopened
     branches:
-      - feature/add_e2e_kind_action
+      - 'renovate/**'
+    paths:
+    - 'clusters/kind-cluster/**'
 
 jobs:
   kubernetes:
