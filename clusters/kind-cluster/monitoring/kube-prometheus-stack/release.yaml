@@ -6,11 +6,11 @@ metadata:
 spec:
   chart:
     spec:
-      version: "67.x"
       chart: kube-prometheus-stack
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
+      version: "67.11.0"
   interval: 10m
   install:
     crds: CreateReplace

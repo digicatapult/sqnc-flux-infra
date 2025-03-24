@@ -5,11 +5,14 @@ metadata:
   name: demandb-identity-service
   namespace: demandb
 spec:
+  dependsOn:
+    - name: blue-node
   install:
     remediation:
       retries: -1
-  dependsOn:
-    - name: blue-node
+  upgrade:
+    remediation:
+      retries: -1
   chart:
     spec:
       version: 4.0.1

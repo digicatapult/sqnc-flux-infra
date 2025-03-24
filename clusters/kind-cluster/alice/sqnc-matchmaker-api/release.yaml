@@ -8,6 +8,11 @@ spec:
   install:
     remediation:
       retries: -1
+  upgrade:
+    remediation:
+      retries: -1
+  test:
+    enable: true
   dependsOn:
     - name: alice-ipfs
   chart:
@@ -16,8 +21,9 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: digicatapult
+      version: "2.1.4"
   valuesFrom:
-  - kind: ConfigMap
-    name: alice-values
-    valuesKey: values-sqnc-matchmaker-api.yaml
+    - kind: ConfigMap
+      name: alice-values
+      valuesKey: values-sqnc-matchmaker-api.yaml
   interval: 10m0s
