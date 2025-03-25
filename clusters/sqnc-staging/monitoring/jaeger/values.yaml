@@ -1,6 +1,6 @@
 provisionDataStore:
   cassandra: false
-  elasticSearch: true
+  elasticsearch: true
 storage:
   type: elasticsearch
 elasticsearch:
