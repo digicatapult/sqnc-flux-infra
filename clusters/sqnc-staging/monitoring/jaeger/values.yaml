@@ -3,7 +3,7 @@ provisionDataStore:
   elasticSearch: true
 storage:
   type: elasticsearch
-elasticSearch:
+elasticsearch:
   master:
     replicaCount: 3
     persistence:
