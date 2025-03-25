@@ -21,6 +21,7 @@ collector:
 query:
   enabled: true
   basePath: /jaeger
+  pathType: Prefix
   ingress:
     annotations:
       nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
@@ -69,3 +70,4 @@ query:
       oidc_groups_claim = "groups"
       user_id_claim = "preferred_username"
       skip_provider_button = "true"
+      cookie_path = "/jaeger"
