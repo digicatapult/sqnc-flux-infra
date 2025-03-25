@@ -60,7 +60,7 @@ query:
     config: |-
       provider = "keycloak-oidc"
       http_address = ":4180"
-      upstreams = ["http://localhost:16686"]
+      upstreams = ["http://jaeger-query.monitoring.svc.cluster.local:16686"]
       redirect_url = "https://monitoring.sqnc-stage.com/jaeger/oauth2/callback"
       client_id = "grafana"
       oidc_issuer_url = "https://auth.sqnc-stage.com/realms/monitoring"
