@@ -40,6 +40,7 @@ query:
     containerPort: 4180
     args:
     - --provider=keycloak-oidc
+    - --client-secret=FAKETEST
     - --http-address=:4180
     - --upstream=http://jaeger-query.monitoring.svc.cluster.local:16686
     - --redirect-url=https://monitoring.sqnc-stage.com/jaeger/oauth2/callback
