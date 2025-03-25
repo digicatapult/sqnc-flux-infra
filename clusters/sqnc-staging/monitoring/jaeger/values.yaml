@@ -56,12 +56,12 @@ query:
     extraConfigmapMounts: []
     extraSecretMounts: []
     config: |-
-      provider = "oidc"
+      provider = "keycloak-oidc"
       https_address = ":4180"
       upstreams = ["http://localhost:16686"]
       redirect_url = "https://monitoring.sqnc-stage.com/jaeger/oauth2/callback"
       client_id = "grafana"
-      oidc_issuer_url = "https://auth.sqnc-stage.com/auth/realms/monitoring"
+      oidc_issuer_url = "https://auth.sqnc-stage.com/realms/monitoring"
       cookie_secure = "true"
       email_domains = "digicatapult.org.uk"
       oidc_groups_claim = "groups"
