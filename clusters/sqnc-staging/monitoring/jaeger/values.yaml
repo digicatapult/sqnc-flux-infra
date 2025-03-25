@@ -45,6 +45,8 @@ query:
       - "$(client-secret)"
       - --cookie-secret
       - "$(cookie-secret)"
+      - --standard-logging=true
+      - --show-debug-on-error=true
     extraEnv:
       - name: client-secret
         valueFrom:
