@@ -40,12 +40,19 @@ query:
       - /etc/oauth2-proxy/oauth2-proxy.cfg
       - --client-secret
       - "$(client-secret)"
+      - --cookie-secret
+      - "$(cookie-secret)"
     extraEnv:
       - name: client-secret
         valueFrom:
           secretKeyRef:
             name: grafana-client-secret
             key: grafana-client-secret
+      - name: cookie-secret
+        valueFrom:
+          secretKeyRef:
+            name: oauth2-proxy-cookie-secret
+            key: secret
     extraConfigmapMounts: []
     extraSecretMounts: []
     config: |-
@@ -56,8 +63,7 @@ query:
       client_id = "grafana"
       oidc_issuer_url = "https://auth.sqnc-stage.com/auth/realms/monitoring"
       cookie_secure = "true"
-      cookie_secret = "monitoring.sqnc-stage.com"
-      email_domains = "*"
+      email_domains = "digicatapult.org.uk"
       oidc_groups_claim = "groups"
       user_id_claim = "preferred_username"
       skip_provider_button = "true"
