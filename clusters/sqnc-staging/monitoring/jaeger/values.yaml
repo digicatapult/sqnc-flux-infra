@@ -73,7 +73,7 @@ query:
       skip_provider_button = "true"
       cookie_path = "/jaeger"
       cookie_secure = "true"
-      cookie_domain = "monitoring.sqnc-stage.com"
+      cookie_domains = "monitoring.sqnc-stage.com"
       cookie_httponly = "true"
       cookie_refresh = "1h"
       cookie_expire = "168h"
