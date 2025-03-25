@@ -47,14 +47,7 @@ jobs:
           --path=./clusters/kind-cluster/base
       - name: Verify Flux kustomizations
         run: |
-          kubectl -n kube-system wait kustomization/nginx-sync --for=condition=ready --timeout=10m
-          kubectl -n keycloak wait kustomization/keycloak-sync --for=condition=ready --timeout=10m
-          kubectl -n monitoring wait kustomization/monitoring-sync --for=condition=ready --timeout=10m
-          kubectl -n loki wait kustomization/promtail-sync --for=condition=ready --timeout=10m
-          kubectl -n loki wait kustomization/loki-sync --for=condition=ready --timeout=10m
-          kubectl -n alice wait kustomization/alice-sync --for=condition=ready --timeout=10m
-          kubectl -n bob wait kustomization/bob-sync --for=condition=ready --timeout=10m
-          kubectl -n charlie wait kustomization/charlie-sync --for=condition=ready --timeout=10m
+          kubectl wait -A kustomization -l kustomize.toolkit.fluxcd.io/name=flux-system --for=condition=ready
       - name: Verify Helm releases
         run: |
           kubectl -n kube-system wait helmrelease --all --for=condition=ready --timeout=10m
@@ -91,28 +84,30 @@ jobs:
           flux resume kustomization --all
           kubectl wait kustomization --all --all-namespaces --for=condition=ready --timeout=10m
           kubectl wait helmrelease --all --all-namespaces --for=condition=ready --timeout=10m
-      - name: Comment with test results
+      - name: Return results and logs for a node
         if: |
           success() &&
           github.event_name == 'pull_request' &&
           contains('refs/heads/renovate', github.ref)
         run: |
           node="alice"
-          if [ $(flux logs -n $node | grep -Eo "$node-node.$node.+'upgrade'" | tail -n 1) ]; then
-            echo "upgrade test results for $node/sqnc-node-test-suite:\n" >> comment.txt
-            kubectl logs -n $node job/$node-node-sqnc-node-0-post-install-test-suite >> comment.txt || \
-            echo "error querying $node-node-sqnc-node-0-post-install-test-suite" >> comment.txt
+          flux logs -n $node
+          if [ "$(kubectl get -n $node job/$node-node-sqnc-node-0-post-install-test-suite)" 2>/dev/null ]; then
+            if [ "$(flux logs -n $node | grep -Eo "$node-node.$node.+'upgrade'" | tail -n 1)" ]; then
+              echo "upgrade test results for $node/sqnc-node-test-suite:\n"
+              kubectl logs -n $node job/$node-node-sqnc-node-0-post-install-test-suite
+            fi
+          else
+            echo "error querying $node-node-sqnc-node-0-post-install-test-suite"
           fi
-          if [ $(flux logs -n $node | grep -Eo "$node-sqnc-matchmaker-api.+'upgrade'" | tail -n 1) ]; then
-            echo "upgrade test results for $node/sqnc-matchmaker-api-test-suite:\n" >> comment.txt
-            kubectl logs -n $node job/$node-sqnc-matchmaker-api-test-suite >> comment.txt || \
-            echo "error querying $node-sqnc-matchmaker-api-test-suite" >> comment.txt
+          if [ "$(kubectl get -n $node job/$node-sqnc-matchmaker-api-test-suite)" 2>/dev/null ]; then
+            if [ "$(flux logs -n $node | grep -Eo "$node-sqnc-matchmaker-api.+'upgrade'" | tail -n 1)" ]; then
+              echo "upgrade test results for $node/sqnc-matchmaker-api-test-suite:\n"
+              kubectl logs -n $node job/$node-sqnc-matchmaker-api-test-suite
+            fi
+          else
+            echo "error querying $node-sqnc-matchmaker-api-test-suite"
           fi
-          if [ -f comment.txt ]; then
-            gh pr comment ${{ github.event.number }} --body-file comment.txt
-          fi
-        env:
-          GH_TOKEN: ${{ github.token }}
       - name: Return GitOps branch to main
         if: |
           success() &&
