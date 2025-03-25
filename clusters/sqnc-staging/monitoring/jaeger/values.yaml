@@ -56,7 +56,7 @@ query:
       client_id = "grafana"
       oidc_issuer_url = "https://auth.sqnc-stage.com/auth/realms/monitoring"
       cookie_secure = "true"
-      cookie_secret = ""
+      cookie_secret = "monitoring.sqnc-stage.com"
       email_domains = "*"
       oidc_groups_claim = "groups"
       user_id_claim = "preferred_username"
