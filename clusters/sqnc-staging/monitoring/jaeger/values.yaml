@@ -59,7 +59,7 @@ query:
     extraSecretMounts: []
     config: |-
       provider = "keycloak-oidc"
-      https_address = ":4180"
+      http_address = ":4180"
       upstreams = ["http://localhost:16686"]
       redirect_url = "https://monitoring.sqnc-stage.com/jaeger/oauth2/callback"
       client_id = "grafana"
