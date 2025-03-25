@@ -22,6 +22,8 @@ query:
   enabled: true
   basePath: /jaeger
   ingress:
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
     ingressClassName: nginx-monitoring
     enabled: true
     hosts:
