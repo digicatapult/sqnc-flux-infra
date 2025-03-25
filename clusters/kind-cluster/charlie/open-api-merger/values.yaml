@@ -27,3 +27,5 @@ securitySchema:
     tokenUrl: "/auth/realms/charlie/protocol/openid-connect/token"
     refreshUrl: "/auth/realms/charlie/protocol/openid-connect/token"
     scopes: {}
+podAnnotations:
+  instrumentation.opentelemetry.io/inject-nodejs: "monitoring/nodejs-instrumentation"

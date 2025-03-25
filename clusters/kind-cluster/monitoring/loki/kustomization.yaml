@@ -3,4 +3,3 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - release.yaml
-  - monitoring-podmonitor-sync.yaml

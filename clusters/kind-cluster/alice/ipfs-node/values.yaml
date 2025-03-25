@@ -4,7 +4,18 @@ externalSqncNode:
 ipfs:
   privateKey: CAESQLfNGaEqtlj1juOeV1/yqS2RxYIXFCnSffHqmRDQtMyGZ5nW90T0ULaquqNLe6waWAu6154bKsIqanNezT+m+sg=
   publicKey: 12D3KooWGnnDccXt956NhFkUki48216AwogbfWTcN33mjinFkNNT
+  logLevel: debug
 persistence:
   storageClass: standard
 sqncNode:
   enabled: false
+podAnnotations:
+  instrumentation.opentelemetry.io/inject-sdk: "monitoring/go-instrumentation"
+securityContext:
+  privileged: true
+  runAsUser: 0
+extraEnvVars:
+  - name: IPFS_TRACING
+    value: "true"
+  - name: OTEL_TRACES_EXPORTER
+    value: "otlp"

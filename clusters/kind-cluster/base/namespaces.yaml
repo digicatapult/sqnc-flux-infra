@@ -41,7 +41,7 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: loki
+  name: cert-manager
   labels:
-    app.kubernetes.io/component: loki
+    app.kubernetes.io/component: cert-manager
     pod-security.kubernetes.io/enforce: privileged

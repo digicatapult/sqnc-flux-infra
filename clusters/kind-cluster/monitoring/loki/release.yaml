@@ -1,19 +1,19 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: promtail
-  namespace: loki
+  name: loki
+  namespace: monitoring
 spec:
   interval: 1m
   chart:
     spec:
-      chart: promtail
+      chart: loki
       sourceRef:
         kind: HelmRepository
         name: grafana
-        namespace: loki
-      version: "6.16.6"
+        namespace: monitoring
+      version: "6.22.0"
   valuesFrom:
     - kind: ConfigMap
-      name: promtail-values
-      valuesKey: values.yaml
+      name: monitoring-values
+      valuesKey: values-loki.yaml
