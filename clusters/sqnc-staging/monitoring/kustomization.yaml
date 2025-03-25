@@ -5,12 +5,16 @@ resources:
   - source.yaml
   - monitoring-pod-monitor-sync.yaml
   - kube-prometheus-stack
+  - otel
+  - jaeger
   - nginx
 configMapGenerator:
   - name: monitoring-values
     files:
       - values-nginx.yaml=nginx/values.yaml
       - values-monitoring.yaml=kube-prometheus-stack/values.yaml
+      - values-opentelemetry.yaml=otel/values.yaml
+      - values-jaeger.yaml=jaeger/values.yaml
   - name: flux-kube-state-metrics-config
     files:
       - kube-state-metrics-config.yaml

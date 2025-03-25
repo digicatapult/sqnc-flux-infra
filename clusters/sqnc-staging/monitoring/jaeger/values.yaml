@@ -1,0 +1,58 @@
+provisionDataStore:
+  cassandra: false
+  elasticSearch: true
+storage:
+  type: elasticsearch
+elasticSearch:
+  master:
+    replicaCount: 3
+    persistence:
+      storageClass: managed-csi-premium
+      size: 50Gi
+agent:
+  enabled: true
+collector:
+  enabled: true
+query:
+  enabled: true
+  basePath: /jaeger
+  ingress:
+    ingressClassName: nginx-monitoring
+    enabled: true
+    hosts:
+      - monitoring.sqnc-stage.com
+  oAuthSidecar:
+    enabled: true
+    resources: {}
+    image:
+      registry: quay.io
+      repository: oauth2-proxy/oauth2-proxy
+      tag: v7.8.1
+    pullPolicy: IfNotPresent
+    containerPort: 4180
+    args:
+      - --config
+      - /etc/oauth2-proxy/oauth2-proxy.cfg
+      - --client-secret
+      - "$(client-secret)"
+    extraEnv:
+      - name: client-secret
+        valueFrom:
+          secretKeyRef:
+            name: grafana-client-secret
+            key: grafana-client-secret
+    extraConfigmapMounts: []
+    extraSecretMounts: []
+    config: |-
+      provider = "oidc"
+      https_address = ":4180"
+      upstreams = ["http://localhost:16686"]
+      redirect_url = "https://monitoring.sqnc-stage.com/jaeger/oauth2/callback"
+      client_id = "grafana"
+      oidc_issuer_url = "https://auth.sqnc-stage.com/auth/realms/monitoring"
+      cookie_secure = "true"
+      cookie_secret = ""
+      email_domains = "*"
+      oidc_groups_claim = "groups"
+      user_id_claim = "preferred_username"
+      skip_provider_button = "true"
