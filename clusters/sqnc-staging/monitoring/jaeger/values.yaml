@@ -39,12 +39,25 @@ query:
     pullPolicy: IfNotPresent
     containerPort: 4180
     args:
-      - --config
-      - /etc/oauth2-proxy/oauth2-proxy.cfg
-      - --cookie-secret
-      - "$(cookie-secret)"
-      - --standard-logging=true
-      - --show-debug-on-error=true
+    - --provider=keycloak-oidc
+    - --http-address=:4180
+    - --upstream=http://jaeger-query.monitoring.svc.cluster.local:16686
+    - --redirect-url=https://monitoring.sqnc-stage.com/jaeger/oauth2/callback
+    - --client-id=grafana
+    - --oidc-issuer-url=https://auth.sqnc-stage.com/realms/monitoring
+    - --email-domain=digicatapult.org.uk
+    - --oidc-groups-claim=groups
+    - --user-id-claim=preferred_username
+    - --skip-provider-button=true
+    - --cookie-path=/jaeger
+    - --cookie-secure=true
+    - --cookie-httponly=true
+    - --cookie-refresh=1h
+    - --cookie-expire=168h
+    - --cookie-secret=$(cookie-secret)
+    - --code-challenge-method=S256
+    - --standard-logging=true
+    - --show-debug-on-error=true
     extraEnv:
       - name: OAUTH2_PROXY_CLIENT_SECRET
         valueFrom:
@@ -58,20 +71,3 @@ query:
             key: secret
     extraConfigmapMounts: []
     extraSecretMounts: []
-    config: |-
-      provider = "keycloak-oidc"
-      http_address = ":4180"
-      upstreams = ["http://jaeger-query.monitoring.svc.cluster.local:16686"]
-      redirect_url = "https://monitoring.sqnc-stage.com/jaeger/oauth2/callback"
-      client_id = "grafana"
-      oidc_issuer_url = "https://auth.sqnc-stage.com/realms/monitoring"
-      email_domains = "digicatapult.org.uk"
-      oidc_groups_claim = "groups"
-      user_id_claim = "preferred_username"
-      skip_provider_button = "true"
-      cookie_path = "/jaeger"
-      cookie_secure = "true"
-      cookie_httponly = "true"
-      cookie_refresh = "1h"
-      cookie_expire = "168h"
-      code_challenge_method = "S256"
