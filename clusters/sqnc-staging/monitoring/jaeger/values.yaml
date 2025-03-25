@@ -9,6 +9,11 @@ elasticsearch:
     persistence:
       storageClass: managed-csi-premium
       size: 50Gi
+  data:
+    replicaCount: 3
+    persistence:
+      storageClass: managed-csi-premium
+      size: 80Gi
 agent:
   enabled: true
 collector:
