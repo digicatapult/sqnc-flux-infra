@@ -47,9 +47,9 @@ query:
     - --client-id=grafana
     - --oidc-issuer-url=https://auth.sqnc-stage.com/realms/monitoring
     - --email-domain=digicatapult.org.uk
-    - --oidc-groups-claim=groups
-    - --user-id-claim=preferred_username
     - --skip-provider-button=true
+    - --oidc-groups-claim=groups
+    - --allowed-group=/grafana_admins,/grafana_users
     - --cookie-path=/jaeger
     - --cookie-secure=true
     - --cookie-httponly=true
