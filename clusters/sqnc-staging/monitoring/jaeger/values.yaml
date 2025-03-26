@@ -46,10 +46,10 @@ query:
     - --redirect-url=https://monitoring.sqnc-stage.com/jaeger/oauth2/callback
     - --client-id=grafana
     - --oidc-issuer-url=https://auth.sqnc-stage.com/realms/monitoring
-    - --email-domain=digicatapult.org.uk
     - --skip-provider-button=true
     - --oidc-groups-claim=groups
     - --allowed-group=/grafana_admins,/grafana_users
+    - --email-domain=*
     - --cookie-path=/jaeger
     - --cookie-secure=true
     - --cookie-httponly=true
