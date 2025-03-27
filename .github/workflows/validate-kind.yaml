@@ -100,11 +100,8 @@ jobs:
                 kubectl logs job/$job -n $ns
                 pods=$(kubectl get pods --selector=job-name=$job -n $ns | tail -n +2 | awk '{print $1}')
                 for pod in $(echo $pods); do
-                  phase=$(kubectl get pods $pod -n $ns --no-headers -o custom-columns=":status.phase")
-                  if [ "$phase" = "Failed" ]; then
-                    kubectl describe pod $pod -n $ns
-                    kubectl logs $pod -n $ns
-                  fi
+                  kubectl describe pod $pod -n $ns
+                  kubectl logs $pod -n $ns
                 done
               fi
             done
