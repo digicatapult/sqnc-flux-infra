@@ -1,0 +1,153 @@
+name: validate-kind-e2e
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types:
+      - opened
+      - reopened
+    branches:
+      - 'renovate/**'
+    paths:
+    - 'clusters/kind-cluster/**'
+
+jobs:
+  kubernetes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+      - name: Init Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+      - name: Install Flux
+        run: |
+          brew install fluxcd/tap/flux@2.3
+          flux -v
+      - name: Init Kind action
+        uses: helm/kind-action@v1.12.0
+        with:
+          cluster_name: sqnc-flux-infra
+          config: ./scripts/kind-cluster-config.yaml
+      - name: Install Flux to cluster
+        run: flux install
+      - name: Configure Git
+        run: |
+          git config user.name ${GITHUB_ACTOR}
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+      - name: Create source and kustomization on main
+        if: success()
+        run: |
+          flux create source git flux-system \
+          --url=${{ github.event.repository.html_url }} \
+          --branch=main \
+          --username=${GITHUB_ACTOR} \
+          --password=${{ secrets.GITHUB_TOKEN }}
+          flux create kustomization flux-system \
+          --source=flux-system \
+          --path=./clusters/kind-cluster/base
+      - name: Verify Flux kustomizations
+        run: |
+          kubectl wait -A kustomization -l kustomize.toolkit.fluxcd.io/name=flux-system --for=condition=ready
+      - name: Verify Helm releases
+        run: |
+          kubectl -n kube-system wait helmrelease --all --for=condition=ready --timeout=10m
+          kubectl -n keycloak wait helmrelease --all --for=condition=ready --timeout=10m
+          kubectl -n monitoring wait helmrelease --all --for=condition=ready --timeout=10m
+          kubectl -n loki wait helmrelease --all --for=condition=ready --timeout=10m
+          kubectl -n alice wait helmrelease --all --for=condition=ready --timeout=10m
+          kubectl -n bob wait helmrelease --all --for=condition=ready --timeout=10m
+          kubectl -n charlie wait helmrelease --all --for=condition=ready --timeout=10m
+      - name: Patch GitOps branch to match PR
+        if: |
+          success() &&
+          github.event_name == 'pull_request' &&
+          contains('refs/heads/renovate', github.ref)
+        run: |
+          patch=${GITHUB_REF#refs/heads/}
+          sed -i -r "s#(branch:).*#\1 $patch#" \
+            ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
+          git add ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
+          git commit -am "Patch GitOps branch to match PR"
+          git push -u origin $patch
+      - name: Reconcile the update
+        if: |
+          success() &&
+          github.event_name == 'pull_request' &&
+          contains('refs/heads/renovate', github.ref)
+        run: |
+          flux suspend kustomization --all
+          flux create source git flux-system \
+          --url=${{ github.event.repository.html_url }} \
+          --branch=${GITHUB_REF#refs/heads/} \
+          --username=${GITHUB_ACTOR} \
+          --password=${{ secrets.GITHUB_TOKEN }}
+          flux resume kustomization --all
+          kubectl wait kustomization --all --all-namespaces --for=condition=ready --timeout=10m
+          kubectl wait helmrelease --all --all-namespaces --for=condition=ready --timeout=10m
+      - name: Return test results
+        if: |
+          success() &&
+          github.event_name == 'pull_request' &&
+          contains('refs/heads/renovate', github.ref)
+        run: |
+          namespaces=$(kubectl get namespaces -A | tail -n +2 | awk '{print $1}')
+          for ns in $(echo $namespaces); do
+            for job in $(kubectl get jobs -n $ns 2>/dev/null | tail -n +2 | awk {'print $1'}); do
+              hook=$(kubectl get job/$job -n $ns -o jsonpath="{.metadata.annotations.helm\.sh/hook }" | grep -Eo "test")
+              kubectl wait job/$job -n $ns --for=condition=Complete 1>/dev/null
+              if [ ! -z "$hook" ]; then
+                echo "\nHelm tests for $job:"
+                kubectl logs job/$job -n $ns
+                pods=$(kubectl get pods --selector=job-name=$job -n $ns | tail -n +2 | awk '{print $1}')
+                for pod in $(echo $pods); do
+                  kubectl describe pod $pod -n $ns
+                  kubectl logs $pod -n $ns
+                done
+              fi
+            done
+          done
+      - name: Return GitOps branch to main
+        if: |
+          success() &&
+          github.event_name == 'pull_request' &&
+          contains('refs/heads/renovate', github.ref)
+        run: |
+          sed -i -r "s#(branch:).*#\1 main#" \
+            ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
+          git add ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
+          git commit -am "Return GitOps branch to main"
+          git push -u origin ${GITHUB_REF#refs/heads/}
+      - name: Describe failing pods
+        if: failure()
+        run: |
+          namespaces=$(kubectl get namespaces -A | tail -n +2 | awk '{print $1}')
+          for ns in $(echo $namespaces); do
+            pods=$(kubectl get pods -o jsonpath='{range .items[?(@.status.containerStatuses[-1:].state.waiting)]}{.metadata.name}: {@.status.containerStatuses[*].state.waiting.reason}{"\n"}{end}' -n $ns | tail -n +2 | awk '{print $1}')
+            if [ ! -z "$pods" ]; then
+              for pod in $(echo $pods); do
+                kubectl describe pod $pod -n $ns
+                kubectl logs $pod -n $ns
+              done
+            fi
+          done
+      - name: Debug Flux logs
+        if: failure()
+        run: flux logs --level=debug --all-namespaces
+      - name: Return Flux log errors
+        if: failure()
+        run: flux logs --level=error --all-namespaces
+      - name: Debug Flux controller state
+        if: failure()
+        run: kubectl -n flux-system get all
+      - name: Debug source-controller logs
+        if: failure()
+        run: kubectl -n flux-system logs deploy/source-controller
+      - name: Debug kustomize-controller logs
+        if: failure()
+        run: kubectl -n flux-system logs deploy/kustomize-controller
+      - name: Debug helm-controller logs
+        if: failure()
+        run: kubectl -n flux-system logs deploy/helm-controller
+      - name: Report all resources
+        if: failure()
+        run: flux get all --all-namespaces
