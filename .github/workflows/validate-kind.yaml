@@ -60,7 +60,7 @@ jobs:
       - name: Patch GitOps branch to match PR
         if: |
           success() &&
-          github.event_name == 'pull_request' &&
+          github.event_name == 'pull_request' || github.event_name == 'push' &&
           contains('refs/heads/renovate', github.ref)
         run: |
           patch=${GITHUB_REF#refs/heads/}
@@ -72,7 +72,7 @@ jobs:
       - name: Reconcile the update
         if: |
           success() &&
-          github.event_name == 'pull_request' &&
+          github.event_name == 'pull_request' || github.event_name == 'push' &&
           contains('refs/heads/renovate', github.ref)
         run: |
           flux suspend kustomization --all
@@ -87,7 +87,7 @@ jobs:
       - name: Return test results
         if: |
           success() &&
-          github.event_name == 'pull_request' &&
+          github.event_name == 'pull_request' || github.event_name == 'push' &&
           contains('refs/heads/renovate', github.ref)
         run: |
           namespaces=$(kubectl get namespaces -A | tail -n +2 | awk '{print $1}')
@@ -109,7 +109,7 @@ jobs:
       - name: Return GitOps branch to main
         if: |
           success() &&
-          github.event_name == 'pull_request' &&
+          github.event_name == 'pull_request' || github.event_name == 'push' &&
           contains('refs/heads/renovate', github.ref)
         run: |
           sed -i -r "s#(branch:).*#\1 main#" \
