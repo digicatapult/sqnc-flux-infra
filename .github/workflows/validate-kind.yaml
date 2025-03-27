@@ -6,10 +6,11 @@ on:
     types:
       - opened
       - reopened
+      - synchronize
     branches:
       - 'renovate/**'
     paths:
-    - 'clusters/kind-cluster/**'
+      - 'clusters/kind-cluster/**'
 
 jobs:
   kubernetes:
