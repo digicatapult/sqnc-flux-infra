@@ -53,7 +53,7 @@ jobs:
           --path=./clusters/kind-cluster/base
       - name: Verify Flux kustomizations
         run: |
-          kubectl wait -A kustomization -l kustomize.toolkit.fluxcd.io/name=flux-system --for=condition=ready
+          kubectl wait -A kustomization -l kustomize.toolkit.fluxcd.io/name=flux-system --for=condition=ready --timeout=3m
       - name: Verify Helm releases
         run: |
           kubectl -n kube-system wait helmrelease --all --for=condition=ready --timeout=10m
