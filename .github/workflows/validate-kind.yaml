@@ -56,13 +56,7 @@ jobs:
           kubectl wait -A kustomization -l kustomize.toolkit.fluxcd.io/name=flux-system --for=condition=ready --timeout=3m
       - name: Verify Helm releases
         run: |
-          kubectl -n kube-system wait helmrelease --all --for=condition=ready --timeout=10m
-          kubectl -n keycloak wait helmrelease --all --for=condition=ready --timeout=10m
-          kubectl -n monitoring wait helmrelease --all --for=condition=ready --timeout=10m
-          kubectl -n loki wait helmrelease --all --for=condition=ready --timeout=10m
-          kubectl -n alice wait helmrelease --all --for=condition=ready --timeout=10m
-          kubectl -n bob wait helmrelease --all --for=condition=ready --timeout=10m
-          kubectl -n charlie wait helmrelease --all --for=condition=ready --timeout=10m
+          kubectl wait -A helmrelease --all --for=condition=ready --timeout=10m
       - name: Patch GitOps branch to match PR
         if: |
           success() &&
