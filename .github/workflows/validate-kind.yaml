@@ -11,6 +11,11 @@ on:
       - 'renovate/**'
     paths:
       - 'clusters/kind-cluster/**'
+  push:
+    branches:
+      - 'renovate/**'
+    paths:
+      - 'clusters/kind-cluster/**'
 
 jobs:
   kubernetes:
