@@ -45,5 +45,70 @@ postgresql:
         - action: replace
           sourceLabels: [namespace]
           targetLabel: kubernetes_namespace
+  containerSecurityContext:
+    readOnlyRootFilesystem: false
+  extraVolumeMounts:
+    - name: postgres-new-bin
+      mountPath: /mnt/bin
+    - name: postgres-old-dump
+      mountPath: /mnt/dump
+  extraVolumes:
+    - name: postgres-new-bin
+      emptyDir: {}
+    - name: postgres-old-dump
+      emptyDir: {}
+  extraDeploy:
+    - apiVersion: batch/v1
+      kind: Job
+      metadata:
+        name: postgres-prep-upgrade
+      spec:
+        template:
+          spec:
+            containers:
+              - name: psql
+                image: bitnami/postgresql:17
+                imagePullPolicy: IfNotPresent
+                command:
+                  - /bin/sh
+                  - -c
+                args:
+                  - |
+                    psql -d postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$HOST:$POSTGRESQL_PORT_NUMBER/$POSTGRES_DATABASE -f /mnt/dump/pg_dump
+                    cp -R /opt/bitnami/postgresql /mnt/bin
+                volumeMounts:
+                  - name: postgres-old-dump
+                    mountPath: /mnt/dump
+                  - name: postgres-new-bin
+                    mountPath: /mnt/bin
+      restartPolicy: Never
+      backoffLimit: 0
+      initContainers:
+        - name: pg_dump
+          image: bitnami/postgresql:16
+          imagePullPolicy: IfNotPresent
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - |
+              pg_dump -d postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$HOST:$POSTGRESQL_PORT_NUMBER/$POSTGRES_DATABASE -f /mnt/dump/pg_dump
+          volumeMounts:
+            - name: postgres-old-dump
+              mountPath: /mnt/dump
+      env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgresql
+              key: password
+        - name: POSTGRES_USER
+          value: matchmaker_service
+        - name: POSTGRES_DATABASE
+          value: matchmaker
+        - name: POSTGRESQL_PORT_NUMBER
+          value: 5432
+        - name: HOST
+          value: alice-sqnc-matchmaker-api-postgresql
 podAnnotations:
   instrumentation.opentelemetry.io/inject-nodejs: "monitoring/nodejs-instrumentation"
