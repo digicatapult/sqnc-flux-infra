@@ -50,6 +50,7 @@ query:
     - --oidc-groups-claim=groups
     - --allowed-group=/grafana_admins,/grafana_users
     - --email-domain=*
+    - --skip-verified-email=true
     - --proxy-prefix=/jaeger/oauth2
     - --cookie-path=/jaeger
     - --cookie-secure=true
