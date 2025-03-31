@@ -25,9 +25,6 @@ query:
   ingress:
     annotations:
       nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
-      nginx.ingress.kubernetes.io/auth-signin: "https://$host/jaeger/oauth2/start?rd=$escaped_request_uri"
-      nginx.ingress.kubernetes.io/auth-url: "https://$host/jaeger/oauth2/auth"
-
     ingressClassName: nginx-monitoring
     enabled: true
     hosts:
