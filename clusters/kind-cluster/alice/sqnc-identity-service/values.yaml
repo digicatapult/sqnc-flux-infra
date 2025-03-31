@@ -33,20 +33,18 @@ postgresql:
   containerSecurityContext:
     readOnlyRootFilesystem: false
   extraVolumeMounts:
-    - name: postgres-new-bin
-      mountPath: /mnt/bin
-    - name: postgres-old-dump
+    - name: postgres-new
+      mountPath: /mnt/tmp
+    - name: postgres-old
       mountPath: /mnt/dump
   extraVolumes:
-    - name: postgres-new-bin
-      emptyDir: {}
-    - name: postgres-old-dump
-      emptyDir: {}
+    - name: postgres-new
+    - name: postgres-old
   extraDeploy:
     - apiVersion: batch/v1
       kind: Job
       metadata:
-        name: postgres-prep-upgrade
+        name: psql (v17)
       spec:
         template:
           spec:
@@ -60,16 +58,20 @@ postgresql:
                 args:
                   - |
                     psql -d postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$HOST:$POSTGRESQL_PORT_NUMBER/$POSTGRES_DATABASE -f /mnt/dump/pg_dump
-                    cp -R /opt/bitnami/postgresql /mnt/bin
+                    cp -R /opt/bitnami/postgresql /mnt/tmp
                 volumeMounts:
-                  - name: postgres-old-dump
+                  - name: postgres-old
                     mountPath: /mnt/dump
-                  - name: postgres-new-bin
-                    mountPath: /mnt/bin
+                  - name: postgres-new
+                    mountPath: /mnt/tmp
+            volumes:
+              - name: postgres-new
+              - name: postgres-old
+            restartPolicy: Never
       restartPolicy: Never
       backoffLimit: 0
       initContainers:
-        - name: pg_dump
+        - name: pg_dump (v16)
           image: bitnami/postgresql:16
           imagePullPolicy: IfNotPresent
           command:
@@ -79,7 +81,7 @@ postgresql:
             - |
               pg_dump -d postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$HOST:$POSTGRESQL_PORT_NUMBER/$POSTGRES_DATABASE -f /mnt/dump/pg_dump
           volumeMounts:
-            - name: postgres-old-dump
+            - name: postgres-old
               mountPath: /mnt/dump
       env:
         - name: POSTGRES_PASSWORD
@@ -95,5 +97,8 @@ postgresql:
           value: 5432
         - name: HOST
           value: alice-sqnc-identity-service-postgresql
+      volumes:
+        - name: postgres-old
+          emptyDir: {}
 podAnnotations:
   instrumentation.opentelemetry.io/inject-nodejs: "monitoring/nodejs-instrumentation"
