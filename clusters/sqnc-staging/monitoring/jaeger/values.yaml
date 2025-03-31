@@ -63,7 +63,7 @@ query:
     - --code-challenge-method=S256
      - --cookie-csrf-per-request=true
     - --cookie-csrf-expire=5m
-    - --standard-logging=
+    - --standard-logging=true
     - --set-xauthrequest=true
     - --show-debug-on-error=true
     extraEnv:
