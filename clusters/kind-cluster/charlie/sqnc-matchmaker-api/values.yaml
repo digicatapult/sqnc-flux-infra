@@ -9,15 +9,21 @@ externalSqncIpfs:
 externalSqncIdentity:
   host: charlie-identity-service-sqnc-identity-service
   port: 3000
+externalSqncAttachment:
+  host: charlie-sqnc-attachment-api
+  port: 3000
 auth:
-  clientId: "sequence"
-  publicUrlPrefix: "http://localhost:3080/auth/realms/charlie/protocol/openid-connect"
-  internalUrlPrefix: "http://keycloak.keycloak.svc.cluster.local/auth/realms/charlie/protocol/openid-connect"
+  clientId: sequence
+  publicIdpOrigin: http://localhost:3080
+  internalIdpOrigin: http://keycloak.keycloak.svc.cluster.local
+  idpPathPrefix: /auth
+  oauth2Realm: charlie
+  internalRealm: charlie-internal
+  internalClientId: sequence
+  internalClientSecret: secret
 ingress:
   hostname: localhost
   paths:
-    - path: /charlie/(v1/attachment(/.*)?)
-      pathType: Prefix
     - path: /charlie/(v1/demandA(/.*)?)
       pathType: Prefix
     - path: /charlie/(v1/demandB(/.*)?)
@@ -32,6 +38,7 @@ node:
   enabled: false
 tests:
   auth:
+    clientId: sequence
     clientSecret: secret
 postgresql:
   auth:

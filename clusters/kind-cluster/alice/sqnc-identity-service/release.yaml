@@ -16,9 +16,9 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: digicatapult
-      version: "4.0.82"
+      version: "5.1.1"
   valuesFrom:
-  - kind: ConfigMap
-    name: alice-values
-    valuesKey: values-sqnc-identity-service.yaml
+    - kind: ConfigMap
+      name: alice-values
+      valuesKey: values-sqnc-identity-service.yaml
   interval: 10m0s

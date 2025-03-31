@@ -9,15 +9,21 @@ externalSqncIpfs:
 externalSqncIdentity:
   host: bob-identity-service-sqnc-identity-service
   port: 3000
+externalSqncAttachment:
+  host: bob-sqnc-attachment-api
+  port: 3000
 auth:
-  clientId: "sequence"
-  publicUrlPrefix: "http://localhost:3080/auth/realms/bob/protocol/openid-connect"
-  internalUrlPrefix: "http://keycloak.keycloak.svc.cluster.local/auth/realms/bob/protocol/openid-connect"
+  clientId: sequence
+  publicIdpOrigin: http://localhost:3080
+  internalIdpOrigin: http://keycloak.keycloak.svc.cluster.local
+  idpPathPrefix: /auth
+  oauth2Realm: bob
+  internalRealm: bob-internal
+  internalClientId: sequence
+  internalClientSecret: secret
 ingress:
   hostname: localhost
   paths:
-    - path: /bob/(v1/attachment(/.*)?)
-      pathType: Prefix
     - path: /bob/(v1/demandA(/.*)?)
       pathType: Prefix
     - path: /bob/(v1/demandB(/.*)?)
@@ -32,6 +38,7 @@ node:
   enabled: false
 tests:
   auth:
+    clientId: sequence
     clientSecret: secret
 postgresql:
   auth:

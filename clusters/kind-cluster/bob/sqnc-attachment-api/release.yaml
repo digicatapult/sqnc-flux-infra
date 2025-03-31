@@ -2,23 +2,30 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: bob-identity-service
+  name: bob-sqnc-attachment-api
   namespace: bob
 spec:
   install:
     remediation:
       retries: -1
+  upgrade:
+    remediation:
+      retries: -1
+  test:
+    enable: true
   dependsOn:
     - name: bob-node
+    - name: bob-ipfs
+    - name: bob-identity-service
   chart:
     spec:
-      chart: sqnc-identity-service
+      chart: sqnc-attachment-api
       sourceRef:
         kind: HelmRepository
         name: digicatapult
-      version: "5.1.1"
+      version: "2.0.2"
   valuesFrom:
     - kind: ConfigMap
       name: bob-values
-      valuesKey: values-sqnc-identity-service.yaml
+      valuesKey: values-sqnc-attachment-api.yaml
   interval: 10m0s
