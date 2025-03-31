@@ -33,18 +33,29 @@ postgresql:
   containerSecurityContext:
     readOnlyRootFilesystem: false
   extraVolumeMounts:
-    - name: postgres-new
-      mountPath: /mnt/tmp
-    - name: postgres-old
-      mountPath: /mnt/dump
+    - name: postgres-upgrade
+      mountPath: /mnt/upgrade
   extraVolumes:
-    - name: postgres-new
-    - name: postgres-old
+    - name: postgres-upgrade
+      persistentVolumeClaim:
+        claimName: identity-service-postgres-upgrade-pv
   extraDeploy:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: identity-service-postgres-upgrade-pv
+        namespace: alice
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 4Gi
     - apiVersion: batch/v1
       kind: Job
       metadata:
-        name: postgresql-17
+        name: alice-sqnc-identity-service-postgresql-17
+        namespace: alice
       spec:
         template:
           spec:
@@ -57,16 +68,16 @@ postgresql:
                   - -c
                 args:
                   - |
-                    psql -d postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$HOST:$POSTGRESQL_PORT_NUMBER/$POSTGRES_DATABASE -f /mnt/dump/pg_dump
-                    cp -R /opt/bitnami/postgresql /mnt/tmp
+                    psql -d postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$HOST:$POSTGRESQL_PORT_NUMBER/$POSTGRES_DATABASE -f /mnt/upgrade/pg_dump
+                    mkdir -p /mnt/upgrade/tmp/
+                    cp -R /opt/bitnami/postgresql /mnt/upgrade/tmp/
                 volumeMounts:
-                  - name: postgres-old
-                    mountPath: /mnt/dump
-                  - name: postgres-new
-                    mountPath: /mnt/tmp
+                  - name: postgres-upgrade
+                    mountPath: /mnt/upgrade
             volumes:
-              - name: postgres-new
-              - name: postgres-old
+              - name: postgres-upgrade
+                persistentVolumeClaim:
+                  claimName: identity-service-postgres-upgrade-pv
             restartPolicy: Never
       restartPolicy: Never
       backoffLimit: 0
@@ -79,10 +90,10 @@ postgresql:
             - -c
           args:
             - |
-              pg_dump -d postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$HOST:$POSTGRESQL_PORT_NUMBER/$POSTGRES_DATABASE -f /mnt/dump/pg_dump
+              pg_dump -d postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$HOST:$POSTGRESQL_PORT_NUMBER/$POSTGRES_DATABASE -f /mnt/upgrade/pg_dump
           volumeMounts:
-            - name: postgres-old
-              mountPath: /mnt/dump
+            - name: postgres-upgrade
+              mountPath: /mnt/upgrade
       env:
         - name: POSTGRES_PASSWORD
           valueFrom:
@@ -98,7 +109,8 @@ postgresql:
         - name: HOST
           value: alice-sqnc-identity-service-postgresql
       volumes:
-        - name: postgres-old
-          emptyDir: {}
+        - name: postgres-upgrade
+          persistentVolumeClaim:
+            claimName: identity-service-postgres-upgrade-pv
 podAnnotations:
   instrumentation.opentelemetry.io/inject-nodejs: "monitoring/nodejs-instrumentation"
