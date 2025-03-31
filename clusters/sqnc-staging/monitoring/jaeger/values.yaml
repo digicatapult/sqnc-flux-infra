@@ -48,6 +48,7 @@ query:
     - --oidc-issuer-url=https://auth.sqnc-stage.com/realms/monitoring
     - --skip-provider-button=true
     - --oidc-groups-claim=groups
+    - --oidc-extra-audience=account,broker
     - --allowed-group=/grafana_admins,/grafana_users
     - --email-domain=*
     - --proxy-prefix=/jaeger/oauth2
