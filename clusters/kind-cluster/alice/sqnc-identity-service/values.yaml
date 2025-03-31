@@ -44,12 +44,12 @@ postgresql:
     - apiVersion: batch/v1
       kind: Job
       metadata:
-        name: psql (v17)
+        name: postgresql-17
       spec:
         template:
           spec:
             containers:
-              - name: psql
+              - name: psql-17
                 image: bitnami/postgresql:17
                 imagePullPolicy: IfNotPresent
                 command:
@@ -71,7 +71,7 @@ postgresql:
       restartPolicy: Never
       backoffLimit: 0
       initContainers:
-        - name: pg_dump (v16)
+        - name: pgdump-16
           image: bitnami/postgresql:16
           imagePullPolicy: IfNotPresent
           command:
