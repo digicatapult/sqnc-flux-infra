@@ -58,7 +58,7 @@ query:
     - --cookie-secret=$(cookie-secret)
     - --cookie-domain=monitoring.sqnc-stage.com
     - --code-challenge-method=S256
-     - --cookie-csrf-per-request=true
+    - --cookie-csrf-per-request=true
     - --cookie-csrf-expire=5m
     - --standard-logging=true
     - --set-xauthrequest=true
