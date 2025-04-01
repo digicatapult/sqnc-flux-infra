@@ -77,7 +77,7 @@ postgresql:
                   - name: POSTGRES_DATABASE
                     value: user
                   - name: POSTGRESQL_PORT_NUMBER
-                    value: 5432
+                    value: "5432"
                   - name: HOST
                     value: alice-sqnc-identity-service-postgresql
             containers:
@@ -109,7 +109,7 @@ postgresql:
                   - name: POSTGRES_DATABASE
                     value: user
                   - name: POSTGRESQL_PORT_NUMBER
-                    value: 5432
+                    value: "5432"
                   - name: HOST
                     value: alice-sqnc-identity-service-postgresql
             volumes:

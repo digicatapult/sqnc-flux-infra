@@ -92,7 +92,7 @@ postgresql:
                   - name: POSTGRES_DATABASE
                     value: matchmaker
                   - name: POSTGRESQL_PORT_NUMBER
-                    value: 5432
+                    value: "5432"
                   - name: HOST
                     value: alice-sqnc-matchmaker-api-postgresql
             containers:
@@ -124,7 +124,7 @@ postgresql:
                   - name: POSTGRES_DATABASE
                     value: matchmaker
                   - name: POSTGRESQL_PORT_NUMBER
-                    value: 5432
+                    value: "5432"
                   - name: HOST
                     value: alice-sqnc-matchmaker-api-postgresql
             volumes:
