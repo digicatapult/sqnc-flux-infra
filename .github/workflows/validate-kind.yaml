@@ -83,11 +83,10 @@ jobs:
         run: |
           namespaces=$(kubectl get namespaces -A | tail -n +2 | awk '{print $1}')
           for ns in $(echo $namespaces); do
-            for job in $(kubectl get jobs -n $ns 2>/dev/null | tail -n +2 | awk {'print $1'}); do
+            for job in $(kubectl get jobs -n $ns | tail -n +2 | awk {'print $1'}); do
               hook=$(kubectl get job/$job -n $ns -o jsonpath="{.metadata.annotations.helm\.sh/hook }" | grep -Eo "test")
-              kubectl wait job/$job -n $ns --for=condition=Complete 1>/dev/null
               if [ ! -z "$hook" ]; then
-                echo "\nHelm tests for $job:"
+                echo "Helm tests for $job:"
                 kubectl logs job/$job -n $ns
                 pods=$(kubectl get pods --selector=job-name=$job -n $ns | tail -n +2 | awk '{print $1}')
                 for pod in $(echo $pods); do
