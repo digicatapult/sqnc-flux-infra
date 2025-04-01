@@ -45,27 +45,15 @@ postgresql:
         - action: replace
           sourceLabels: [namespace]
           targetLabel: kubernetes_namespace
-  containerSecurityContext:
-    readOnlyRootFilesystem: false
-  extraVolumeMounts:
-    - name: postgres-upgrade
-      mountPath: /mnt/upgrade
-  extraVolumes:
-    - name: postgres-upgrade
-      persistentVolumeClaim:
-        claimName: matchmaker-api-postgres-upgrade-pv
+  primary:
+    containerSecurityContext:
+      readOnlyRootFilesystem: false
+    extraVolumeMounts:
+      - name: postgres-upgrade
+        mountPath: /mnt/upgrade
+    extraVolumes:
+      - name: postgres-upgrade
   extraDeploy:
-    - apiVersion: v1
-      kind: PersistentVolumeClaim
-      metadata:
-        name: matchmaker-api-postgres-upgrade-pv
-        namespace: alice
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 4Gi
     - apiVersion: batch/v1
       kind: Job
       metadata:
@@ -74,10 +62,32 @@ postgresql:
       spec:
         template:
           spec:
+            securityContext:
+              fsGroup: 1001
+              runAsUser: 1001
+            initContainers:
+              - name: pgdump-16
+                image: bitnami/postgresql:16
+                imagePullPolicy: IfNotPresent
+                securityContext:
+                  runAsNonRoot: true
+                  runAsUser: 1001
+                command:
+                  - /bin/sh
+                  - -c
+                args:
+                  - |
+                    pg_dump -d postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$HOST:$POSTGRESQL_PORT_NUMBER/$POSTGRES_DATABASE -f /mnt/upgrade/pg_dump
+                volumeMounts:
+                  - name: postgres-upgrade
+                    mountPath: /mnt/upgrade
             containers:
               - name: psql-17
                 image: bitnami/postgresql:17
                 imagePullPolicy: IfNotPresent
+                securityContext:
+                  runAsNonRoot: true
+                  runAsUser: 1001
                 command:
                   - /bin/sh
                   - -c
@@ -89,44 +99,24 @@ postgresql:
                 volumeMounts:
                   - name: postgres-upgrade
                     mountPath: /mnt/upgrade
+            env:
+              - name: POSTGRES_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: postgresql
+                    key: password
+              - name: POSTGRES_USER
+                value: matchmaker_service
+              - name: POSTGRES_DATABASE
+                value: matchmaker
+              - name: POSTGRESQL_PORT_NUMBER
+                value: 5432
+              - name: HOST
+                value: alice-sqnc-matchmaker-api-postgresql
             volumes:
               - name: postgres-upgrade
-                persistentVolumeClaim:
-                  claimName: matchmaker-api-postgres-upgrade-pv
-              - name: postgres-old
             restartPolicy: Never
       restartPolicy: Never
       backoffLimit: 0
-      initContainers:
-        - name: pgdump-16
-          image: bitnami/postgresql:16
-          imagePullPolicy: IfNotPresent
-          command:
-            - /bin/sh
-            - -c
-          args:
-            - |
-              pg_dump -d postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$HOST:$POSTGRESQL_PORT_NUMBER/$POSTGRES_DATABASE -f /mnt/upgrade/pg_dump
-          volumeMounts:
-            - name: postgres-upgrade
-              mountPath: /mnt/upgrade
-      env:
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: postgresql
-              key: password
-        - name: POSTGRES_USER
-          value: matchmaker_service
-        - name: POSTGRES_DATABASE
-          value: matchmaker
-        - name: POSTGRESQL_PORT_NUMBER
-          value: 5432
-        - name: HOST
-          value: alice-sqnc-matchmaker-api-postgresql
-      volumes:
-        - name: postgres-upgrade
-          persistentVolumeClaim:
-            claimName: matchmaker-api-postgres-upgrade-pv
 podAnnotations:
   instrumentation.opentelemetry.io/inject-nodejs: "monitoring/nodejs-instrumentation"
