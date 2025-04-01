@@ -85,7 +85,7 @@ postgresql:
                   - name: POSTGRES_PASSWORD
                     valueFrom:
                       secretKeyRef:
-                        name: postgresql
+                        name: alice-sqnc-matchmaker-api-postgresql
                         key: password
                   - name: POSTGRES_USER
                     value: matchmaker_service
@@ -117,7 +117,7 @@ postgresql:
                   - name: POSTGRES_PASSWORD
                     valueFrom:
                       secretKeyRef:
-                        name: postgresql
+                        name: alice-sqnc-matchmaker-api-postgresql
                         key: password
                   - name: POSTGRES_USER
                     value: matchmaker_service
