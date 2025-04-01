@@ -66,6 +66,20 @@ postgresql:
                 volumeMounts:
                   - name: postgres-upgrade
                     mountPath: /mnt/upgrade
+                env:
+                  - name: POSTGRES_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        name: postgresql
+                        key: password
+                  - name: POSTGRES_USER
+                    value: identity_service
+                  - name: POSTGRES_DATABASE
+                    value: user
+                  - name: POSTGRESQL_PORT_NUMBER
+                    value: 5432
+                  - name: HOST
+                    value: alice-sqnc-identity-service-postgresql
             containers:
               - name: psql-17
                 image: bitnami/postgresql:17
@@ -84,20 +98,20 @@ postgresql:
                 volumeMounts:
                   - name: postgres-upgrade
                     mountPath: /mnt/upgrade
-            env:
-              - name: POSTGRES_PASSWORD
-                valueFrom:
-                  secretKeyRef:
-                    name: postgresql
-                    key: password
-              - name: POSTGRES_USER
-                value: identity_service
-              - name: POSTGRES_DATABASE
-                value: user
-              - name: POSTGRESQL_PORT_NUMBER
-                value: 5432
-              - name: HOST
-                value: alice-sqnc-identity-service-postgresql
+                env:
+                  - name: POSTGRES_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        name: postgresql
+                        key: password
+                  - name: POSTGRES_USER
+                    value: identity_service
+                  - name: POSTGRES_DATABASE
+                    value: user
+                  - name: POSTGRESQL_PORT_NUMBER
+                    value: 5432
+                  - name: HOST
+                    value: alice-sqnc-identity-service-postgresql
             volumes:
               - name: postgres-upgrade
             restartPolicy: Never
