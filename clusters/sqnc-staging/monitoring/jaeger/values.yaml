@@ -64,7 +64,9 @@ query:
     - --standard-logging=true
     - --set-xauthrequest=true
     - --show-debug-on-error=true
-    - --insecure-oidc-allow-unverified-email
+    - --insecure-oidc-allow-unverified-email=true
+    - --session-store-type=redis
+    - --redis-connection-url=redis://redis-master.monitoring.svc.cluster.local:6379
     extraEnv:
       - name: OAUTH2_PROXY_CLIENT_SECRET
         valueFrom:
