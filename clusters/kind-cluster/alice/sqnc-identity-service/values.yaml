@@ -42,7 +42,7 @@ postgresql:
     - apiVersion: batch/v1
       kind: Job
       metadata:
-        name: alice-sqnc-identity-service-postgresql-17
+        name: alice-identity-service-postgresql-17
         namespace: alice
       spec:
         template:
@@ -79,7 +79,7 @@ postgresql:
                   - name: POSTGRESQL_PORT_NUMBER
                     value: "5432"
                   - name: HOST
-                    value: alice-sqnc-identity-service-postgresql
+                    value: alice-identity-service-postgresql
             containers:
               - name: psql-17
                 image: bitnami/postgresql:17
@@ -111,7 +111,7 @@ postgresql:
                   - name: POSTGRESQL_PORT_NUMBER
                     value: "5432"
                   - name: HOST
-                    value: alice-sqnc-identity-service-postgresql
+                    value: alice-identity-service-postgresql
             volumes:
               - name: postgres-upgrade
             restartPolicy: Never
