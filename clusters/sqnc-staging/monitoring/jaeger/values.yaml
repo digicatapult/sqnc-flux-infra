@@ -1,0 +1,80 @@
+provisionDataStore:
+  cassandra: false
+  elasticsearch: true
+storage:
+  type: elasticsearch
+elasticsearch:
+  master:
+    replicaCount: 3
+    persistence:
+      storageClass: managed-csi-premium
+      size: 50Gi
+  data:
+    replicaCount: 3
+    persistence:
+      storageClass: managed-csi-premium
+      size: 80Gi
+agent:
+  enabled: true
+collector:
+  enabled: true
+query:
+  enabled: true
+  basePath: /jaeger
+  pathType: Prefix
+  ingress:
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    ingressClassName: nginx-monitoring
+    enabled: true
+    hosts:
+      - monitoring.sqnc-stage.com
+  oAuthSidecar:
+    enabled: true
+    resources: {}
+    image:
+      registry: quay.io
+      repository: oauth2-proxy/oauth2-proxy
+      tag: v7.8.1
+    pullPolicy: IfNotPresent
+    containerPort: 4180
+    args:
+    - --provider=keycloak-oidc
+    - --client-secret=$(OAUTH2_PROXY_CLIENT_SECRET)
+    - --http-address=:4180
+    - --upstream=http://localhost:16686
+    - --redirect-url=https://monitoring.sqnc-stage.com/jaeger/oauth2/callback
+    - --client-id=grafana
+    - --oidc-issuer-url=https://auth.sqnc-stage.com/realms/monitoring
+    - --skip-provider-button=true
+    - --oidc-groups-claim=groups
+    - --oidc-extra-audience=account,broker
+    - --email-domain=digicatapult.org.uk
+    - --proxy-prefix=/jaeger/oauth2
+    - --cookie-path=/jaeger
+    - --cookie-secure=true
+    - --cookie-httponly=true
+    - --cookie-refresh=1h
+    - --cookie-expire=168h
+    - --cookie-secret=$(cookie-secret)
+    - --cookie-domain=monitoring.sqnc-stage.com
+    - --code-challenge-method=S256
+    - --cookie-csrf-per-request=false
+    - --cookie-csrf-expire=5m
+    - --standard-logging=true
+    - --set-xauthrequest=true
+    - --show-debug-on-error=true
+    - --insecure-oidc-allow-unverified-email=true
+    - --session-store-type=redis
+    - --redis-connection-url=redis://redis-master.monitoring.svc.cluster.local:6379
+    extraEnv:
+      - name: OAUTH2_PROXY_CLIENT_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: grafana-client-secret
+            key: grafana-client-secret
+      - name: cookie-secret
+        valueFrom:
+          secretKeyRef:
+            name: oauth2-proxy-cookie-secret
+            key: secret

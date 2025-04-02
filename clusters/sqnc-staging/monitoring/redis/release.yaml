@@ -2,24 +2,24 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: nginx
+  name: redis
   namespace: monitoring
 spec:
   install:
     remediation:
       retries: -1
-  releaseName: nginx-ingress-controller
+  releaseName: redis
   chart:
     spec:
-      version: 11.6.12
-      chart: nginx-ingress-controller
+      version: 20.11.4
+      chart: redis
       sourceRef:
         kind: HelmRepository
         name: bitnami-oci
   interval: 10m
   # Default values
-  # https://github.com/bitnami/charts/blob/master/bitnami/nginx-ingress-controller/values.yaml
+  # https://github.com/bitnami/charts/blob/master/bitnami/redis/values.yaml
   valuesFrom:
     - kind: ConfigMap
       name: monitoring-values
-      valuesKey: values-nginx.yaml
+      valuesKey: values-redis.yaml
