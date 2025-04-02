@@ -42,7 +42,7 @@ query:
     - --provider=keycloak-oidc
     - --client-secret=$(OAUTH2_PROXY_CLIENT_SECRET)
     - --http-address=:4180
-    - --upstream=http://jaeger-query.monitoring.svc.cluster.local:16686
+    - --upstream=http://localhost:16686
     - --redirect-url=https://monitoring.sqnc-stage.com/jaeger/oauth2/callback
     - --client-id=grafana
     - --oidc-issuer-url=https://auth.sqnc-stage.com/realms/monitoring
