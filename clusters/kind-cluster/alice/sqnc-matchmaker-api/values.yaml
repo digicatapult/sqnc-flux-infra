@@ -53,7 +53,20 @@ postgresql:
         mountPath: /mnt/upgrade
     extraVolumes:
       - name: postgres-upgrade
+        persistentVolumeClaim:
+          claimName: matchmaker-api-postgres-upgrade-pv
   extraDeploy:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: identity-service-postgres-upgrade-pv
+        namespace: alice
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
     - apiVersion: batch/v1
       kind: Job
       metadata:
@@ -129,8 +142,10 @@ postgresql:
                     value: alice-sqnc-matchmaker-api-postgresql
             volumes:
               - name: postgres-upgrade
-            restartPolicy: Never
-      restartPolicy: Never
+                persistentVolumeClaim:
+                  claimName: identity-service-postgres-upgrade-pv
+            restartPolicy: OnFailure
+      restartPolicy: OnFailure
       backoffLimit: 0
 podAnnotations:
   instrumentation.opentelemetry.io/inject-nodejs: "monitoring/nodejs-instrumentation"
