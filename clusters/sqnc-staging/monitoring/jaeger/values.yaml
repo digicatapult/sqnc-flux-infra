@@ -49,7 +49,7 @@ query:
     - --skip-provider-button=true
     - --oidc-groups-claim=groups
     - --oidc-extra-audience=account,broker
-    - --email-domain=*
+    - --email-domain=digicatapult.org.uk
     - --proxy-prefix=/jaeger/oauth2
     - --cookie-path=/jaeger
     - --cookie-secure=true
