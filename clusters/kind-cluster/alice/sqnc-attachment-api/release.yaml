@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: alice-sqnc-matchmaker-api
+  name: alice-sqnc-attachment-api
   namespace: alice
 spec:
   install:
@@ -14,16 +14,18 @@ spec:
   test:
     enable: true
   dependsOn:
+    - name: alice-node
     - name: alice-ipfs
+    - name: alice-identity-service
   chart:
     spec:
-      chart: sqnc-matchmaker-api
+      chart: sqnc-attachment-api
       sourceRef:
         kind: HelmRepository
         name: digicatapult
-      version: "3.0.2"
+      version: "2.0.2"
   valuesFrom:
     - kind: ConfigMap
       name: alice-values
-      valuesKey: values-sqnc-matchmaker-api.yaml
+      valuesKey: values-sqnc-attachment-api.yaml
   interval: 10m0s

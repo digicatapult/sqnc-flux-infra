@@ -1,36 +1,24 @@
 logLevel: info
-userUri: //Alice
 externalSqncNode:
-  host: alice-node-sqnc-node-0
+  host: charlie-node-sqnc-node-0
   port: 9944
 externalSqncIpfs:
-  host: alice-ipfs-sqnc-ipfs-api
+  host: charlie-ipfs-sqnc-ipfs-api
   port: 5001
 externalSqncIdentity:
-  host: alice-identity-service-sqnc-identity-service
-  port: 3000
-externalSqncAttachment:
-  host: alice-sqnc-attachment-api
+  host: charlie-identity-service-sqnc-identity-service
   port: 3000
 auth:
   clientId: sequence
   publicIdpOrigin: http://localhost:3080
   internalIdpOrigin: http://keycloak.keycloak.svc.cluster.local
   idpPathPrefix: /auth
-  oauth2Realm: alice
-  internalRealm: alice-internal
-  internalClientId: sequence
-  internalClientSecret: secret
+  oauth2Realm: charlie
+  internalRealm: charlie-internal
 ingress:
   hostname: localhost
   paths:
-    - path: /alice/(v1/demandA(/.*)?)
-      pathType: Prefix
-    - path: /alice/(v1/demandB(/.*)?)
-      pathType: Prefix
-    - path: /alice/(v1/match2(/.*)?)
-      pathType: Prefix
-    - path: /alice/(v1/transaction(/.*)?)
+    - path: /charlie/(v1/attachment(/.*)?)
       pathType: Prefix
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
