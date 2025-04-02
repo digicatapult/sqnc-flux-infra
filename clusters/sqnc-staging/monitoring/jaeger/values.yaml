@@ -65,9 +65,6 @@ query:
     - --set-xauthrequest=true
     - --show-debug-on-error=true
     - --insecure-oidc-allow-unverified-email
-    - --pass-access-token=true
-    - --pass-user-headers=true
-    - --pass-authorization-header=true
     extraEnv:
       - name: OAUTH2_PROXY_CLIENT_SECRET
         valueFrom:
