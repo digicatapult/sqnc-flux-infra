@@ -39,7 +39,7 @@ postgresql:
     extraVolumes:
       - name: postgres-upgrade
         persistentVolumeClaim:
-          claimName: matchmaker-api-postgres-upgrade-pv
+          claimName: identity-service-postgres-upgrade-pv
   extraDeploy:
     - apiVersion: v1
       kind: PersistentVolumeClaim

@@ -59,7 +59,7 @@ postgresql:
     - apiVersion: v1
       kind: PersistentVolumeClaim
       metadata:
-        name: identity-service-postgres-upgrade-pv
+        name: matchmaker-api-postgres-upgrade-pv
         namespace: alice
       spec:
         accessModes:
@@ -143,7 +143,7 @@ postgresql:
             volumes:
               - name: postgres-upgrade
                 persistentVolumeClaim:
-                  claimName: identity-service-postgres-upgrade-pv
+                  claimName: matchmaker-api-postgres-upgrade-pv
             restartPolicy: OnFailure
       restartPolicy: OnFailure
       backoffLimit: 0
