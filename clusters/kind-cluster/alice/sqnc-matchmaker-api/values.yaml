@@ -66,8 +66,8 @@ postgresql:
               fsGroup: 1001
               runAsUser: 1001
             initContainers:
-              - name: pgdump-16
-                image: bitnami/postgresql:16
+              - name: pgdump-17
+                image: bitnami/postgresql:17
                 imagePullPolicy: IfNotPresent
                 securityContext:
                   runAsNonRoot: true
