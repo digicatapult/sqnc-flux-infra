@@ -37,20 +37,34 @@ jobs:
       - name: Install Flux to cluster
         run: flux install
       - name: Configure Git
+        id: config_git
         run: |
           git config user.name ${GITHUB_ACTOR}
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          echo "commit_sha=$(git log -n 1 main --pretty=format:"%H")" >> "$GITHUB_OUTPUT"
+      - name: Patch GitOps branch to a specific main commit
+        if: success()
+        run: |
+          sed -i -r "s#(branch: main)#\1\n    commit: $COMMIT_SHA#" \
+            ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
+          git add ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
+          git commit -am "Patch GitOps branch to match PR"
+          git push -u origin $patch
+        env:
+          COMMIT_SHA: ${{steps.config_git.outputs.commit_sha}}
       - name: Create source and kustomization on main
         if: success()
         run: |
           flux create source git flux-system \
           --url=${{ github.event.repository.html_url }} \
-          --branch=main \
+          --commit=${COMMIT_SHA} \
           --username=${GITHUB_ACTOR} \
           --password=${{ secrets.GITHUB_TOKEN }}
           flux create kustomization flux-system \
           --source=flux-system \
           --path=./clusters/kind-cluster/base
+        env:
+          COMMIT_SHA: ${{steps.config_git.outputs.commit_sha}}
       - name: Verify Flux kustomizations
         run: |
           kubectl wait -A kustomization -l kustomize.toolkit.fluxcd.io/name=flux-system --for=condition=ready --timeout=3m
@@ -63,6 +77,7 @@ jobs:
           patch=${GITHUB_REF#refs/heads/}
           sed -i -r "s#(branch:).*#\1 $patch#" \
             ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
+          sed -i -r "/commit/d" ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
           git add ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
           git commit -am "Patch GitOps branch to match PR"
           git push -u origin $patch
