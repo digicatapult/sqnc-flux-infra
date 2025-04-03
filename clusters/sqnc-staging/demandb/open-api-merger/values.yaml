@@ -25,3 +25,5 @@ ingress:
       pathType: Prefix
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
+podAnnotations:
+  instrumentation.opentelemetry.io/inject-nodejs: "monitoring/nodejs-instrumentation"
