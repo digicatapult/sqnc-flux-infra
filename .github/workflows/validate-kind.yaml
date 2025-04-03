@@ -48,8 +48,8 @@ jobs:
           sed -i -r "s#(branch: main)#\1\n    commit: $COMMIT_SHA#" \
             ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
           git add ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
-          git commit -am "Patch GitOps branch to match PR"
-          git push -u origin $patch
+          git commit -am "Patch GitOps branch to use specific commit"
+          git push -u origin ${GITHUB_REF#refs/heads/}
         env:
           COMMIT_SHA: ${{steps.config_git.outputs.commit_sha}}
       - name: Create source and kustomization on main
