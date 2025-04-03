@@ -51,6 +51,8 @@ prometheus:
       matchLabels:
         app.kubernetes.io/component: monitoring
 grafana:
+  env:
+    JAEGER_AGENT_PORT: ""
   defaultDashboardsEnabled: true
   serviceMonitor:
     enabled: true
