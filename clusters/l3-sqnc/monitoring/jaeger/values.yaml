@@ -53,7 +53,7 @@ query:
     - --upstream=http://localhost:16686
     - --redirect-url=https://monitoring.dsch-l3.com/jaeger/oauth2/callback
     - --client-id=grafana
-    - --oidc-issuer-url=https://auth.dsch-l3.com.com/realms/monitoring
+    - --oidc-issuer-url=https://auth.dsch-l3.com/realms/monitoring
     - --skip-provider-button=true
     - --oidc-groups-claim=groups
     - --oidc-extra-audience=account,broker
