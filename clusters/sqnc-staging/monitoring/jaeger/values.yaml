@@ -23,6 +23,9 @@ collector:
       grpc:
         name: otlp-grpc
         port: 4317
+      http:
+        name: otlp-http
+        port: 4318
 query:
   enabled: true
   basePath: /jaeger
