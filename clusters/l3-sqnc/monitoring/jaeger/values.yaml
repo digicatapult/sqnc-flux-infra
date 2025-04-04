@@ -4,6 +4,9 @@ provisionDataStore:
 storage:
   type: elasticsearch
 elasticsearch:
+  global:
+    imagePullSecrets:
+      - name: dockerhub
   master:
     replicaCount: 3
     persistence:
@@ -16,8 +19,14 @@ elasticsearch:
       size: 80Gi
 agent:
   enabled: true
+  image:
+    pullSecrets: 
+      - name: dockerhub
 collector:
   enabled: true
+  image:
+    pullSecrets: 
+      - name: dockerhub
   service:
     otlp:
       grpc:
@@ -28,6 +37,9 @@ collector:
         port: 4318
 query:
   enabled: true
+  image:
+    pullSecrets: 
+      - name: dockerhub
   basePath: /jaeger
   pathType: Prefix
   ingress:
