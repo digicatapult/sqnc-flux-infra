@@ -1,3 +1,6 @@
+global:
+  imagePullSecrets:
+    - name: dockerhub
 architecture: "standalone"
 auth:
   enabled: false
