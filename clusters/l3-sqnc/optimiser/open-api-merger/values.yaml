@@ -28,3 +28,5 @@ ingress:
 global:
   imagePullSecrets:
     - name: dockerhub
+podAnnotations:
+  instrumentation.opentelemetry.io/inject-nodejs: "monitoring/nodejs-instrumentation"

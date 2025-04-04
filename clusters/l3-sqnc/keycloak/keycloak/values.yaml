@@ -46,3 +46,5 @@ postgresql:
       - action: replace
         sourceLabels: [namespace]
         targetLabel: kubernetes_namespace
+podAnnotations:
+    instrumentation.opentelemetry.io/inject-java: "monitoring/java-instrumentation"

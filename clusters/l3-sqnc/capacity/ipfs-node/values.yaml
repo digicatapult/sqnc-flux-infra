@@ -9,3 +9,13 @@ sqncNode:
 global:
   imagePullSecrets:
     - name: dockerhub
+podAnnotations:
+  instrumentation.opentelemetry.io/inject-sdk: "monitoring/go-instrumentation"
+securityContext:
+  privileged: true
+  runAsUser: 0
+extraEnvVars:
+  - name: IPFS_TRACING
+    value: "true"
+  - name: OTEL_TRACES_EXPORTER
+    value: "otlp"
