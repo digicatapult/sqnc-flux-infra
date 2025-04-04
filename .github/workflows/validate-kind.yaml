@@ -81,21 +81,24 @@ jobs:
       - name: Return test results
         if: success()
         run: |
+          sleep 120
           namespaces=$(kubectl get namespaces -A | tail -n +2 | awk '{print $1}')
           for ns in $(echo $namespaces); do
-            for job in $(kubectl get jobs -n $ns 2>/dev/null | tail -n +2 | awk {'print $1'}); do
-              hook=$(kubectl get job/$job -n $ns -o jsonpath="{.metadata.annotations.helm\.sh/hook }" | grep -Eo "test")
-              kubectl wait job/$job -n $ns --for=condition=Complete 1>/dev/null
-              if [ ! -z "$hook" ]; then
-                echo "\nHelm tests for $job:"
-                kubectl logs job/$job -n $ns
-                pods=$(kubectl get pods --selector=job-name=$job -n $ns | tail -n +2 | awk '{print $1}')
-                for pod in $(echo $pods); do
-                  kubectl describe pod $pod -n $ns
-                  kubectl logs $pod -n $ns
-                done
-              fi
-            done
+            jobs=$(kubectl get jobs -n $ns --ignore-not-found | tail -n +2 | awk {'print $1'})
+            if [ ! -z "$jobs" ]; then
+              for job in $(echo $jobs); do
+                hook=$(kubectl get job/$job -n $ns -o jsonpath="{.metadata.annotations.helm\.sh/hook }" | grep -Eo "test")
+                if [ ! -z "$hook" ]; then
+                  echo "Helm tests for $job:"
+                  kubectl logs job/$job -n $ns --all-containers
+                  pods=$(kubectl get pods --selector=job-name=$job -n $ns --ignore-not-found | tail -n +2 | awk '{print $1}')
+                  for pod in $(echo $pods); do
+                    kubectl describe pod $pod -n $ns
+                    kubectl logs $pod -n $ns
+                  done
+                fi
+              done
+            fi
           done
       - name: Return GitOps branch to main
         if: success()
