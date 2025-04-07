@@ -72,21 +72,26 @@ jobs:
           flux suspend kustomization --all
           flux create source git flux-system \
           --url=${{ github.event.repository.html_url }} \
-          --branch=${GITHUB_REF#refs/heads/} \
+          --branch=${BRANCH} \
           --username=${GITHUB_ACTOR} \
           --password=${{ secrets.GITHUB_TOKEN }}
           flux resume kustomization --all
-          kubectl wait kustomization --all --all-namespaces --for=condition=ready --timeout=10m
+          message=$(echo ${BRANCH}"@sha1:"$(git log -n 1 ${BRANCH} --pretty=format:"%H"))
+          kubectl wait kustomization --all --all-namespaces --for='jsonpath={.status.conditions[?(@.type=="Ready")].message}=Applied revision: '"$message" --timeout=10m
+          kubectl get kustomizations -A
           kubectl wait helmrelease --all --all-namespaces --for=condition=ready --timeout=10m
           kubectl get helmreleases -A
+        env:
+          BRANCH: ${GITHUB_REF#refs/heads/}
       - name: Return test results
         if: success()
         run: |
-          sleep 120
           namespaces=$(kubectl get namespaces -A | tail -n +2 | awk '{print $1}')
           for ns in $(echo $namespaces); do
-            jobs=$(kubectl get jobs -n $ns --ignore-not-found | tail -n +2 | awk {'print $1'})
+            jobs=$(kubectl get jobs -n $ns --ignore-not-found | grep -v "cron" | tail -n +2 | awk {'print $1'})
             if [ ! -z "$jobs" ]; then
+              echo "Jobs found:"
+              echo "$jobs"
               for job in $(echo $jobs); do
                 hook=$(kubectl get job/$job -n $ns -o jsonpath="{.metadata.annotations.helm\.sh/hook }" | grep -Eo "test")
                 if [ ! -z "$hook" ]; then
@@ -95,7 +100,6 @@ jobs:
                   pods=$(kubectl get pods --selector=job-name=$job -n $ns --ignore-not-found | tail -n +2 | awk '{print $1}')
                   for pod in $(echo $pods); do
                     kubectl describe pod $pod -n $ns
-                    kubectl logs $pod -n $ns
                   done
                 fi
               done
