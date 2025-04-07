@@ -17,6 +17,10 @@ on:
     paths:
       - 'clusters/kind-cluster/**'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   kubernetes:
     runs-on: ubuntu-latest
