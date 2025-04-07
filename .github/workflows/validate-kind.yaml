@@ -80,8 +80,11 @@ jobs:
           --username=${GITHUB_ACTOR} \
           --password=${{ secrets.GITHUB_TOKEN }}
           flux resume kustomization --all
-          kubectl wait kustomization --all --all-namespaces --for=condition=ready --timeout=10m
+          message=$(echo ${GITHUB_REF#refs/heads/}"@sha1:"$(git log -n 1 ${GITHUB_REF#refs/heads/} --pretty=format:"%H"))
+          kubectl wait kustomization --all --all-namespaces --for='jsonpath={.status.conditions[?(@.type=="Ready")].message}=Applied revision: '"$message" --timeout=10m
+          kubectl get kustomizations -A
           kubectl wait helmrelease --all --all-namespaces --for=condition=ready --timeout=10m
+          kubectl get helmreleases -A
       - name: Return test results
         if: success()
         run: |
