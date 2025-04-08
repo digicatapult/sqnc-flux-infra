@@ -15,4 +15,4 @@ The Keycloak instance comes with a realm per persona named `alice`, `bob` and `c
 
 ### Authenticating swagger
 
-A client exists in each realm called `sequence` which supports the clientCredentials flow. When visiting any of the swagger interfaces, for example `http://localhost:3080/alice/swagger`, you will need to authenticate by clicking `Authorize`. The "secret" for all three realms is configured to be the value `secret`. Once authenticated you will then be able to make calls through the swagger interface.
+A client exists in each realm called `sequence` which supports the clientCredentials flow. When visiting any of the swagger interfaces, for example `http://localhost:3080/alice/swagger/`, you will need to authenticate by clicking `Authorize`. The "secret" for all three realms is configured to be the value `secret`. Once authenticated you will then be able to make calls through the swagger interface.
