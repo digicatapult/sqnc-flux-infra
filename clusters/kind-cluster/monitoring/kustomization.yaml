@@ -6,7 +6,7 @@ resources:
   - otel
   - jaeger
   - promtail
-  - teams-alert.yaml
+  - teams-alerts.yaml
   - ../secrets/teams-webhook.yaml 
   - source.yaml
 configMapGenerator:
