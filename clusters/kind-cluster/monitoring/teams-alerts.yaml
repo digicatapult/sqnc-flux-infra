@@ -1,0 +1,25 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Provider
+metadata:
+  name: teams-bot
+  namespace: monitoring
+spec:
+  type: msteams
+  secretRef:
+    name: teams-webhook
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Alert
+metadata:
+  name: msteams
+  namespace: monitoring
+spec:
+  providerRef:
+    name: teams-bot
+  eventSeverity: error
+  eventSources:
+    - kind: GitRepository
+      name: '*'
+    - kind: Kustomization
+      name: '*'
