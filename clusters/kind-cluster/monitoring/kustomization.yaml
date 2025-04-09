@@ -6,6 +6,8 @@ resources:
   - otel
   - jaeger
   - promtail
+  - teams-alert.yaml
+  - ../secrets/teams-webhook.yaml 
   - source.yaml
 configMapGenerator:
   - name: monitoring-values
