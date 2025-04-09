@@ -9,6 +9,7 @@ resources:
   - teams-alerts.yaml
   - ../secrets/teams-webhook.yaml 
   - source.yaml
+  - notafile.yaml
 configMapGenerator:
   - name: monitoring-values
     files:
