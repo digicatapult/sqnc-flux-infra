@@ -27,6 +27,20 @@ securitySchema:
       - clientCredentials
     tokenUrl: "/auth/realms/bob/protocol/openid-connect/token"
     refreshUrl: "/auth/realms/bob/protocol/openid-connect/token"
-    scopes: {}
+    scopes: 
+      demandA:read: "Read demandA"
+      demandA:prepare: "Prepare demandA"
+      demandA:create: "Create demandA"
+      demandA:comment: "Comment on demandA"
+      demandB:read: "Read demandB"
+      demandB:prepare: "Prepare demandB"
+      demandB:create: "Create demandB"
+      demandB:comment: "Comment on demandB"
+      match2:read: "Read match2"
+      match2:prepare: "Prepare match2"
+      match2:propose: "Propose match2"
+      match2:cancel: "Cancel match2"
+      match2:accept: "Accept match2"
+      match2:reject: "Reject match2"
 podAnnotations:
   instrumentation.opentelemetry.io/inject-nodejs: "monitoring/nodejs-instrumentation"
