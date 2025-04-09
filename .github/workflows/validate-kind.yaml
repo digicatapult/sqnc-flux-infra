@@ -17,6 +17,10 @@ on:
     paths:
       - 'clusters/kind-cluster/**'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   kubernetes:
     runs-on: ubuntu-latest
@@ -76,26 +80,32 @@ jobs:
           --username=${GITHUB_ACTOR} \
           --password=${{ secrets.GITHUB_TOKEN }}
           flux resume kustomization --all
-          kubectl wait kustomization --all --all-namespaces --for=condition=ready --timeout=10m
+          message=$(echo ${GITHUB_REF#refs/heads/}"@sha1:"$(git log -n 1 ${GITHUB_REF#refs/heads/} --pretty=format:"%H"))
+          kubectl wait kustomization --all --all-namespaces --for='jsonpath={.status.conditions[?(@.type=="Ready")].message}=Applied revision: '"$message" --timeout=10m
+          kubectl get kustomizations -A
           kubectl wait helmrelease --all --all-namespaces --for=condition=ready --timeout=10m
+          kubectl get helmreleases -A
       - name: Return test results
         if: success()
         run: |
           namespaces=$(kubectl get namespaces -A | tail -n +2 | awk '{print $1}')
           for ns in $(echo $namespaces); do
-            for job in $(kubectl get jobs -n $ns 2>/dev/null | tail -n +2 | awk {'print $1'}); do
-              hook=$(kubectl get job/$job -n $ns -o jsonpath="{.metadata.annotations.helm\.sh/hook }" | grep -Eo "test")
-              kubectl wait job/$job -n $ns --for=condition=Complete 1>/dev/null
-              if [ ! -z "$hook" ]; then
-                echo "\nHelm tests for $job:"
-                kubectl logs job/$job -n $ns
-                pods=$(kubectl get pods --selector=job-name=$job -n $ns | tail -n +2 | awk '{print $1}')
-                for pod in $(echo $pods); do
-                  kubectl describe pod $pod -n $ns
-                  kubectl logs $pod -n $ns
-                done
-              fi
-            done
+            jobs=$(kubectl get jobs -n $ns --ignore-not-found | grep -v "cron" | tail -n +2 | awk {'print $1'})
+            if [ ! -z "$jobs" ]; then
+              echo "Jobs found:"
+              echo "$jobs"
+              for job in $(echo $jobs); do
+                hook=$(kubectl get job/$job -n $ns -o jsonpath="{.metadata.annotations.helm\.sh/hook }" | grep -Eo "test")
+                if [ ! -z "$hook" ]; then
+                  echo "Helm tests for $job:"
+                  kubectl logs job/$job -n $ns --all-containers
+                  pods=$(kubectl get pods --selector=job-name=$job -n $ns --ignore-not-found | tail -n +2 | awk '{print $1}')
+                  for pod in $(echo $pods); do
+                    kubectl describe pod $pod -n $ns
+                  done
+                fi
+              done
+            fi
           done
       - name: Return GitOps branch to main
         if: success()
