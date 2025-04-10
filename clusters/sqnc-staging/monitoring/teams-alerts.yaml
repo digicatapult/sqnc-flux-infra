@@ -17,7 +17,7 @@ metadata:
 spec:
   providerRef:
     name: teams-bot
-  eventSeverity: info
+  eventSeverity: error
   eventSources:
     - kind: GitRepository
       name: '*'
