@@ -10,8 +10,13 @@ externalSqncIdentity:
   port: 3000
 auth:
   clientId: 'sqnc'
-  publicUrlPrefix: "https://auth.sqnc-stage.com/realms/demandb/protocol/openid-connect"
-  internalUrlPrefix: "http://keycloak.keycloak.svc.cluster.local/realms/demandb/protocol/openid-connect"
+  publicIdpOrigin: "https://auth.sqnc-stage.com/"
+  internalIdpOrigin: "http://keycloak.keycloak.svc.cluster.local"
+  idpPathPrefix: /auth
+  oauth2Realm: demandb
+  internalRealm: demandb-internal
+  internalClientId: sqnc
+  internalClientSecret: secret
 ingress:
   enabled: true
   ingressClassName: nginx-demandb

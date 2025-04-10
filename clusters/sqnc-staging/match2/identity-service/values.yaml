@@ -5,8 +5,11 @@ externalSqncNode:
   port: 9944
 auth:
   clientId: 'sqnc'
-  publicUrlPrefix: "https://auth.sqnc-stage.com/realms/match2/protocol/openid-connect"
-  internalUrlPrefix: "http://keycloak.keycloak.svc.cluster.local/realms/match2/protocol/openid-connect"
+  publicIdpOrigin: "https://auth.sqnc-stage.com/"
+  internalIdpOrigin: "http://keycloak.keycloak.svc.cluster.local"
+  idpPathPrefix: /auth
+  oauth2Realm: match2
+  internalRealm: match2-internal
 ingress:
   enabled: true
   ingressClassName: nginx-match2

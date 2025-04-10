@@ -1,8 +1,13 @@
-logLevel: info
-selfAddress: 5CBBTHTaV1VkcCoaRcaPJnQZwGusNgamRkE8ZBzXwkpZvjho
+logLevel: debug
 externalSqncNode:
   host: sqnc-node
   port: 9944
+externalSqncIpfs:
+  host: ipfs-sqnc-ipfs-api
+  port: 5001
+externalSqncIdentity:
+  host: demanda-identity-service-sqnc-identity-service
+  port: 3000
 auth:
   clientId: 'sqnc'
   publicIdpOrigin: "https://auth.sqnc-stage.com/"
@@ -20,7 +25,7 @@ postgresql:
   primary:
     persistence:
       storageClass: managed-csi-premium
-      size: 5Gi
+      size: 15Gi
   metrics:
     enabled: true
     serviceMonitor:
