@@ -7,6 +7,7 @@ resources:
   - ipfs-node
   - identity-service
   - matchmaker-api
+  - attachment-api
   - nginx
   - open-api-merger
   - chainspec-configmap.yaml
@@ -20,6 +21,7 @@ configMapGenerator:
       - values-ipfs.yaml=ipfs-node/values.yaml
       - values-identity-service.yaml=identity-service/values.yaml
       - values-matchmaker-api.yaml=matchmaker-api/values.yaml
+      - values-attachment-api.yaml=attachment-api/values.yaml
       - values-nginx.yaml=nginx/values.yaml
       - values-open-api-merger.yaml=open-api-merger/values.yaml
 configurations:
