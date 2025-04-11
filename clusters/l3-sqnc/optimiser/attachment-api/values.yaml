@@ -1,27 +1,24 @@
-logLevel: trace
+logLevel: debug
 externalSqncNode:
   host: sqnc-node
   port: 9944
 externalSqncIpfs:
-  host: ipfs-order-sqnc-ipfs-api
+  host: ipfs-optimiser-sqnc-ipfs-api
   port: 5001
 externalSqncIdentity:
-  host: order-identity-service-sqnc-identity-service
-  port: 3000
-externalSqncAttachment:
-  host: order-attachment-api
+  host: optimiser-identity-service-sqnc-identity-service
   port: 3000
 auth:
   clientId: 'l3'
-  publicUrlPrefix: "https://auth.dsch-l3.com"
-  internalUrlPrefix: "http://keycloak.keycloak.svc.cluster.local"
+  publicIdpOrigin: "https://auth.dsch-l3.com"
+  internalIdpOrigin: "http://keycloak.keycloak.svc.cluster.local"
   idpPathPrefix: /auth
-  oauth2Realm: order
-  internalRealm: order-internal
+  oauth2Realm: optimiser
+  internalRealm: optimiser-internal
 ingress:
   enabled: true
-  ingressClassName: nginx-order
-  hostname: order.dsch-l3.com
+  ingressClassName: nginx-optimiser
+  hostname: optimiser.dsch-l3.com
 node:
   enabled: false
 postgresql:
@@ -36,18 +33,10 @@ postgresql:
     enabled: true
     serviceMonitor:
       enabled: true
-      namespace: order
+      namespace: optimiser
       relabelings:
         - action: replace
           sourceLabels: [namespace]
           targetLabel: kubernetes_namespace
-image:
-  tag: "v3.0.81"
-global:
-  imagePullSecrets:
-    - name: dockerhub
 podAnnotations:
   instrumentation.opentelemetry.io/inject-nodejs: "monitoring/nodejs-instrumentation"
-tests:
-  auth:
-    clientId: l3

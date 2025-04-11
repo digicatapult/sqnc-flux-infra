@@ -5,8 +5,11 @@ externalSqncNode:
   port: 9944
 auth:
   clientId: 'l3'
-  publicUrlPrefix: "https://auth.dsch-l3.com/realms/order/protocol/openid-connect"
-  internalUrlPrefix: "http://keycloak.keycloak.svc.cluster.local/realms/order/protocol/openid-connect"
+  publicUrlPrefix: "https://auth.dsch-l3.com"
+  internalUrlPrefix: "http://keycloak.keycloak.svc.cluster.local"
+  idpPathPrefix: /auth
+  oauth2Realm: order
+  internalRealm: order-internal
 ingress:
   enabled: true
   ingressClassName: nginx-order
