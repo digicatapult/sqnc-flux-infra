@@ -8,6 +8,9 @@ externalSqncIpfs:
 externalSqncIdentity:
   host: match2-identity-service-sqnc-identity-service
   port: 3000
+externalSqncAttachment:
+  host: match2-sqnc-attachment-api
+  port: 3000
 auth:
   clientId: 'sqnc'
   publicIdpOrigin: "https://auth.sqnc-stage.com/"
