@@ -11,6 +11,8 @@ spec:
   upgrade:
     remediation:
       retries: -1
+  test:
+    enable: true
   dependsOn:
     - name: ipfs
     - name: demanda-identity-service
@@ -33,6 +35,10 @@ spec:
       name: demanda-internal-client-secret
       valuesKey: key
       targetPath: auth.internalClientSecret
+    - kind: Secret
+      name: demanda-client-secret
+      valuesKey: key
+      targetPath: tests.auth.clientSecret
     - kind: Secret
       name: demanda-keys
       valuesKey: account_seed

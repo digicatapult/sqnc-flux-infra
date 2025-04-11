@@ -12,7 +12,7 @@ externalSqncAttachment:
   host: demanda-sqnc-attachment-api
   port: 3000
 auth:
-  clientId: 'demanda-internal'
+  clientId: 'sqnc'
   publicIdpOrigin: "https://auth.sqnc-stage.com/"
   internalIdpOrigin: "http://keycloak.keycloak.svc.cluster.local"
   idpPathPrefix: /auth
@@ -41,3 +41,6 @@ postgresql:
           targetLabel: kubernetes_namespace
 podAnnotations:
   instrumentation.opentelemetry.io/inject-nodejs: "monitoring/nodejs-instrumentation"
+tests:
+  auth:
+    clientId: sqnc
