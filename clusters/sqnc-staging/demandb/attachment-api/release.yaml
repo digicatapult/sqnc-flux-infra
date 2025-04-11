@@ -11,6 +11,8 @@ spec:
   upgrade:
     remediation:
       retries: -1
+  test:
+    enable: false
   dependsOn:
     - name: ipfs
     - name: demandb-identity-service

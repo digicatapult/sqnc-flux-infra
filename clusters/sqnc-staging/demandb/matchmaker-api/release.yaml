@@ -11,6 +11,8 @@ spec:
   upgrade:
     remediation:
       retries: -1
+  test:
+    enable: false
   dependsOn:
     - name: ipfs
     - name: demandb-identity-service
@@ -30,9 +32,13 @@ spec:
       valuesKey: password
       targetPath: postgresql.auth.password
     - kind: Secret
-      name: demandb-matchmaker-internal-client-secret
-      valuesKey: secret
+      name: demandb-internal-client-secret
+      valuesKey: key
       targetPath: auth.internalClientSecret
+    - kind: Secret
+      name: demandb-client-secret
+      valuesKey: key
+      targetPath: tests.auth.clientSecret
     - kind: Secret
       name: demandb-keys
       valuesKey: account_seed

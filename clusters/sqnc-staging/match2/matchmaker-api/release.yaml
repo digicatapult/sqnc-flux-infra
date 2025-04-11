@@ -30,9 +30,13 @@ spec:
       valuesKey: password
       targetPath: postgresql.auth.password
     - kind: Secret
-      name: match2-matchmaker-internal-client-secret
-      valuesKey: secret
+      name: match2-internal-client-secret
+      valuesKey: key
       targetPath: auth.internalClientSecret
+    - kind: Secret
+      name: match2-client-secret
+      valuesKey: key
+      targetPath: tests.auth.clientSecret
     - kind: Secret
       name: match2-keys
       valuesKey: account_seed
