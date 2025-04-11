@@ -12,7 +12,7 @@ externalSqncAttachment:
   host: demanda-sqnc-attachment-api
   port: 3000
 auth:
-  clientId: 'sqnc'
+  clientId: 'demanda-internal'
   publicIdpOrigin: "https://auth.sqnc-stage.com/"
   internalIdpOrigin: "http://keycloak.keycloak.svc.cluster.local"
   idpPathPrefix: /auth

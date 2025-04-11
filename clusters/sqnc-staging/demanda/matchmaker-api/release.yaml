@@ -30,8 +30,8 @@ spec:
       valuesKey: password
       targetPath: postgresql.auth.password
     - kind: Secret
-      name: demanda-matchmaker-internal-client-secret
-      valuesKey: secret
+      name: demanda-internal-client-secret
+      valuesKey: key
       targetPath: auth.internalClientSecret
     - kind: Secret
       name: demanda-keys
