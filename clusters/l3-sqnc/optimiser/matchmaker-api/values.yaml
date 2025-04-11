@@ -8,10 +8,16 @@ externalSqncIpfs:
 externalSqncIdentity:
   host: optimiser-identity-service-sqnc-identity-service
   port: 3000
+externalSqncAttachment:
+  host: optimiser-attachment-api
+  port: 3000
 auth:
   clientId: 'l3'
-  publicUrlPrefix: "https://auth.dsch-l3.com/realms/optimiser/protocol/openid-connect"
-  internalUrlPrefix: "http://keycloak.keycloak.svc.cluster.local/realms/optimiser/protocol/openid-connect"
+  publicUrlPrefix: "https://auth.dsch-l3.com"
+  internalUrlPrefix: "http://keycloak.keycloak.svc.cluster.local"
+  idpPathPrefix: /auth
+  oauth2Realm: optimiser
+  internalRealm: optimiser-internal
 ingress:
   enabled: true
   ingressClassName: nginx-optimiser
@@ -40,3 +46,6 @@ global:
     - name: dockerhub
 podAnnotations:
   instrumentation.opentelemetry.io/inject-nodejs: "monitoring/nodejs-instrumentation"
+tests:
+  auth:
+    clientId: l3
