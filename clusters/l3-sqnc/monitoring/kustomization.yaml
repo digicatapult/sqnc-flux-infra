@@ -9,6 +9,7 @@ resources:
   - jaeger
   - nginx
   - redis
+  - teams-alerts.yaml
 configMapGenerator:
   - name: monitoring-values
     files:
