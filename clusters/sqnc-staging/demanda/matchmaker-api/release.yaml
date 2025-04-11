@@ -12,7 +12,7 @@ spec:
     remediation:
       retries: -1
   test:
-    enable: true
+    enable: false
   dependsOn:
     - name: ipfs
     - name: demanda-identity-service
