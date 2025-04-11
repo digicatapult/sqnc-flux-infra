@@ -8,6 +8,9 @@ spec:
   install:
     remediation:
       retries: -1
+  upgrade:
+    remediation:
+      retries: -1
   dependsOn:
     - name: ipfs
     - name: match2-identity-service
