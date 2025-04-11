@@ -16,7 +16,6 @@ auth:
   oauth2Realm: demandb
   internalRealm: demandb-internal
   internalClientId: sqnc
-  internalClientSecret: secret
 ingress:
   enabled: true
   ingressClassName: nginx-demandb
