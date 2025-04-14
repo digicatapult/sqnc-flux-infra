@@ -18,6 +18,7 @@ auth:
   idpPathPrefix: /auth
   oauth2Realm: optimiser
   internalRealm: optimiser-internal
+  internalClientId: l3
 ingress:
   enabled: true
   ingressClassName: nginx-optimiser

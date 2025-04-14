@@ -15,6 +15,7 @@ auth:
   idpPathPrefix: /auth
   oauth2Realm: capacity
   internalRealm: capacity-internal
+  internalClientId: l3
 ingress:
   enabled: true
   ingressClassName: nginx-capacity
