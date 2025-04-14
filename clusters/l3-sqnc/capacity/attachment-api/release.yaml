@@ -11,8 +11,6 @@ spec:
   upgrade:
     remediation:
       retries: -1
-  test:
-    enable: false
   dependsOn:
     - name: ipfs-capacity
     - name: capacity-identity-service
