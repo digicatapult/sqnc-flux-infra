@@ -14,7 +14,7 @@ module.exports = (config = {}) => {
   return {
     $schema: "https://docs.renovatebot.com/renovate-schema.json",
     baseBranches: [
-      "main",
+      "test/validate-kind-e2e",
     ],
     extends: [
       ":timezone(Europe/London)"
