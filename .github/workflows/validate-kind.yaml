@@ -114,7 +114,15 @@ jobs:
             ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
           git add ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
           git commit -am "Return GitOps branch to main"
-          git push -u origin ${GITHUB_REF#refs/heads/}
+          git push -u origin ${GITHUB_REF#refs/heads/} && \
+          gh api --method POST -H "Accept: application/vnd.github+json" \
+            /repos/${{ github.repository }}/check-runs \
+            -f name="gotk-sync.yaml status check" \
+            -f head_sha=$(git log -n 1 ${GITHUB_REF#refs/heads/} --pretty=format:"%H") \
+            -f status="completed" \
+            -f conclusion="success"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Describe failing pods
         if: failure()
         run: |
