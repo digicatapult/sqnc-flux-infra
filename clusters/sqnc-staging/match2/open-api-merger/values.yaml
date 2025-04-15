@@ -2,6 +2,7 @@ logLevel: info
 paths:
   - http://match2-identity-service-sqnc-identity-service:3000/api-docs
   - http://match2-matchmaker-api-sqnc-matchmaker-api:3000/api-docs
+  - http://match2-sqnc-attachment-api:3000/api-docs
 baseUrl:
   - https://match2.sqnc-stage.com
 securitySchema:
