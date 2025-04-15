@@ -15,6 +15,7 @@ auth:
   idpPathPrefix: ""
   oauth2Realm: demanda
   internalRealm: demanda-internal
+  internalClientId: sqnc
 ingress:
   enabled: true
   ingressClassName: nginx-demanda
