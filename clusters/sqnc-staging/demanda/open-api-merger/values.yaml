@@ -2,7 +2,7 @@ logLevel: info
 paths:
   - http://demanda-identity-service-sqnc-identity-service:3000/api-docs
   - http://demanda-matchmaker-api-sqnc-matchmaker-api:3000/api-docs
-  - http://demand-sqnc-attachment-api:3000/api-docs
+  - http://demanda-sqnc-attachment-api:3000/api-docs
 baseUrl:
   - https://demanda.sqnc-stage.com
 securitySchema:
