@@ -16,6 +16,7 @@ elasticsearch:
       size: 80Gi
   coordinating:
     resourcesPreset: medium
+    heapSize: 256m
 agent:
   enabled: true
 collector:
