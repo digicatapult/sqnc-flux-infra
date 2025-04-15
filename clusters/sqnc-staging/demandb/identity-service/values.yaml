@@ -7,7 +7,7 @@ auth:
   clientId: 'sqnc'
   publicIdpOrigin: "https://auth.sqnc-stage.com/"
   internalIdpOrigin: "http://keycloak.keycloak.svc.cluster.local"
-  idpPathPrefix: /auth
+  idpPathPrefix: ""
   oauth2Realm: demandb
   internalRealm: demandb-internal
 ingress:

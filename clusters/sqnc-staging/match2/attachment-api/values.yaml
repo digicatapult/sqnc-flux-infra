@@ -12,7 +12,7 @@ auth:
   clientId: 'sqnc'
   publicIdpOrigin: "https://auth.sqnc-stage.com/"
   internalIdpOrigin: "http://keycloak.keycloak.svc.cluster.local"
-  idpPathPrefix: /auth
+  idpPathPrefix: ""
   oauth2Realm: match2
   internalRealm: match2-internal
 ingress:
