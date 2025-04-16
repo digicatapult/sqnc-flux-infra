@@ -5,8 +5,11 @@ externalSqncNode:
   port: 9944
 auth:
   clientId: 'sqnc'
-  publicUrlPrefix: "https://auth.sqnc-stage.com/realms/demanda/protocol/openid-connect"
-  internalUrlPrefix: "http://keycloak.keycloak.svc.cluster.local/realms/demanda/protocol/openid-connect"
+  publicIdpOrigin: "https://auth.sqnc-stage.com/"
+  internalIdpOrigin: "http://keycloak.keycloak.svc.cluster.local"
+  idpPathPrefix: ""
+  oauth2Realm: demanda
+  internalRealm: demanda-internal
 ingress:
   enabled: true
   ingressClassName: nginx-demanda

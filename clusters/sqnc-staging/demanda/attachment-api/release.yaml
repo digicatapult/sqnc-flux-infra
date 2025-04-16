@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: match2-matchmaker-api
-  namespace: match2
+  name: demanda-sqnc-attachment-api
+  namespace: demanda
 spec:
   install:
     remediation:
@@ -13,33 +13,28 @@ spec:
       retries: -1
   dependsOn:
     - name: ipfs
-    - name: match2-identity-service
-    - name: match2-sqnc-attachment-api
+    - name: demanda-identity-service
   chart:
     spec:
-      version: 4.0.15
-      chart: sqnc-matchmaker-api
+      chart: sqnc-attachment-api
       sourceRef:
         kind: HelmRepository
         name: digicatapult
+      version: 2.0.0
   valuesFrom:
     - kind: ConfigMap
-      name: match2-values
-      valuesKey: values-matchmaker-api.yaml
+      name: demanda-values
+      valuesKey: values-attachment-api.yaml
     - kind: Secret
-      name: match2-matchmaker-postgres-creds
+      name: demanda-attachment-postgres-creds
       valuesKey: password
       targetPath: postgresql.auth.password
     - kind: Secret
-      name: match2-internal-client-secret
+      name: demanda-internal-client-secret
       valuesKey: key
       targetPath: auth.internalClientSecret
     - kind: Secret
-      name: match2-client-secret
-      valuesKey: key
-      targetPath: tests.auth.clientSecret
-    - kind: Secret
-      name: match2-keys
+      name: demanda-keys
       valuesKey: account_seed
       targetPath: userUri
   interval: 10m0s

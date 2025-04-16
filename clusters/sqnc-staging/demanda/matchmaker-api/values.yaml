@@ -8,10 +8,17 @@ externalSqncIpfs:
 externalSqncIdentity:
   host: demanda-identity-service-sqnc-identity-service
   port: 3000
+externalSqncAttachment:
+  host: demanda-sqnc-attachment-api
+  port: 3000
 auth:
   clientId: 'sqnc'
-  publicUrlPrefix: "https://auth.sqnc-stage.com/realms/demanda/protocol/openid-connect"
-  internalUrlPrefix: "http://keycloak.keycloak.svc.cluster.local/realms/demanda/protocol/openid-connect"
+  publicIdpOrigin: "https://auth.sqnc-stage.com/"
+  internalIdpOrigin: "http://keycloak.keycloak.svc.cluster.local"
+  idpPathPrefix: ""
+  oauth2Realm: demanda
+  internalRealm: demanda-internal
+  internalClientId: sqnc
 ingress:
   enabled: true
   ingressClassName: nginx-demanda
@@ -34,3 +41,6 @@ postgresql:
           targetLabel: kubernetes_namespace
 podAnnotations:
   instrumentation.opentelemetry.io/inject-nodejs: "monitoring/nodejs-instrumentation"
+tests:
+  auth:
+    clientId: sqnc

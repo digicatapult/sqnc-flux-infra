@@ -2,6 +2,7 @@ logLevel: info
 paths:
   - http://demandb-identity-service-sqnc-identity-service:3000/api-docs
   - http://demandb-matchmaker-api-sqnc-matchmaker-api:3000/api-docs
+  - http://demandb-sqnc-attachment-api:3000/api-docs
 baseUrl:
   - https://demandb.sqnc-stage.com
 securitySchema:
@@ -13,7 +14,21 @@ securitySchema:
       - clientCredentials
     tokenUrl: "https://auth.sqnc-stage.com/realms/demandb/protocol/openid-connect/token"
     refreshUrl: "https://auth.sqnc-stage.com/realms/demandb/protocol/openid-connect/token"
-    scopes: {}
+    scopes:
+      demandA:read: "Read demandA"
+      demandA:prepare: "Prepare demandA"
+      demandA:create: "Create demandA"
+      demandA:comment: "Comment on demandA"
+      demandB:read: "Read demandB"
+      demandB:prepare: "Prepare demandB"
+      demandB:create: "Create demandB"
+      demandB:comment: "Comment on demandB"
+      match2:read: "Read match2"
+      match2:prepare: "Prepare match2"
+      match2:propose: "Propose match2"
+      match2:cancel: "Cancel match2"
+      match2:accept: "Accept match2"
+      match2:reject: "Reject match2"
 ingress:
   ingressClassName: nginx-demandb
   enabled: true

@@ -8,12 +8,18 @@ spec:
   install:
     remediation:
       retries: -1
+  upgrade:
+    remediation:
+      retries: -1
+  test:
+    enable: false
   dependsOn:
     - name: ipfs
     - name: demandb-identity-service
+    - name: demandb-sqnc-attachment-api
   chart:
     spec:
-      version: 2.0.1
+      version: 4.0.15
       chart: sqnc-matchmaker-api
       sourceRef:
         kind: HelmRepository
@@ -26,6 +32,14 @@ spec:
       name: demandb-matchmaker-postgres-creds
       valuesKey: password
       targetPath: postgresql.auth.password
+    - kind: Secret
+      name: demandb-internal-client-secret
+      valuesKey: key
+      targetPath: auth.internalClientSecret
+    - kind: Secret
+      name: demandb-client-secret
+      valuesKey: key
+      targetPath: tests.auth.clientSecret
     - kind: Secret
       name: demandb-keys
       valuesKey: account_seed
