@@ -18,7 +18,7 @@ spec:
     - name: demandb-identity-service
   chart:
     spec:
-      version: 6.1.6
+      version: 4.0.15
       chart: sqnc-matchmaker-api
       sourceRef:
         kind: HelmRepository
