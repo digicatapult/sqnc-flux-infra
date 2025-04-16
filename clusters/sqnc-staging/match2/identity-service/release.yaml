@@ -15,7 +15,7 @@ spec:
       retries: -1
   chart:
     spec:
-      version: 5.1.2
+      version: 5.1.7
       chart: sqnc-identity-service
       sourceRef:
         kind: HelmRepository
