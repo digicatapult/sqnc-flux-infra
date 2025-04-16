@@ -16,6 +16,7 @@ spec:
   dependsOn:
     - name: ipfs
     - name: demandb-identity-service
+    - name: demandb-sqnc-attachment-api
   chart:
     spec:
       version: 4.0.15

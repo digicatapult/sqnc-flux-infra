@@ -16,6 +16,7 @@ spec:
   dependsOn:
     - name: ipfs
     - name: demanda-identity-service
+    - name: demanda-sqnc-attachment-api
   chart:
     spec:
       version: 4.0.15
