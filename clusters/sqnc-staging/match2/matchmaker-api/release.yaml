@@ -16,7 +16,7 @@ spec:
     - name: match2-identity-service
   chart:
     spec:
-      version: 4.0.2
+      version: 6.1.6
       chart: sqnc-matchmaker-api
       sourceRef:
         kind: HelmRepository
