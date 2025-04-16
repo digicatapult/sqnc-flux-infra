@@ -30,6 +30,10 @@ spec:
       valuesKey: password
       targetPath: postgresql.auth.password
     - kind: Secret
+      name: optimiser-internal-client-secret
+      valuesKey: key
+      targetPath: auth.internalClientSecret
+    - kind: Secret
       name: optimiser-keys
       valuesKey: account_seed
       targetPath: userUri
