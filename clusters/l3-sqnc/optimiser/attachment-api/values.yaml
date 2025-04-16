@@ -12,7 +12,7 @@ auth:
   clientId: 'l3'
   publicIdpOrigin: "https://auth.dsch-l3.com"
   internalIdpOrigin: "http://keycloak.keycloak.svc.cluster.local"
-  idpPathPrefix: /auth
+  idpPathPrefix: ""
   oauth2Realm: optimiser
   internalRealm: optimiser-internal
   internalClientId: l3
