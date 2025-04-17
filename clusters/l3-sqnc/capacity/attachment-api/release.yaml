@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: order-matchmaker-api
-  namespace: order
+  name: capacity-attachment-api
+  namespace: capacity
 spec:
   install:
     remediation:
@@ -11,36 +11,30 @@ spec:
   upgrade:
     remediation:
       retries: -1
-  test:
-    enable: false
   dependsOn:
-    - name: ipfs-order
-    - name: order-identity-service
+    - name: ipfs-capacity
+    - name: capacity-identity-service
   chart:
     spec:
-      version: 4.0.15
-      chart: sqnc-matchmaker-api
+      chart: sqnc-attachment-api
       sourceRef:
         kind: HelmRepository
         name: digicatapult
+      version: 2.0.0
   valuesFrom:
     - kind: ConfigMap
-      name: order-values
-      valuesKey: values-matchmaker-api.yaml
+      name: capacity-values
+      valuesKey: values-attachment-api.yaml
     - kind: Secret
-      name: order-matchmaker-postgres-creds
+      name: capacity-attachment-postgres-creds
       valuesKey: password
       targetPath: postgresql.auth.password
     - kind: Secret
-      name: order-internal-client-secret
+      name: capacity-internal-client-secret
       valuesKey: key
       targetPath: auth.internalClientSecret
     - kind: Secret
-      name: order-client-secret
-      valuesKey: key
-      targetPath: tests.auth.clientSecret
-    - kind: Secret
-      name: order-keys
+      name: capacity-keys
       valuesKey: account_seed
       targetPath: userUri
   interval: 10m0s

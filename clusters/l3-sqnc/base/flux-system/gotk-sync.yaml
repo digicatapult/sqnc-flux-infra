@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: main
+    branch: chore/upgrade_production_services_with_attachment_api
   url: https://github.com/digicatapult/sqnc-flux-infra.git
 
 ---
