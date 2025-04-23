@@ -1,7 +1,4 @@
 logLevel: info
-externalSqncNode:
-  host: charlie-node-sqnc-node-0
-  port: 9944
 externalSqncIpfs:
   host: charlie-ipfs-sqnc-ipfs-api
   port: 5001
@@ -15,6 +12,9 @@ auth:
   idpPathPrefix: /auth
   oauth2Realm: charlie
   internalRealm: charlie-internal
+  internalClientId: sequence
+  internalClientSecret: secret
+  externalRealm: charlie-external
 ingress:
   hostname: localhost
   paths:
@@ -22,8 +22,7 @@ ingress:
       pathType: Prefix
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
-node:
-  enabled: false
+authzWebhook: http://charlie-sqnc-matchmaker-api.charlie.svc.cluster.local:3000/v1/authz
 tests:
   auth:
     clientId: sequence
