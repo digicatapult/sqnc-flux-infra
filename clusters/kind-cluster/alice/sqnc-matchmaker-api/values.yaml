@@ -12,6 +12,8 @@ externalSqncIdentity:
 externalSqncAttachment:
   host: alice-sqnc-attachment-api
   port: 3000
+image:
+  tag: v6.2.3
 auth:
   clientId: sequence
   publicIdpOrigin: http://localhost:3080
