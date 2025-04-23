@@ -11493,9 +11493,7 @@ data:
         "clientRole": false,
         "containerId": "7d98085d-95c8-40b0-ab8f-d0d3fc182833"
       },
-      "requiredCredentials": [
-        "password"
-      ],
+      "requiredCredentials": ["password"],
       "otpPolicyType": "totp",
       "otpPolicyAlgorithm": "HmacSHA1",
       "otpPolicyInitialCounter": 0,
@@ -11510,9 +11508,7 @@ data:
       ],
       "localizationTexts": {},
       "webAuthnPolicyRpEntityName": "keycloak",
-      "webAuthnPolicySignatureAlgorithms": [
-        "ES256"
-      ],
+      "webAuthnPolicySignatureAlgorithms": ["ES256"],
       "webAuthnPolicyRpId": "",
       "webAuthnPolicyAttestationConveyancePreference": "not specified",
       "webAuthnPolicyAuthenticatorAttachment": "not specified",
@@ -11523,9 +11519,7 @@ data:
       "webAuthnPolicyAcceptableAaguids": [],
       "webAuthnPolicyExtraOrigins": [],
       "webAuthnPolicyPasswordlessRpEntityName": "keycloak",
-      "webAuthnPolicyPasswordlessSignatureAlgorithms": [
-        "ES256"
-      ],
+      "webAuthnPolicyPasswordlessSignatureAlgorithms": ["ES256"],
       "webAuthnPolicyPasswordlessRpId": "",
       "webAuthnPolicyPasswordlessAttestationConveyancePreference": "not specified",
       "webAuthnPolicyPasswordlessAuthenticatorAttachment": "not specified",
@@ -11541,7 +11535,9 @@ data:
           "emailVerified": false,
           "attributes": {
             "organisationName": ["Alice"],
-            "organisationChainAccount": ["5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"]
+            "organisationChainAccount": [
+              "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"
+            ]
           },
           "createdTimestamp": 1715758045885,
           "enabled": true,
@@ -11557,7 +11553,9 @@ data:
           "emailVerified": false,
           "attributes": {
             "organisationName": ["Bob"],
-            "organisationChainAccount": ["5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty"]
+            "organisationChainAccount": [
+              "5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty"
+            ]
           },
           "createdTimestamp": 1715758045885,
           "enabled": true,
@@ -11567,24 +11565,19 @@ data:
           "requiredActions": [],
           "notBefore": 0,
           "groups": []
-        },
+        }
       ],
       "scopeMappings": [
         {
           "clientScope": "offline_access",
-          "roles": [
-            "offline_access"
-          ]
+          "roles": ["offline_access"]
         }
       ],
       "clientScopeMappings": {
         "account": [
           {
             "client": "account-console",
-            "roles": [
-              "manage-account",
-              "view-groups"
-            ]
+            "roles": ["manage-account", "view-groups"]
           }
         ]
       },
@@ -11598,9 +11591,7 @@ data:
           "enabled": true,
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
-          "redirectUris": [
-            "/realms/charlie-external/account/*"
-          ],
+          "redirectUris": ["/realms/charlie-external/account/*"],
           "webOrigins": [],
           "notBefore": 0,
           "bearerOnly": false,
@@ -11641,9 +11632,7 @@ data:
           "enabled": true,
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
-          "redirectUris": [
-            "/realms/charlie-external/account/*"
-          ],
+          "redirectUris": ["/realms/charlie-external/account/*"],
           "webOrigins": [],
           "notBefore": 0,
           "bearerOnly": false,
@@ -11805,12 +11794,8 @@ data:
           "enabled": true,
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
-          "redirectUris": [
-            "/admin/charlie/console/*"
-          ],
-          "webOrigins": [
-            "+"
-          ],
+          "redirectUris": ["/admin/charlie/console/*"],
+          "webOrigins": ["+"],
           "notBefore": 0,
           "bearerOnly": false,
           "consentRequired": false,
@@ -11871,12 +11856,8 @@ data:
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
           "secret": "secret",
-          "redirectUris": [
-            "/*"
-          ],
-          "webOrigins": [
-            "+"
-          ],
+          "redirectUris": ["/*"],
+          "webOrigins": ["+"],
           "notBefore": 0,
           "bearerOnly": false,
           "consentRequired": false,
@@ -12006,12 +11987,8 @@ data:
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
           "secret": "secret",
-          "redirectUris": [
-            "/*"
-          ],
-          "webOrigins": [
-            "+"
-          ],
+          "redirectUris": ["/*"],
+          "webOrigins": ["+"],
           "notBefore": 0,
           "bearerOnly": false,
           "consentRequired": false,
@@ -12657,9 +12634,7 @@ data:
       },
       "smtpServer": {},
       "eventsEnabled": false,
-      "eventsListeners": [
-        "jboss-logging"
-      ],
+      "eventsListeners": ["jboss-logging"],
       "enabledEventTypes": [],
       "adminEventsEnabled": false,
       "adminEventsDetailsEnabled": false,
@@ -12687,31 +12662,16 @@ data:
             "subType": "anonymous",
             "subComponents": {},
             "config": {
-              "allow-default-scopes": [
-                "true"
-              ]
+              "allow-default-scopes": ["true"]
             }
           },
-          "org.keycloak.userprofile.UserProfileProvider": [
-            {
-              "providerId": "declarative-user-profile",
-              "subComponents": {},
-              "config": {
-                "kc.user.profile.config": [
-                  "{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"username-prohibited-characters\":{},\"up-username-not-idn-homograph\":{}},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"firstName\",\"displayName\":\"${firstName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"lastName\",\"displayName\":\"${lastName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"organisationChainAccount\",\"displayName\":\"Organisation Chain Account\",\"validations\":{\"pattern\":{\"pattern\":\"5[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+\",\"error-message\":\"\"}},\"annotations\":{},\"required\":{\"roles\":[\"admin\",\"user\"]},\"permissions\":{\"view\":[],\"edit\":[\"admin\"]},\"multivalued\":false},{\"name\":\"organisationName\",\"displayName\":\"Organisation Name\",\"validations\":{},\"annotations\":{},\"required\":{\"roles\":[\"admin\",\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\"]},\"multivalued\":false}],\"groups\":[{\"name\":\"user-metadata\",\"displayHeader\":\"User metadata\",\"displayDescription\":\"Attributes, which refer to user metadata\"}]}"
-                ]
-              }
-            }
-          ],
           {
             "name": "Allowed Client Scopes",
             "providerId": "allowed-client-templates",
             "subType": "authenticated",
             "subComponents": {},
             "config": {
-              "allow-default-scopes": [
-                "true"
-              ]
+              "allow-default-scopes": ["true"]
             }
           },
           {
@@ -12756,12 +12716,8 @@ data:
             "subType": "anonymous",
             "subComponents": {},
             "config": {
-              "host-sending-registration-request-must-match": [
-                "true"
-              ],
-              "client-uris-must-match": [
-                "true"
-              ]
+              "host-sending-registration-request-must-match": ["true"],
+              "client-uris-must-match": ["true"]
             }
           },
           {
@@ -12770,8 +12726,17 @@ data:
             "subType": "anonymous",
             "subComponents": {},
             "config": {
-              "max-clients": [
-                "200"
+              "max-clients": ["200"]
+            }
+          }
+        ],
+        "org.keycloak.userprofile.UserProfileProvider": [
+          {
+            "providerId": "declarative-user-profile",
+            "subComponents": {},
+            "config": {
+              "kc.user.profile.config": [
+                "{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"username-prohibited-characters\":{},\"up-username-not-idn-homograph\":{}},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"firstName\",\"displayName\":\"${firstName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"lastName\",\"displayName\":\"${lastName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"organisationChainAccount\",\"displayName\":\"Organisation Chain Account\",\"validations\":{\"pattern\":{\"pattern\":\"5[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+\",\"error-message\":\"\"}},\"annotations\":{},\"required\":{\"roles\":[\"admin\",\"user\"]},\"permissions\":{\"view\":[],\"edit\":[\"admin\"]},\"multivalued\":false},{\"name\":\"organisationName\",\"displayName\":\"Organisation Name\",\"validations\":{},\"annotations\":{},\"required\":{\"roles\":[\"admin\",\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\"]},\"multivalued\":false}],\"groups\":[{\"name\":\"user-metadata\",\"displayHeader\":\"User metadata\",\"displayDescription\":\"Attributes, which refer to user metadata\"}]}"
               ]
             }
           }
@@ -12782,9 +12747,7 @@ data:
             "providerId": "aes-generated",
             "subComponents": {},
             "config": {
-              "priority": [
-                "100"
-              ]
+              "priority": ["100"]
             }
           },
           {
@@ -12792,9 +12755,7 @@ data:
             "providerId": "rsa-generated",
             "subComponents": {},
             "config": {
-              "priority": [
-                "100"
-              ]
+              "priority": ["100"]
             }
           },
           {
@@ -12802,12 +12763,8 @@ data:
             "providerId": "rsa-enc-generated",
             "subComponents": {},
             "config": {
-              "priority": [
-                "100"
-              ],
-              "algorithm": [
-                "RSA-OAEP"
-              ]
+              "priority": ["100"],
+              "algorithm": ["RSA-OAEP"]
             }
           },
           {
@@ -12815,12 +12772,8 @@ data:
             "providerId": "hmac-generated",
             "subComponents": {},
             "config": {
-              "priority": [
-                "100"
-              ],
-              "algorithm": [
-                "HS512"
-              ]
+              "priority": ["100"],
+              "algorithm": ["HS512"]
             }
           }
         ]
