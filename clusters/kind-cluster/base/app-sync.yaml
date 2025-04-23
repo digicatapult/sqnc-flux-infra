@@ -74,6 +74,7 @@ metadata:
   namespace: monitoring
 spec:
   interval: 1m
+  timeout: 3m
   path: ./clusters/kind-cluster/monitoring
   prune: true
   dependsOn:
