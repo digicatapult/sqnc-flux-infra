@@ -17,7 +17,7 @@ ingress:
       pathType: Prefix
     - path: /charlie/(v1/self(/.*)?)
       pathType: Prefix
-    - path: /alice/(v1/roles(/.*)?)
+    - path: /charlie/(v1/roles(/.*)?)
       pathType: Prefix
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
