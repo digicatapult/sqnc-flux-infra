@@ -22,7 +22,7 @@ ingress:
       pathType: Prefix
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
-authzWebhook: http://alice-sqnc-matchmaker-api.alice.svc.cluster.local/v1/authz
+authzWebhook: http://alice-sqnc-matchmaker-api.alice.svc.cluster.local:3000/v1/authz
 tests:
   auth:
     clientId: sequence
