@@ -126,11 +126,24 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Auto-merge PR into main
-        if: github.event_name == 'pull_request' && startsWith(github.head_ref, 'renovate/') && success()
+        if: success()
         run: |
-          PR_NUMBER=$(gh pr view --json number -q .number)
-          echo "Merging PR #$PR_NUMBER into main"
-          gh pr merge $PR_NUMBER --squash --admin --delete-branch
+          echo "GitHub event: ${{ github.event_name }}"
+          if [[ "${{ github.event_name }}" != "pull_request" ]]; then
+            echo "Not a pull request event. Skipping auto-merge."
+            exit 0
+          fi
+
+          PR_BRANCH=$(gh pr view --json headRefName -q .headRefName)
+          echo "PR branch is $PR_BRANCH"
+
+          if [[ "$PR_BRANCH" == renovate/* ]]; then
+            PR_NUMBER=$(gh pr view --json number -q .number)
+            echo "Merging Renovate PR #$PR_NUMBER into main"
+            gh pr merge $PR_NUMBER --squash --admin --delete-branch
+          else
+            echo "PR is not from a Renovate branch. Skipping auto-merge."
+          fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Describe failing pods
