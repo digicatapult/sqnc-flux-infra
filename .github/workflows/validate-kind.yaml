@@ -29,6 +29,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
+        with:
+          fetch-depth: 0
       - name: Install Flux
         uses: fluxcd/flux2/action@main
       - name: Init Kind action
@@ -63,6 +65,8 @@ jobs:
         if: success()
         run: |
           patch=${GITHUB_HEAD_REF}
+          git fetch origin "${patch}:${patch}"
+          git checkout "${patch}"
           sed -i -r "s#(branch:).*#\1 $patch#" \
             ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
           git add ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
