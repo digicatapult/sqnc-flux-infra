@@ -11,11 +11,6 @@ on:
       - 'renovate/**'
     paths:
       - 'clusters/kind-cluster/**'
-  push:
-    branches:
-      - 'renovate/**'
-    paths:
-      - 'clusters/kind-cluster/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
