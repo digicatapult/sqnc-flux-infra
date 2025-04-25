@@ -62,7 +62,7 @@ jobs:
       - name: Patch GitOps branch to match PR
         if: success()
         run: |
-          patch=${GITHUB_REF#refs/heads/}
+          patch=${GITHUB_HEAD_REF}
           sed -i -r "s#(branch:).*#\1 $patch#" \
             ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
           git add ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
@@ -74,11 +74,11 @@ jobs:
           flux suspend kustomization --all
           flux create source git flux-system \
           --url=${{ github.event.repository.html_url }} \
-          --branch=${GITHUB_REF#refs/heads/} \
+          --branch=${GITHUB_HEAD_REF} \
           --username=${GITHUB_ACTOR} \
           --password=${{ secrets.GITHUB_TOKEN }}
           flux resume kustomization --all
-          message=$(echo ${GITHUB_REF#refs/heads/}"@sha1:"$(git log -n 1 ${GITHUB_REF#refs/heads/} --pretty=format:"%H"))
+          message=$(echo ${GITHUB_HEAD_REF}"@sha1:"$(git log -n 1 ${GITHUB_HEAD_REF} --pretty=format:"%H"))
           kubectl wait kustomization --all --all-namespaces --for='jsonpath={.status.conditions[?(@.type=="Ready")].message}=Applied revision: '"$message" --timeout=10m
           kubectl get kustomizations -A
           kubectl wait helmrelease --all --all-namespaces --for=condition=ready --timeout=10m
@@ -112,11 +112,11 @@ jobs:
             ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
           git add ./clusters/kind-cluster/base/flux-system/gotk-sync.yaml
           git commit -am "Return GitOps branch to main"
-          git push -u origin ${GITHUB_REF#refs/heads/} && \
+          git push -u origin ${GITHUB_HEAD_REF} && \
           gh api --method POST -H "Accept: application/vnd.github+json" \
             /repos/${{ github.repository }}/check-runs \
             -f name="gotk-sync.yaml status check" \
-            -f head_sha=$(git log -n 1 ${GITHUB_REF#refs/heads/} --pretty=format:"%H") \
+            -f head_sha=$(git log -n 1 ${GITHUB_HEAD_REF} --pretty=format:"%H") \
             -f status="completed" \
             -f conclusion="success"
         env:
