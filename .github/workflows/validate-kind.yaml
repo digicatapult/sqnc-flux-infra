@@ -8,7 +8,7 @@ on:
       - reopened
       - synchronize
     branches:
-      - 'renovate/**'
+      - 'main'
     paths:
       - 'clusters/kind-cluster/**'
 
@@ -24,6 +24,7 @@ permissions:
 
 jobs:
   kubernetes:
+    if: startsWith(github.head_ref, 'renovate/')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
