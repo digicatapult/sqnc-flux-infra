@@ -9,7 +9,7 @@ externalSqncIdentity:
   host: optimiser-identity-service-sqnc-identity-service
   port: 3000
 externalSqncAttachment:
-  host: optimiser-attachment-api
+  host: optimiser-attachment-api-sqnc-attachment-api
   port: 3000
 auth:
   clientId: 'l3'

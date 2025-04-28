@@ -9,7 +9,7 @@ externalSqncIdentity:
   host: capacity-identity-service-sqnc-identity-service
   port: 3000
 externalSqncAttachment:
-  host: capacity-attachment-api
+  host: capacity-matchmaker-api-sqnc-matchmaker-api
   port: 3000
 auth:
   clientId: 'l3'
