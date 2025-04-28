@@ -13,8 +13,8 @@ externalSqncAttachment:
   port: 3000
 auth:
   clientId: 'l3'
-  publicUrlPrefix: "https://auth.dsch-l3.com"
-  internalUrlPrefix: "http://keycloak.keycloak.svc.cluster.local"
+  publicIdpOrigin: "https://auth.dsch-l3.com"
+  internalIdpOrigin: "http://keycloak.keycloak.svc.cluster.local"
   idpPathPrefix: ""
   oauth2Realm: order
   internalRealm: order-internal
