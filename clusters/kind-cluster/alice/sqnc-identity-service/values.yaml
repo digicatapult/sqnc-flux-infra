@@ -1,4 +1,4 @@
-logLevel: info
+logLevel: debug
 selfAddress: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
 externalSqncNode:
   host: alice-node-sqnc-node-0
