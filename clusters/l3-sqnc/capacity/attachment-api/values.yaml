@@ -8,9 +8,6 @@ externalSqncIpfs:
 externalSqncIdentity:
   host: capacity-identity-service-sqnc-identity-service
   port: 3000
-externalSqncAttachment:
-  host: capacity-attachment-api-sqnc-attachment-api
-  port: 3000
 auth:
   clientId: 'l3'
   publicIdpOrigin: "https://auth.dsch-l3.com"
@@ -42,11 +39,5 @@ postgresql:
         - action: replace
           sourceLabels: [namespace]
           targetLabel: kubernetes_namespace
-global:
-  imagePullSecrets:
-    - name: dockerhub
 podAnnotations:
   instrumentation.opentelemetry.io/inject-nodejs: "monitoring/nodejs-instrumentation"
-tests:
-  auth:
-    clientId: l3

@@ -5,8 +5,11 @@ externalSqncNode:
   port: 9944
 auth:
   clientId: 'l3'
-  publicUrlPrefix: "https://auth.dsch-l3.com/realms/optimiser/protocol/openid-connect"
-  internalUrlPrefix: "http://keycloak.keycloak.svc.cluster.local/realms/optimiser/protocol/openid-connect"
+  publicIdpOrigin: "https://auth.dsch-l3.com"
+  internalIdpOrigin: "http://keycloak.keycloak.svc.cluster.local"
+  idpPathPrefix: ""
+  oauth2Realm: optimiser
+  internalRealm: optimiser-internal
 ingress:
   enabled: true
   ingressClassName: nginx-optimiser
