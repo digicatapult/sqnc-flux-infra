@@ -15,7 +15,7 @@ spec:
     enable: true
   chart:
     spec:
-      version: 7.1.5
+      version: 7.1.16
       chart: sqnc-node
       sourceRef:
         kind: HelmRepository
