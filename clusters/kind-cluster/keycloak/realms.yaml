@@ -142,7 +142,7 @@ data:
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
           "redirectUris": [
-            "/realms/alice/account/"
+            "/realms/alice/account/*"
           ],
           "webOrigins": [],
           "notBefore": 0,
@@ -185,7 +185,7 @@ data:
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
           "redirectUris": [
-            "/realms/alice/account/"
+            "/realms/alice/account/*"
           ],
           "webOrigins": [],
           "notBefore": 0,
@@ -2118,7 +2118,7 @@ data:
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
           "redirectUris": [
-            "/realms/alice/account/"
+            "/realms/alice/account/*"
           ],
           "webOrigins": [],
           "notBefore": 0,
@@ -2161,7 +2161,7 @@ data:
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
           "redirectUris": [
-            "/realms/alice/account/"
+            "/realms/alice/account/*"
           ],
           "webOrigins": [],
           "notBefore": 0,
@@ -3967,7 +3967,7 @@ data:
           "enabled": true,
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
-          "redirectUris": ["/realms/alice-external/account/"],
+          "redirectUris": ["/realms/alice-external/account/*"],
           "webOrigins": [],
           "notBefore": 0,
           "bearerOnly": false,
@@ -4008,7 +4008,7 @@ data:
           "enabled": true,
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
-          "redirectUris": ["/realms/alice-external/account/"],
+          "redirectUris": ["/realms/alice-external/account/*"],
           "webOrigins": [],
           "notBefore": 0,
           "bearerOnly": false,
@@ -5944,7 +5944,7 @@ data:
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
           "redirectUris": [
-            "/realms/bob/account/"
+            "/realms/bob/account/*"
           ],
           "webOrigins": [],
           "notBefore": 0,
@@ -5987,7 +5987,7 @@ data:
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
           "redirectUris": [
-            "/realms/bob/account/"
+            "/realms/bob/account/*"
           ],
           "webOrigins": [],
           "notBefore": 0,
@@ -7920,7 +7920,7 @@ data:
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
           "redirectUris": [
-            "/realms/bob/account/"
+            "/realms/bob/account/*"
           ],
           "webOrigins": [],
           "notBefore": 0,
@@ -7963,7 +7963,7 @@ data:
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
           "redirectUris": [
-            "/realms/bob/account/"
+            "/realms/bob/account/*"
           ],
           "webOrigins": [],
           "notBefore": 0,
@@ -9769,7 +9769,7 @@ data:
           "enabled": true,
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
-          "redirectUris": ["/realms/bob-external/account/"],
+          "redirectUris": ["/realms/bob-external/account/*"],
           "webOrigins": [],
           "notBefore": 0,
           "bearerOnly": false,
@@ -9810,7 +9810,7 @@ data:
           "enabled": true,
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
-          "redirectUris": ["/realms/bob-external/account/"],
+          "redirectUris": ["/realms/bob-external/account/*"],
           "webOrigins": [],
           "notBefore": 0,
           "bearerOnly": false,
@@ -11746,7 +11746,7 @@ data:
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
           "redirectUris": [
-            "/realms/charlie/account/"
+            "/realms/charlie/account/*"
           ],
           "webOrigins": [],
           "notBefore": 0,
@@ -11789,7 +11789,7 @@ data:
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
           "redirectUris": [
-            "/realms/charlie/account/"
+            "/realms/charlie/account/*"
           ],
           "webOrigins": [],
           "notBefore": 0,
@@ -13722,7 +13722,7 @@ data:
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
           "redirectUris": [
-            "/realms/charlie/account/"
+            "/realms/charlie/account/*"
           ],
           "webOrigins": [],
           "notBefore": 0,
@@ -13765,7 +13765,7 @@ data:
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
           "redirectUris": [
-            "/realms/charlie/account/"
+            "/realms/charlie/account/*"
           ],
           "webOrigins": [],
           "notBefore": 0,
@@ -15571,7 +15571,7 @@ data:
           "enabled": true,
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
-          "redirectUris": ["/realms/charlie-external/account/"],
+          "redirectUris": ["/realms/charlie-external/account/*"],
           "webOrigins": [],
           "notBefore": 0,
           "bearerOnly": false,
@@ -15612,7 +15612,7 @@ data:
           "enabled": true,
           "alwaysDisplayInConsole": false,
           "clientAuthenticatorType": "client-secret",
-          "redirectUris": ["/realms/charlie-external/account/"],
+          "redirectUris": ["/realms/charlie-external/account/*"],
           "webOrigins": [],
           "notBefore": 0,
           "bearerOnly": false,
