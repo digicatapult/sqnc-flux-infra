@@ -28,8 +28,4 @@ spec:
       name: match2-identity-postgres-creds
       valuesKey: password
       targetPath: postgresql.auth.password
-    - kind: Secret
-      name: match2-internal-client-secret
-      valuesKey: key
-      targetPath: auth.internalClientSecret
   interval: 10m0s

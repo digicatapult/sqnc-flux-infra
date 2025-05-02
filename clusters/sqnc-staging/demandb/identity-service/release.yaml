@@ -28,8 +28,4 @@ spec:
       name: demandb-identity-postgres-creds
       valuesKey: password
       targetPath: postgresql.auth.password
-    - kind: Secret
-      name: demandb-internal-client-secret
-      valuesKey: key
-      targetPath: auth.internalClientSecret
   interval: 10m0s
