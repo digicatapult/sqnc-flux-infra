@@ -10,7 +10,6 @@ auth:
   idpPathPrefix: ""
   oauth2Realm: demandb
   internalRealm: demandb-internal
-  internalClientId: sqnc
 ingress:
   enabled: true
   ingressClassName: nginx-demandb
