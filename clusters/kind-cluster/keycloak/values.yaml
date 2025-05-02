@@ -1,5 +1,5 @@
 httpRelativePath: /auth/
-proxy: edge
+proxyHeaders: forwarded
 ingress:
   enabled: true
   hostname: localhost
