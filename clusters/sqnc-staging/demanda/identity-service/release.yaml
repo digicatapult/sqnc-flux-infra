@@ -15,7 +15,7 @@ spec:
       retries: -1
   chart:
     spec:
-      version: 5.1.7
+      version: 5.1.19
       chart: sqnc-identity-service
       sourceRef:
         kind: HelmRepository
@@ -28,4 +28,8 @@ spec:
       name: demanda-identity-postgres-creds
       valuesKey: password
       targetPath: postgresql.auth.password
+    - kind: Secret
+      name: demanda-internal-client-secret
+      valuesKey: key
+      targetPath: auth.internalClientSecret
   interval: 10m0s
