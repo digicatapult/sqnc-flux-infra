@@ -1,0 +1,13 @@
+name: Deployment
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [Kustomization/podinfo.flux-system]
+
+jobs:
+  deployed:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deployed"
+

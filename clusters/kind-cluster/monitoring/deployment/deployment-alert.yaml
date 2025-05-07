@@ -1,0 +1,35 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: api-token
+  namespace: monitoring
+stringData:
+  token: some-token
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Provider
+metadata:
+  name: github-dispatch
+  namespace: monitoring
+spec:
+  type: githubdispatch
+  address: https://github.com/digicatapult/sqnc-flux-infra
+  secretRef:
+    name: api-token
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Alert
+metadata:
+  name: deployment-alert
+  namespace: monitoring
+spec:
+  providerRef:
+    name: github-dispatch
+  eventSeverity: info
+  eventSources:
+    - kind: Kustomization
+      name: '*'
+      namespace: '*'
+  inclusionList:
+    - ".*succeeded.*"
