@@ -28,8 +28,8 @@ spec:
     name: github-dispatch
   eventSeverity: info
   eventSources:
-    - kind: Kustomization
+    - kind: HelmRelease
       name: '*'
       namespace: '*'
   inclusionList:
-    - ".*succeeded.*"
+    - ".*upgrade succeeded.*"
