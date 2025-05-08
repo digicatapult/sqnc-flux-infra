@@ -1,4 +1,4 @@
-logLevel: info
+logLevel: debug
 externalSqncIpfs:
   host: alice-ipfs-sqnc-ipfs-api
   port: 5001

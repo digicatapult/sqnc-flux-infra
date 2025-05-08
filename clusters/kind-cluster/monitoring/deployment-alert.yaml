@@ -30,6 +30,5 @@ spec:
   eventSources:
     - kind: HelmRelease
       name: '*'
-      namespace: '*'
   inclusionList:
     - ".*upgrade succeeded.*"
