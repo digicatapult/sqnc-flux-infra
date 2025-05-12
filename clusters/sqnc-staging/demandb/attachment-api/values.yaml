@@ -21,6 +21,7 @@ ingress:
   enabled: true
   ingressClassName: nginx-demandb
   hostname: demandb.sqnc-stage.com
+authzWebhook: http://demandb-matchmaker-api-sqnc-matchmaker-api.demandb.svc.cluster.local:3000/v1/authz
 node:
   enabled: false
 postgresql:

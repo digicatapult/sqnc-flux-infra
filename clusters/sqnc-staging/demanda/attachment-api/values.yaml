@@ -21,6 +21,7 @@ ingress:
   enabled: true
   ingressClassName: nginx-demanda
   hostname: demanda.sqnc-stage.com
+authzWebhook: http://demanda-matchmaker-api-sqnc-matchmaker-api.demanda.svc.cluster.local:3000/v1/authz
 node:
   enabled: false
 postgresql:

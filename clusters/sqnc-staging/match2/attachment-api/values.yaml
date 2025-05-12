@@ -21,6 +21,7 @@ ingress:
   enabled: true
   ingressClassName: nginx-match2
   hostname: match2.sqnc-stage.com
+authzWebhook: http://match2-matchmaker-api-sqnc-matchmaker-api.match2.svc.cluster.local:3000/v1/authz
 node:
   enabled: false
 postgresql:
