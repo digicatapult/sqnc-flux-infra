@@ -16,6 +16,7 @@ auth:
   oauth2Realm: match2
   internalRealm: match2-internal
   internalClientId: sqnc
+  externalRealm: match2-external
 ingress:
   enabled: true
   ingressClassName: nginx-match2
