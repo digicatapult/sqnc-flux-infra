@@ -30,4 +30,4 @@ spec:
   eventSources:
     - kind: HelmRelease
       name: '*'
-      namespace: '*'
+      namespace: alice
