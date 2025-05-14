@@ -14,7 +14,7 @@ metadata:
   namespace: monitoring
 spec:
   type: githubdispatch
-  address: https://github.com/digicatapult/sqnc-flux-infra
+  address: https://github.com/jonmattgray/bla
   secretRef:
     name: api-token
 ---
@@ -31,3 +31,23 @@ spec:
     - kind: HelmRelease
       name: '*'
       namespace: alice
+    - kind: HelmRelease
+      name: '*'
+      namespace: bob
+    - kind: HelmRelease
+      name: '*'
+      namespace: cert-manager
+    - kind: HelmRelease
+      name: '*'
+      namespace: flux-system
+    - kind: HelmRelease
+      name: '*'
+      namespace: keycloak
+    - kind: HelmRelease
+      name: '*'
+      namespace: kube-system
+    - kind: HelmRelease
+      name: '*'
+      namespace: monitoring
+  inclusionList:
+    - ".*upgrade succeeded.*"
