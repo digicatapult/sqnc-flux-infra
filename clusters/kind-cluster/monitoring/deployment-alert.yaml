@@ -31,5 +31,3 @@ spec:
     - kind: HelmRelease
       name: '*'
       namespace: '*'
-  inclusionList:
-    - "(?i).*upgrade succeeded.*"
