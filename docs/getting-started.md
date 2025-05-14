@@ -12,7 +12,7 @@ Before getting started make sure you have the following installed:
 - kind >= 0.11.1
 - kubectl >= 1.21.1
 - git
-- flux >= 0.29.5
+- flux >= 2.5.1
 
 ## Setting up Kind and Flux
 
