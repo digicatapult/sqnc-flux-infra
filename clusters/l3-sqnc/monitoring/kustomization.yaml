@@ -10,6 +10,7 @@ resources:
   - nginx
   - redis
   - teams-alerts.yaml
+  - deployment-alert.yaml
 configMapGenerator:
   - name: monitoring-values
     files:

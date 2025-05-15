@@ -1,13 +1,55 @@
 name: Deployment
 
 on:
-  workflow_dispatch:
   repository_dispatch:
-    types: [Kustomization/podinfo.flux-system]
+
+concurrency:
+  group: deployment
+  cancel-in-progress: false
 
 jobs:
-  deployed:
+  track-deployments:
+    if: startsWith(github.event.action, 'HelmRelease/')
     runs-on: ubuntu-latest
-    steps:
-      - run: echo "Deployed"
 
+    permissions:
+      contents: write
+
+    steps:
+      - name: Set variables
+        id: vars
+        run: |
+          echo "name=${{ github.event.client_payload.involvedObject.name }}" >> $GITHUB_OUTPUT
+          echo "version=${{ github.event.client_payload.metadata.revision }}" >> $GITHUB_OUTPUT
+
+      - name: Checkout deployed-versions branch
+        uses: actions/checkout@v4
+        with:
+          ref: deployed-versions
+
+      - name: Compare and update version
+        id: compare
+        run: |
+          file="${{ steps.vars.outputs.name }}"
+          new_version="${{ steps.vars.outputs.version }}"
+          current_version=""
+
+          if [ -f "$file" ]; then
+            current_version=$(cat "$file")
+          fi
+
+          echo "Current: $current_version"
+          echo "New: $new_version"
+
+          if [ -z "$current_version" ] || [ "$current_version" != "$new_version" ]; then
+            echo "New or updated deployment"
+            echo "$new_version" > "$file"
+          else
+            echo "Same version - no update"
+            exit 1
+          fi
+
+      - name: Commit and push new version
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "${{ steps.vars.outputs.name }}-${{ steps.vars.outputs.version }}"

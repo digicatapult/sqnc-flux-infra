@@ -7,7 +7,6 @@ resources:
   - jaeger
   - promtail
   - source.yaml
-  - deployment-alert.yaml
 configMapGenerator:
   - name: monitoring-values
     files:
