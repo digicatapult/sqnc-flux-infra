@@ -17,7 +17,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: digicatapult
-      version: "2.1.76"
+      version: "2.1.75"
   valuesFrom:
     - kind: ConfigMap
       name: alice-values
