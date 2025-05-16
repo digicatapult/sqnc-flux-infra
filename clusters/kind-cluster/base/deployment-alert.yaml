@@ -1,0 +1,45 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Provider
+metadata:
+  name: github-dispatch
+  namespace: flux-system
+spec:
+  type: githubdispatch
+  address: https://github.com/digicatapult/sqnc-flux-infra
+  secretRef:
+    name: github-dispatch
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Alert
+metadata:
+  name: deployment-alert
+  namespace: flux-system
+spec:
+  providerRef:
+    name: github-dispatch
+  eventSeverity: info
+  eventSources:
+    - kind: HelmRelease
+      name: '*'
+      namespace: capacity
+    - kind: HelmRelease
+      name: '*'
+      namespace: optimiser
+    - kind: HelmRelease
+      name: '*'
+      namespace: order
+    - kind: HelmRelease
+      name: '*'
+      namespace: cert-manager
+    - kind: HelmRelease
+      name: '*'
+      namespace: flux-system
+    - kind: HelmRelease
+      name: '*'
+      namespace: keycloak
+    - kind: HelmRelease
+      name: '*'
+      namespace: monitoring
+  inclusionList:
+    - ".*upgrade succeeded.*"
