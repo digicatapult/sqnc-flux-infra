@@ -1,4 +1,5 @@
 production: true
+proxyHeaders: forwarded
 ingress:
   enabled: true
   ingressClassName: nginx-keycloak
