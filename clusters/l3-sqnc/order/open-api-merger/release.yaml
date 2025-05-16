@@ -13,7 +13,7 @@ spec:
     - name: order-matchmaker-api
   chart:
     spec:
-      version: 2.1.2
+      version: 2.1.77
       chart: openapi-merger
       sourceRef:
         kind: HelmRepository

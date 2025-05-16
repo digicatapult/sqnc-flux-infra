@@ -16,10 +16,12 @@ auth:
   oauth2Realm: capacity
   internalRealm: capacity-internal
   internalClientId: l3
+  externalRealm: capacity-external
 ingress:
   enabled: true
   ingressClassName: nginx-capacity
   hostname: capacity.dsch-l3.com
+authzWebhook: http://capacity-matchmaker-api-sqnc-matchmaker-api.capacity.svc.cluster.local:3000/v1/authz
 node:
   enabled: false
 postgresql:

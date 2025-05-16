@@ -16,10 +16,12 @@ auth:
   oauth2Realm: order
   internalRealm: order-internal
   internalClientId: l3
+  externalRealm: order-external
 ingress:
   enabled: true
   ingressClassName: nginx-order
   hostname: order.dsch-l3.com
+authzWebhook: http://order-matchmaker-api-sqnc-matchmaker-api.order.svc.cluster.local:3000/v1/authz
 node:
   enabled: false
 postgresql:

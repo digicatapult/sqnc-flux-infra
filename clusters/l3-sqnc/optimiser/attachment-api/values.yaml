@@ -16,10 +16,12 @@ auth:
   oauth2Realm: optimiser
   internalRealm: optimiser-internal
   internalClientId: l3
+  externalRealm: optimiser-external
 ingress:
   enabled: true
   ingressClassName: nginx-optimiser
   hostname: optimiser.dsch-l3.com
+authzWebhook: http://optimiser-matchmaker-api-sqnc-matchmaker-api.optimiser.svc.cluster.local:3000/v1/authz
 node:
   enabled: false
 postgresql:
