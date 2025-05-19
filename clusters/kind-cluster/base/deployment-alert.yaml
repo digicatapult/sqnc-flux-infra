@@ -22,6 +22,9 @@ spec:
   eventSources:
     - kind: HelmRelease
       name: '*'
+      namespace: alice
+    - kind: HelmRelease
+      name: '*'
       namespace: capacity
     - kind: HelmRelease
       name: '*'
