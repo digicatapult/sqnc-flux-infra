@@ -5,7 +5,7 @@ metadata:
   namespace: keycloak
 spec:
   interval: 10m
-  url: https://charts.bitnami.com/bitnami
+  url: oci://registry-1.docker.io/bitnamicharts
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
