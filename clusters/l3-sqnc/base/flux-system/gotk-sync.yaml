@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: main
+    branch: chore/upgrade_production_keycloak_v26
   url: https://github.com/digicatapult/sqnc-flux-infra.git
 
 ---
