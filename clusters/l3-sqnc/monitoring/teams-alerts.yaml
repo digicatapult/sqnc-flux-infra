@@ -27,4 +27,37 @@ spec:
       namespace: '*'
     - kind: HelmRelease
       name: '*'
-      namespace: '*'
+      namespace: 'cert-manager'
+    - kind: HelmRelease
+      name: '*'
+      namespace: 'cert-manager'
+    - kind: Kustomization
+      name: '*'
+      namespace: 'optimiser'
+    - kind: HelmRelease
+      name: '*'
+      namespace: 'optimiser'
+    - kind: Kustomization
+      name: '*'
+      namespace: 'capacity'
+    - kind: HelmRelease
+      name: '*'
+      namespace: 'capacity'
+    - kind: Kustomization
+      name: '*'
+      namespace: 'keycloak'
+    - kind: HelmRelease
+      name: '*'
+      namespace: 'keycloak'
+    - kind: Kustomization
+      name: '*'
+      namespace: 'order'
+    - kind: HelmRelease
+      name: '*'
+      namespace: 'order'
+    - kind: Kustomization
+      name: '*'
+      namespace: 'monitoring'
+    - kind: HelmRelease
+      name: '*'
+      namespace: 'monitoring'

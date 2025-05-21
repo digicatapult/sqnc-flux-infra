@@ -24,7 +24,37 @@ spec:
       namespace: flux-system
     - kind: Kustomization
       name: '*'
-      namespace: '*'
+      namespace: 'cert-manager'
     - kind: HelmRelease
       name: '*'
-      namespace: '*'
+      namespace: 'cert-manager'
+    - kind: Kustomization
+      name: '*'
+      namespace: 'demanda'
+    - kind: HelmRelease
+      name: '*'
+      namespace: 'demanda'
+    - kind: Kustomization
+      name: '*'
+      namespace: 'demandb'
+    - kind: HelmRelease
+      name: '*'
+      namespace: 'demandb'
+    - kind: Kustomization
+      name: '*'
+      namespace: 'keycloak'
+    - kind: HelmRelease
+      name: '*'
+      namespace: 'keycloak'
+    - kind: Kustomization
+      name: '*'
+      namespace: 'match2'
+    - kind: HelmRelease
+      name: '*'
+      namespace: 'match2'
+    - kind: Kustomization
+      name: '*'
+      namespace: 'monitoring'
+    - kind: HelmRelease
+      name: '*'
+      namespace: 'monitoring'
