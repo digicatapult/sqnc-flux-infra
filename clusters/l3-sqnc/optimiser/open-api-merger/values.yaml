@@ -29,6 +29,8 @@ securitySchema:
       match2:cancel: "Cancel match2"
       match2:accept: "Accept match2"
       match2:reject: "Reject match2"
+persistence:
+  enabled: false
 ingress:
   ingressClassName: nginx-optimiser
   enabled: true
