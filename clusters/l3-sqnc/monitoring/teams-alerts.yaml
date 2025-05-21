@@ -24,9 +24,6 @@ spec:
       namespace: flux-system
     - kind: Kustomization
       name: '*'
-      namespace: '*'
-    - kind: HelmRelease
-      name: '*'
       namespace: 'cert-manager'
     - kind: HelmRelease
       name: '*'
