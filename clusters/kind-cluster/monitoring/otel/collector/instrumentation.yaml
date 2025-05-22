@@ -19,9 +19,9 @@ metadata:
 spec:
   env:
     - name: OTEL_EXPORTER_OTLP_INSECURE
-      value: true
+      value: "true"
     - name: OTEL_EXPORTER_OTLP_PROTOCOL
-      value: grpc
+      value: "grpc"
   exporter:
     endpoint: http://monitoring-collector.monitoring.svc.cluster.local:4317
   propagators:
