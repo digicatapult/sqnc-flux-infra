@@ -21,11 +21,6 @@ prometheus:
     podMonitorSelector:
       matchLabels:
         app.kubernetes.io/component: monitoring
-    enableFeatures:
-      # https://prometheus.io/docs/prometheus/latest/feature_flags/#exemplars-storage
-      - exemplar-storage
-      # https://prometheus.io/docs/prometheus/2.55/feature_flags/#otlp-receiver
-      - otlp-write-receiver
     additionalArgs:
       - name: web.enable-otlp-receiver
         value: ""
