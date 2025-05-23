@@ -26,6 +26,10 @@ spec:
         endpoint: "jaeger-collector.monitoring.svc.cluster.local:4317"
         tls:
           insecure: true
+      otlphttp/prometheus:
+        endpoint: "kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090/api/v1/otlp"
+        tls:
+          insecure: true
 
     service:
       pipelines:
@@ -33,3 +37,7 @@ spec:
           receivers: [otlp]
           processors: [memory_limiter, batch]
           exporters: [otlp/jaeger]
+        metrics:
+          receivers: [otlp]
+          processors: [memory_limiter, batch]
+          exporters: [otlphttp/prometheus]
