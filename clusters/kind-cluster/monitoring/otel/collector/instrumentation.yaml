@@ -4,7 +4,7 @@ metadata:
   name: nodejs-instrumentation
 spec:
   exporter:
-    endpoint: http://monitoring-collector.monitoring.svc.cluster.local:4317
+    endpoint: http://monitoring-collector.monitoring.svc.cluster.local:4318
   propagators:
     - tracecontext
     - baggage
