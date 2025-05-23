@@ -28,7 +28,7 @@ prometheus:
       - otlp-write-receiver
     additionalArgs:
       - name: web.enable-otlp-receiver
-        value: "true"
+        value: ""
 grafana:
   defaultDashboardsEnabled: true
   serviceMonitor:
