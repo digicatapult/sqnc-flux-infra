@@ -23,13 +23,6 @@ spec:
       k8sattributes:
         extract:
           metadata:
-          - service.instance.id
-          - service.name
-          - service.namespace
-          - cloud.availability_zone
-          - cloud.region
-          - container.name
-          - deployment.environment.name
           - k8s.cluster.name
           - k8s.container.name
           - k8s.cronjob.name
