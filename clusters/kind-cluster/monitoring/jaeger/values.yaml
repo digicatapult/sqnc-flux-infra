@@ -11,13 +11,13 @@ collector:
 query:
   enabled: false
 esIndexCleaner:
-  enabled: true
+  enabled: false
   image:
     repository: jaegertracing/jaeger-es-index-cleaner
     pullPolicy: IfNotPresent
     tag: "latest"
-  schedule: "*/5 * * * *"
+  schedule: "0 10 * * *"
   numberOfDays: 30
   serviceAccount:
-    create: true
-    name:
+    create: false
+    name: jaeger
