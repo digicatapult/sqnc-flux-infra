@@ -3,6 +3,17 @@ kind: Instrumentation
 metadata:
   name: nodejs-instrumentation
 spec:
+  env:
+    - name: OTEL_SERVICE_NAME
+      value: "sqnc"
+    - name: OTEL_METRICS_EXPORTER
+      value: "http"
+    - name: OTEL_EXPORTER_OTLP_PROTOCOL
+      value: "http/protobuf"
+    - name: OTEL_EXPORTER_OTLP_METRICS_ENDPOINT
+      value: "http://localhost:9090/api/v1/otlp/v1/metrics"
+    - name: OTEL_METRIC_EXPORT_INTERVAL
+      value: "15000"
   exporter:
     endpoint: http://monitoring-collector.monitoring.svc.cluster.local:4318
   propagators:
@@ -17,6 +28,17 @@ kind: Instrumentation
 metadata:
   name: java-instrumentation
 spec:
+  env:
+    - name: OTEL_SERVICE_NAME
+      value: "sqnc"
+    - name: OTEL_METRICS_EXPORTER
+      value: "http"
+    - name: OTEL_EXPORTER_OTLP_PROTOCOL
+      value: "http/protobuf"
+    - name: OTEL_EXPORTER_OTLP_METRICS_ENDPOINT
+      value: "http://localhost:9090/api/v1/otlp/v1/metrics"
+    - name: OTEL_METRIC_EXPORT_INTERVAL
+      value: "15000"
   exporter:
     endpoint: http://monitoring-collector.monitoring.svc.cluster.local:4317
   propagators:
@@ -31,6 +53,17 @@ kind: Instrumentation
 metadata:
   name: go-instrumentation
 spec:
+  env:
+    - name: OTEL_SERVICE_NAME
+      value: "sqnc"
+    - name: OTEL_METRICS_EXPORTER
+      value: "http"
+    - name: OTEL_EXPORTER_OTLP_PROTOCOL
+      value: "http/protobuf"
+    - name: OTEL_EXPORTER_OTLP_METRICS_ENDPOINT
+      value: "http://localhost:9090/api/v1/otlp/v1/metrics"
+    - name: OTEL_METRIC_EXPORT_INTERVAL
+      value: "15000"
   exporter:
     endpoint: http://monitoring-collector.monitoring.svc.cluster.local:4318
   propagators:
