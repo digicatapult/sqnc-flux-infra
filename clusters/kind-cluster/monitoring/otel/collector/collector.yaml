@@ -20,7 +20,7 @@ spec:
       batch:
         send_batch_size: 10000
         timeout: 10s
-      k8s_attributes:
+      k8sattributes:
         extract:
           metadata:
           - service.instance.id
@@ -83,7 +83,7 @@ spec:
             - otlphttp/prometheus
           processors:
             - batch
-            - k8s_attributes
+            - k8sattributes
             - memory_limiter
             - resource
           receivers:
