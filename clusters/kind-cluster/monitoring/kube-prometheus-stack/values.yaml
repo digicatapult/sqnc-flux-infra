@@ -21,6 +21,11 @@ prometheus:
     podMonitorSelector:
       matchLabels:
         app.kubernetes.io/component: monitoring
+    additionalArgs:
+      - name: web.enable-otlp-receiver
+        value: ""
+      - name: web.enable-remote-write-receiver
+        value: ""
 grafana:
   defaultDashboardsEnabled: true
   serviceMonitor:

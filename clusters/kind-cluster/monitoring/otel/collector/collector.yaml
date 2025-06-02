@@ -3,6 +3,17 @@ kind: OpenTelemetryCollector
 metadata:
   name: monitoring
 spec:
+  env:
+    - name: K8S_NODE_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+    - name: OTEL_RESOURCE_ATTRIBUTES
+      value: node.name=$(K8S_NODE_NAME)
+  targetAllocator:
+    prometheusCR:
+      enabled: true
+      scrapeInterval: 30s
   config:
     receivers:
       otlp:
@@ -12,24 +23,102 @@ spec:
             max_recv_msg_size_mib: 10
           http:
             endpoint: 0.0.0.0:4318
+      prometheus:
+        config:
+          scrape_configs:
+            - job_name: otel-collector
+              scrape_interval: 10s
+              static_configs:
+                - targets:
+                    - 0.0.0.0:8888
+              metric_relabel_configs:
+              - action: labeldrop
+                regex: (id|name)
+                replacement: $$1
+              - action: labelmap
+                regex: label_(.+)
+                replacement: $$1
+
     processors:
+      batch:
+        send_batch_size: 10000
+        timeout: 10s
+      k8sattributes:
+        extract:
+          metadata:
+          - container.image.name
+          - container.image.tag
+          - k8s.cluster.uid
+          - k8s.cronjob.name
+          - k8s.daemonset.name
+          - k8s.daemonset.uid
+          - k8s.deployment.name
+          - k8s.deployment.uid
+          - k8s.job.name
+          - k8s.job.uid
+          - k8s.namespace.name
+          - k8s.node.name
+          - k8s.pod.hostname
+          - k8s.pod.ip
+          - k8s.pod.name
+          - k8s.pod.start_time
+          - k8s.pod.uid
+          - k8s.replicaset.name
+          - k8s.replicaset.uid
+          - k8s.statefulset.name
+          - k8s.statefulset.uid
+        filter:
+          node_from_env_var: K8S_NODE_NAME
+        passthrough: false
+        pod_association:
+        - sources:
+          - from: resource_attribute
+            name: k8s.pod.ip
+        - sources:
+          - from: resource_attribute
+            name: k8s.pod.uid
+        - sources:
+          - from: connection
       memory_limiter:
         check_interval: 1s
         limit_percentage: 75
         spike_limit_percentage: 15
-      batch:
-        send_batch_size: 10000
-        timeout: 10s
+      resource:
+        attributes:
+          - key: service.instance.id
+            from_attribute: k8s.pod.uid
+            action: insert
 
     exporters:
       otlp/jaeger:
         endpoint: "jaeger-collector.monitoring.svc.cluster.local:4317"
         tls:
           insecure: true
+      otlphttp/prometheus:
+        endpoint: "http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090/api/v1/otlp"
+        tls:
+          insecure: true
 
     service:
       pipelines:
+        metrics:
+          exporters:
+            - otlphttp/prometheus
+          processors:
+            - batch
+            - k8sattributes
+            - memory_limiter
+            - resource
+          receivers:
+            - otlp
         traces:
-          receivers: [otlp]
-          processors: [memory_limiter, batch]
-          exporters: [otlp/jaeger]
+          exporters:
+            - otlp/jaeger
+          processors:
+            - batch
+            - memory_limiter
+          receivers:
+            - otlp
+      telemetry:
+        metrics:
+          address: 0.0.0.0:8888

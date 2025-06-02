@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: main
+    branch: feature/configure_otel_prometheus
   url: https://github.com/digicatapult/sqnc-flux-infra.git
 
 ---
