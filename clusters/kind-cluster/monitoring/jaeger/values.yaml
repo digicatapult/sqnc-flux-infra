@@ -16,7 +16,7 @@ esIndexCleaner:
     repository: jaegertracing/jaeger-es-index-cleaner
     pullPolicy: IfNotPresent
     tag: "1.69"
-  schedule: "0 10 * * *"
+  schedule: "30 10 * * *"
   numberOfDays: 30
   serviceAccount:
     create: true
