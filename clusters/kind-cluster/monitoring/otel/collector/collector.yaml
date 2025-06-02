@@ -20,8 +20,45 @@ spec:
       batch:
         send_batch_size: 10000
         timeout: 10s
+      k8s_attributes:
+        extract:
+          metadata:
+          - service.instance.id
+          - service.name
+          - service.namespace
+          - cloud.availability_zone
+          - cloud.region
+          - container.name
+          - deployment.environment.name
+          - k8s.cluster.name
+          - k8s.container.name
+          - k8s.cronjob.name
+          - k8s.daemonset.name
+          - k8s.deployment.name
+          - k8s.job.name
+          - k8s.namespace.name
+          - k8s.pod.name
+          - k8s.replicaset.name
+          - k8s.statefulset.name
+        passthrough: false
+        pod_association:
+        - sources:
+          - from: resource_attribute
+            name: k8s.pod.ip
+        - sources:
+          - from: resource_attribute
+            name: k8s.pod.uid
+        - sources:
+          - from: connection
+      resource:
+        attributes:
+          - key: cluster
+            value: "service"
+            action: upsert
 
     exporters:
+      debug:
+        verbosity: detailed
       otlp/jaeger:
         endpoint: "jaeger-collector.monitoring.svc.cluster.local:4317"
         tls:
@@ -34,10 +71,28 @@ spec:
     service:
       pipelines:
         traces:
-          receivers: [otlp]
-          processors: [memory_limiter, batch]
-          exporters: [otlp/jaeger]
+          exporters:
+            - otlp/jaeger
+          processors:
+            - batch
+            - memory_limiter
+          receivers:
+            - otlp
         metrics:
-          receivers: [otlp]
-          processors: [memory_limiter, batch]
-          exporters: [otlphttp/prometheus]
+          exporters:
+            - otlphttp/prometheus
+          processors:
+            - batch
+            - k8s_attributes
+            - memory_limiter
+            - resource
+          receivers:
+            - otlp
+        logs:
+          exporters:
+            - debug
+          processors:
+            - batch
+            - memory_limiter
+          receivers:
+            - otlp
