@@ -89,3 +89,14 @@ query:
           secretKeyRef:
             name: oauth2-proxy-cookie-secret
             key: secret
+esIndexCleaner:
+  enabled: true
+  image:
+    repository: jaegertracing/jaeger-es-index-cleaner
+    pullPolicy: IfNotPresent
+    tag: "latest"
+  schedule: "0 11 * * *"
+  numberOfDays: 30
+  serviceAccount:
+    create: true
+    name: jaeger-elasticsearch-cleaner
