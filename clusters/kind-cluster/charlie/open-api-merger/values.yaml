@@ -1,4 +1,4 @@
-logLevel: info
+logLevel: debug
 paths:
   - http://charlie-identity-service-sqnc-identity-service:3000/api-docs
   - http://charlie-sqnc-matchmaker-api:3000/api-docs

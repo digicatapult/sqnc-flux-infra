@@ -1,4 +1,4 @@
-logLevel: info
+logLevel: debug
 paths:
   - http://bob-identity-service-sqnc-identity-service:3000/api-docs
   - http://bob-sqnc-matchmaker-api:3000/api-docs
