@@ -95,7 +95,7 @@ esIndexCleaner:
     repository: jaegertracing/jaeger-es-index-cleaner
     pullPolicy: IfNotPresent
     tag: "latest"
-  schedule: "0 11 * * *"
+  schedule: "0 3 * * *"
   numberOfDays: 30
   serviceAccount:
     create: true
