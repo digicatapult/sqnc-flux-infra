@@ -50,6 +50,6 @@ jobs:
           fi
 
       - name: Commit and push new version
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: "${{ steps.vars.outputs.name }}-${{ steps.vars.outputs.version }}"
