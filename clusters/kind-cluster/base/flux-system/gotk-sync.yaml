@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: main
+    branch: test/roll_back_openapi_version
   url: https://github.com/digicatapult/sqnc-flux-infra.git
 
 ---
