@@ -41,10 +41,20 @@ tests:
     clientId: sequence
     clientSecret: secret
 postgresql:
+  image:
+    repository: bitnamilegacy/postgresql
+  volumePermissions:
+    image:
+      repository: bitnamilegacy/os-shell
+  global:
+    security:
+      allowInsecureImages: true
   auth:
     password: postgres
   metrics:
     enabled: true
+    image:
+      repository: bitnamilegacy/postgres-exporter
     serviceMonitor:
       enabled: true
       namespace: monitoring
