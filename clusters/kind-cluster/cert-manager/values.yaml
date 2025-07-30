@@ -16,6 +16,6 @@ controller:
 webhook:
   image:
     repository: bitnamilegacy/cert-manager-webhook
-caininjector:
+cainjector:
   image:
-    repository: bitnamilegacy/caininjector
+    repository: bitnamilegacy/cainjector
