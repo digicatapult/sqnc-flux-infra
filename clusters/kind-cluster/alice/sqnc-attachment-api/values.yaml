@@ -27,6 +27,9 @@ tests:
   auth:
     clientId: sequence
     clientSecret: secret
+  osShell:
+    image:
+      repository: bitnamilegacy/os-shell
 postgresql:
   image:
     repository: bitnamilegacy/postgresql
