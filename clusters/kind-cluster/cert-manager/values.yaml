@@ -1,6 +1,21 @@
+global:
+  security:
+    allowInsecureImages: true
 installCRDs: true
 metrics:
   enabled: false
   serviceMonitor:
     enabled: true
     namespace: cert-manager
+controller:
+  image:
+    repository: bitnamilegacy/cert-manager
+  acmesolver:
+    image:
+      repository: bitnamilegacy/acmesolver
+webhook:
+  image:
+    repository: bitnamilegacy/cert-manager-webhook
+cainjector:
+  image:
+    repository: bitnamilegacy/cainjector

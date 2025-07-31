@@ -26,8 +26,18 @@ node:
 postgresql:
   auth:
     password: postgres
+  image:
+    repository: bitnamilegacy/postgresql
+  volumePermissions:
+    image:
+      repository: bitnamilegacy/os-shell
+  global:
+    security:
+      allowInsecureImages: true
   metrics:
     enabled: true
+    image:
+      repository: bitnamilegacy/postgres-exporter
     serviceMonitor:
       enabled: true
       namespace: monitoring
