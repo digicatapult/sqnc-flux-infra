@@ -20,6 +20,13 @@ postgresql:
   global:
     imagePullSecrets:
       - name: dockerhub
+    security:
+      allowInsecureImages: true
+  image:
+    repository: bitnamilegacy/postgresql
+  volumePermissions:
+    image:
+      repository: bitnamilegacy/os-shell
   primary:
     persistence:
       storageClass: managed-csi-premium
