@@ -26,12 +26,22 @@ ingress:
 node:
   enabled: false
 postgresql:
+  image:
+    repository: bitnamilegacy/postgresql
+  volumePermissions:
+    image:
+      repository: bitnamilegacy/os-shell
+  global:
+    security:
+      allowInsecureImages: true
   primary:
     persistence:
       storageClass: managed-csi-premium
       size: 15Gi
   metrics:
     enabled: true
+    image:
+      repository: bitnamilegacy/postgres-exporter
     serviceMonitor:
       enabled: true
       namespace: demanda
@@ -44,3 +54,6 @@ podAnnotations:
 tests:
   auth:
     clientId: sqnc
+  osShell:
+    image:
+      repository: bitnamilegacy/os-shell

@@ -21,8 +21,18 @@ postgresql:
     persistence:
       storageClass: managed-csi-premium
       size: 5Gi
+  image:
+    repository: bitnamilegacy/postgresql
+  volumePermissions:
+    image:
+      repository: bitnamilegacy/os-shell
+  global:
+    security:
+      allowInsecureImages: true
   metrics:
     enabled: true
+    image:
+      repository: bitnamilegacy/postgres-exporter
     serviceMonitor:
       enabled: true
       namespace: match2
