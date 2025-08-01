@@ -26,14 +26,23 @@ node:
   enabled: false
 postgresql:
   global:
+    security:
+      allowInsecureImages: true
     imagePullSecrets:
       - name: dockerhub
+  image:
+    repository: bitnamilegacy/postgresql
+  volumePermissions:
+    image:
+      repository: bitnamilegacy/os-shell
   primary:
     persistence:
       storageClass: managed-csi-premium
       size: 15Gi
   metrics:
     enabled: true
+    image:
+      repository: bitnamilegacy/postgres-exporter
     serviceMonitor:
       enabled: true
       namespace: capacity
