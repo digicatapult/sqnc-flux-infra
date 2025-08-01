@@ -33,6 +33,8 @@ postgresql:
       size: 5Gi
   metrics:
     enabled: true
+    image:
+      repository: bitnamilegacy/postgres-exporter
     serviceMonitor:
       enabled: true
       namespace: optimiser
