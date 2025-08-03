@@ -2,6 +2,8 @@ installCRDs: true
 global:
   imagePullSecrets:
     - name: dockerhub
+  security:
+    allowInsecureImages: true
 metrics:
   enabled: true
   serviceMonitor:
@@ -11,3 +13,15 @@ metrics:
       - action: replace
         sourceLabels: [namespace]
         targetLabel: kubernetes_namespace
+controller:
+  image:
+    repository: bitnamilegacy/cert-manager
+  acmesolver:
+    image:
+      repository: bitnamilegacy/acmesolver
+webhook:
+  image:
+    repository: bitnamilegacy/cert-manager-webhook
+cainjector:
+  image:
+    repository: bitnamilegacy/cainjector

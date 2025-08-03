@@ -1,6 +1,13 @@
 global:
   imagePullSecrets:
     - name: dockerhub
+  security:
+    allowInsecureImages: true
+image:
+  repository: bitnamilegacy/keycloak
+keycloakConfigCli:
+  image:
+    repository: bitnamilegacy/keycloak-config-cli
 production: true
 proxyHeaders: forwarded
 ingress:
@@ -30,7 +37,14 @@ metrics:
         sourceLabels: [namespace]
         targetLabel: kubernetes_namespace
 postgresql:
+  image:
+    repository: bitnamilegacy/postgresql
+  volumePermissions:
+    image:
+      repository: bitnamilegacy/os-shell
   global:
+    security:
+      allowInsecureImages: true
     imagePullSecrets:
       - name: dockerhub
   primary:
@@ -38,6 +52,8 @@ postgresql:
       storageClass: managed-csi-premium
       size: 5Gi
   metrics:
+    image:
+      repository: bitnamilegacy/postgres-exporter
     enabled: true
   serviceMonitor:
     enabled: true

@@ -36,3 +36,10 @@ affinity:
                 - sqnc-node
         topologyKey: kubernetes.io/hostname
         namespaceSelector: {}
+tests:
+  osShell:
+    image:
+      repository: bitnamilegacy/os-shell
+kubectl:
+  image:
+    repository: bitnamilegacy/kubectl
