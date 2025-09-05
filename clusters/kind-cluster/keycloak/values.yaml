@@ -18,7 +18,9 @@ extraEnvVars:
     value: "http://localhost:3080/auth/"
   - name: KC_HOSTNAME_DEBUG
     value: "true"
-extraStartupArgs: "--import-realm"
+extraStartupArgs: >-
+  --import-realm
+  --ssl-required=false
 extraVolumes:
   - name: realm-volume
     configMap:
