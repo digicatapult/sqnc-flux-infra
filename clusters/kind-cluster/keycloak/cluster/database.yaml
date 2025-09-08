@@ -1,20 +1,8 @@
 ---
 apiVersion: postgresql.cnpg.io/v1
-kind: Database
-metadata:
-  name: keycloak
-  namespace: keycloak
-spec:
-  name: keycloak
-  owner: keycloak
-  cluster:
-    name: keycloak-postgresql
-  databaseReclaimPolicy: delete
----
-apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: keycloak-postgresql
+  name: keycloak-cnpg-cluster
 spec:
   instances: 1
   storage:
@@ -39,7 +27,19 @@ spec:
         - pg_monitor
         - pg_signal_backend
       passwordSecret:
-        name: keycloak-postgresql-role
+        name: keycloak-cnpg-role
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: keycloak
+  namespace: keycloak
+spec:
+  name: keycloak
+  owner: keycloak
+  cluster:
+    name: keycloak-cnpg-cluster
+  databaseReclaimPolicy: delete
 ---
 apiVersion: v1
 data:
@@ -47,6 +47,6 @@ data:
   password: a2V5Y2xvYWs=
 kind: Secret
 metadata:
-  name: keycloak-postgresql-role
+  name: keycloak-cnpg-role
   namespace: keycloak
 type: kubernetes.io/basic-auth

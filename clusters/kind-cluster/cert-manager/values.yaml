@@ -4,6 +4,6 @@ crds:
   enabled: true
 prometheus:
   servicemonitor:
-    enabled: true
+    enabled: false
     namespace: cert-manager
     targetPort: 9402
