@@ -1,21 +1,9 @@
-global:
-  security:
-    allowInsecureImages: true
-installCRDs: true
-metrics:
-  enabled: false
-  serviceMonitor:
-    enabled: true
+# https://github.com/cert-manager/cert-manager/blob/master/deploy/charts/cert-manager/values.yaml
+crds:
+  keep: true
+  enabled: true
+prometheus:
+  servicemonitor:
+    enabled: false
     namespace: cert-manager
-controller:
-  image:
-    repository: bitnamilegacy/cert-manager
-  acmesolver:
-    image:
-      repository: bitnamilegacy/acmesolver
-webhook:
-  image:
-    repository: bitnamilegacy/cert-manager-webhook
-cainjector:
-  image:
-    repository: bitnamilegacy/cainjector
+    targetPort: 9402
