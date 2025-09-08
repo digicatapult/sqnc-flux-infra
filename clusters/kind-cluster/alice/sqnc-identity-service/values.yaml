@@ -6,7 +6,7 @@ externalSqncNode:
 auth:
   clientId: sequence
   publicIdpOrigin: http://localhost:3080
-  internalIdpOrigin: http://keycloak.keycloak.svc.cluster.local
+  internalIdpOrigin: http://keycloak-http.keycloak.svc.cluster.local
   idpPathPrefix: /auth
   oauth2Realm: alice
   internalRealm: alice-internal
@@ -21,6 +21,7 @@ ingress:
       pathType: Prefix
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 node:
   enabled: false
 postgresql:

@@ -8,7 +8,7 @@ externalSqncIdentity:
 auth:
   clientId: sequence
   publicIdpOrigin: http://localhost:3080
-  internalIdpOrigin: http://keycloak.keycloak.svc.cluster.local
+  internalIdpOrigin: http://keycloak-http.keycloak.svc.cluster.local
   idpPathPrefix: /auth
   oauth2Realm: charlie
   internalRealm: charlie-internal
@@ -22,6 +22,7 @@ ingress:
       pathType: Prefix
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 authzWebhook: http://charlie-sqnc-matchmaker-api.charlie.svc.cluster.local:3000/v1/authz
 tests:
   auth:
