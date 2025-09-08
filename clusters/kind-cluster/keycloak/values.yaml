@@ -1,50 +1,59 @@
-global:
-  security:
-    allowInsecureImages: true
-image:
-  repository: bitnamilegacy/keycloak
-keycloakConfigCli:
-  image:
-    repository: bitnamilegacy/keycloak-config-cli
-httpRelativePath: /auth/
-proxyHeaders: xforwarded
+# https://github.com/codecentric/helm-charts/blob/master/charts/keycloakx/values.yaml
+nameOverride: "keycloak"
+http:
+  relativePath: /auth/
+proxy:
+  enabled: true
+  mode: xforwarded
 ingress:
   enabled: true
-  hostname: localhost
-extraEnvVars:
+  servicePort: http
+  annotations: {
+    nginx.ingress.kubernetes.io/ssl-redirect: "false",
+    nginx.ingress.kubernetes.io/proxy-buffer-size: 128k
+  }
+  rules:
+    - host: "localhost"
+      paths:
+        - path: "/auth/"
+          pathType: Prefix
+extraEnv: |
+  - name: KC_BOOTSTRAP_ADMIN_USERNAME
+    value: admin
+  - name: KC_BOOTSTRAP_ADMIN_PASSWORD
+    value: admin
   - name: KC_HOSTNAME_ADMIN
     value: "http://localhost:3080/auth/"
   - name: KC_HOSTNAME
     value: "http://localhost:3080/auth/"
   - name: KC_HOSTNAME_DEBUG
     value: "true"
-extraStartupArgs: >-
-  --import-realm
-  --ssl-required=false
+  - name: KC_HOSTNAME_STRICT
+    value: "false"
+  - name: JAVA_OPTS_APPEND
+    value: >-
+      -Djgroups.dns.query={{ include "keycloak.fullname" . }}-headless
+args:
+  - "start-dev"
+  - "--import-realm"
+  - "--ssl-required=false"
+  - "--verbose"
 extraVolumes:
   - name: realm-volume
     configMap:
       name: keycloak-realms
       namespace: keycloak
 extraVolumeMounts:
-  - mountPath: /opt/bitnami/keycloak/data/import
+  - mountPath: /opt/keycloak/data/import
     name: realm-volume
-postgresql:
-  image:
-    repository: bitnamilegacy/postgresql
-  volumePermissions:
-    image:
-      repository: bitnamilegacy/os-shell
-  metrics:
-    image:
-      repository: bitnamilegacy/postgres-exporter
-  global:
-    security:
-      allowInsecureImages: true
-  auth:
-    password: postgres
-resourcesPreset: none
+database:
+  vendor: postgres
+  hostname: cluster-rw.keycloak.svc.cluster.local
+  port: 5432
+  database: keycloak
+  username: keycloak
+  password: keycloak
 logging:
-  level: INFO
+  level: DEBUG
 podAnnotations:
     instrumentation.opentelemetry.io/inject-java: "monitoring/java-instrumentation"
