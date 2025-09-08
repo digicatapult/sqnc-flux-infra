@@ -38,12 +38,12 @@ args:
   - "--import-realm"
   - "--ssl-required=false"
   - "--verbose"
-extraVolumes:
+extraVolumes: |
   - name: realm-volume
     configMap:
       name: keycloak-realms
       namespace: keycloak
-extraVolumeMounts:
+extraVolumeMounts: |
   - mountPath: /opt/keycloak/data/import
     name: realm-volume
 database:
