@@ -4,12 +4,16 @@ namespace: keycloak
 resources:
   - keycloak
   - nginx
+  - cloudnative-pg
+  - cluster
   - source.yaml
 configMapGenerator:
   - name: keycloak-values
     files:
       - keycloak-values.yaml=keycloak/values.yaml
       - nginx-values.yaml=nginx/values.yaml
+      - cloudnative-pg-values.yaml=cloudnative-pg/values.yaml
+      - cluster-values.yaml=cluster/values.yaml
 configurations:
   - kustomize-config.yaml
 generatorOptions:

@@ -1,62 +1,56 @@
-global:
-  security:
-    allowInsecureImages: true
-image:
-  repository: bitnamilegacy/keycloak
-keycloakConfigCli:
-  image:
-    repository: bitnamilegacy/keycloak-config-cli
-production: true
-proxyHeaders: forwarded
+# https://github.com/codecentric/helm-charts/blob/master/charts/keycloakx/values.yaml
+nameOverride: "keycloak"
+proxy:
+  enabled: true
+  mode: forwarded
 ingress:
   enabled: true
   ingressClassName: nginx-keycloak
-  hostname: auth.sqnc-stage.com
-adminIngress:
-  enabled: true
-  ingressClassName: nginx-keycloak
-  hostname: auth.sqnc-stage.com
-auth:
-  adminUser: "admin"
-extraEnvVars:
+  rules:
+    - host: auth.sqnc-stage.com
+      paths:
+        - path: "/"
+          pathType: Prefix
+  tls:
+    - hosts:
+        - auth.sqnc-stage.com
+      secretName: auth-sqnc-stage-com-prod-tls
+http:
+  relativePath: "/"
+extraEnv: |
+  - name: KC_BOOTSTRAP_ADMIN_USERNAME
+    value: admin
+  - name: KC_BOOTSTRAP_ADMIN_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-admin-creds
+        key: password
   - name: KC_HOSTNAME_ADMIN
     value: "https://auth.sqnc-stage.com/"
   - name: KC_HOSTNAME
     value: "https://auth.sqnc-stage.com/"
   - name: KC_HOSTNAME_DEBUG
     value: "true"
+  - name: JAVA_OPTS_APPEND
+    value: >-
+      -Djgroups.dns.query={{ include "keycloak.fullname" . }}-headless
 metrics:
   enabled: true
-  serviceMonitor:
-    enabled: true
-    namespace: keycloak
-    relabelings:
-      - action: replace
-        sourceLabels: [namespace]
-        targetLabel: kubernetes_namespace
-postgresql:
-  image:
-    repository: bitnamilegacy/postgresql
-  volumePermissions:
-    image:
-      repository: bitnamilegacy/os-shell
-  global:
-    security:
-      allowInsecureImages: true
-  primary:
-    persistence:
-      storageClass: managed-csi-premium
-      size: 5Gi
-  metrics:
-    enabled: true
-    image:
-      repository: bitnamilegacy/postgres-exporter
-  serviceMonitor:
-    enabled: true
-    namespace: keycloak
-    relabelings:
-      - action: replace
-        sourceLabels: [namespace]
-        targetLabel: kubernetes_namespace
+serviceMonitor:
+  enabled: true
+  namespace: keycloak
+  relabelings:
+    - action: replace
+      sourceLabels: [namespace]
+      targetLabel: kubernetes_namespace
+database:
+  existingSecret: keycloak-postgres-password
+  existingSecretKey: password
+  vendor: postgres
+  hostname: cluster-rw.keycloak.svc.cluster.local
+  port: 5432
+  database: keycloak
+  username: keycloak
+  password: keycloak
 podAnnotations:
     instrumentation.opentelemetry.io/inject-java: "monitoring/java-instrumentation"
