@@ -11,10 +11,6 @@ ingress:
       paths:
         - path: "/"
           pathType: Prefix
-  tls:
-    - hosts:
-        - auth.sqnc-stage.com
-      secretName: auth-sqnc-stage-com-prod-tls
 http:
   relativePath: "/"
 extraEnv: |
