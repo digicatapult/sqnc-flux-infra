@@ -44,7 +44,26 @@ module.exports = (config = {}) => {
         schedule: [
           "0 9-17 * * *"
         ]
-      }
+      },
+      {
+        matchManagers: ["flux"],
+        matchFileNames: [
+          "clusters/kind-cluster/**/*.yaml",
+          "clusters/kind-cluster/**/*.yml",
+        ],
+        postUpgradeTasks: {
+          fileFilters: [
+            "clusters/kind-cluster/**/*.yaml",
+            "clusters/kind-cluster/**/*.yml"
+          ]
+        },
+        separateMajorMinor: true,
+        separateMultipleMajor: true,
+        separateMinorPatch: false,
+        groupName: null,
+        automerge: true,
+        addLabels: ["automerge", "kind"],
+      },
     ],
   };
 };
