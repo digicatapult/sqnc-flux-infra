@@ -80,7 +80,7 @@ module.exports = (config = {}) => {
         groupName: null,
         automerge: false,
         labels: ["dependencies", "flux", "kind"]
-      }
+      },
     ],
   };
 };
