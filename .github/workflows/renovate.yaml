@@ -29,7 +29,7 @@ jobs:
           private_key: ${{ secrets.PRIVATE_KEY }}
 
       - name: Check-out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Run self-hosted Renovate bot
         uses: renovatebot/github-action@v43.0.5
