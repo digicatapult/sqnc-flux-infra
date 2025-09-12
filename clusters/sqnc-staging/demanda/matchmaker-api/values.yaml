@@ -14,7 +14,7 @@ externalSqncAttachment:
 auth:
   clientId: 'sqnc'
   publicIdpOrigin: "https://auth.sqnc-stage.com/"
-  internalIdpOrigin: "http://keycloak.keycloak.svc.cluster.local"
+  internalIdpOrigin: "http://keycloak-http.keycloak.svc.cluster.local"
   idpPathPrefix: ""
   oauth2Realm: demanda
   internalRealm: demanda-internal
