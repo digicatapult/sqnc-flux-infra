@@ -23,7 +23,7 @@ jobs:
           echo "version=${{ github.event.client_payload.metadata.revision }}" >> $GITHUB_OUTPUT
 
       - name: Checkout deployed-versions branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: deployed-versions
 
