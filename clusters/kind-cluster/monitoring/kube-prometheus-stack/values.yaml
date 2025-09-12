@@ -16,6 +16,9 @@ prometheus:
         memory: 200Mi
     serviceMonitorSelectorNilUsesHelmValues: false
     serviceMonitorNamespaceSelector: {}
+    persistentVolumeClaimRetentionPolicy:
+      whenDeleted: Delete
+      whenScaled: Delete
     podMonitorSelectorNilUsesHelmValues: false
     podMonitorNamespaceSelector: {}
     podMonitorSelector:
