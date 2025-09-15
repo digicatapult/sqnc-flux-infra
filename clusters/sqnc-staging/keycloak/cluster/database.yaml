@@ -40,4 +40,4 @@ spec:
   owner: keycloak
   cluster:
     name: cluster
-  databaseReclaimPolicy: delete
+  databaseReclaimPolicy: retain
