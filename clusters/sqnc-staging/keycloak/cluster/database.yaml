@@ -8,6 +8,9 @@ spec:
   storage:
     size: 5Gi
     storageClass: managed-csi-premium
+  superuserSecret:
+    name: keycloak-postgresql
+  enableSuperuserAccess: true
   managed:
     roles:
     - name: app
