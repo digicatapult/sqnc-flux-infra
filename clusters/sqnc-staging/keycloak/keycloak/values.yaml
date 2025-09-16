@@ -30,6 +30,10 @@ extraEnv: |
   - name: JAVA_OPTS_APPEND
     value: >-
       -Djgroups.dns.query={{ include "keycloak.fullname" . }}-headless
+command:
+  - "/opt/keycloak/bin/kc.sh"
+  - "--verbose"
+  - "start"
 metrics:
   enabled: true
 serviceMonitor:
