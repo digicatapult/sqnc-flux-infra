@@ -44,7 +44,7 @@ serviceMonitor:
       sourceLabels: [namespace]
       targetLabel: kubernetes_namespace
 database:
-  existingSecret: keycloak-postgres-password
+  existingSecret: keycloak-cnpg-creds
   existingSecretKey: password
   vendor: postgres
   hostname: cluster-rw.keycloak.svc.cluster.local
