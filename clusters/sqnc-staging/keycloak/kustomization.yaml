@@ -4,12 +4,14 @@ namespace: keycloak
 resources:
   - keycloak
   - nginx
+  - cluster
   - source.yaml
 configMapGenerator:
   - name: keycloak-values
     files:
       - keycloak-values.yaml=keycloak/values.yaml
       - nginx-values.yaml=nginx/values.yaml
+      - cluster-values.yaml=cluster/values.yaml
 configurations:
   - kustomize-config.yaml
 generatorOptions:
