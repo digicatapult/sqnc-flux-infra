@@ -45,4 +45,12 @@ metadata:
   labels:
     app.kubernetes.io/instance: sqnc
     app.kubernetes.io/version: latest
+  name: cloudnative-pg
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    app.kubernetes.io/instance: sqnc
+    app.kubernetes.io/version: latest
   name: keycloak
