@@ -5,6 +5,7 @@ global:
     allowInsecureImages: true
 image:
   repository: bitnamilegacy/keycloak
+replicas: 0
 keycloakConfigCli:
   image:
     repository: bitnamilegacy/keycloak-config-cli
