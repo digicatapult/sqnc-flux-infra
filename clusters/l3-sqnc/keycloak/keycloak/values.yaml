@@ -42,7 +42,7 @@ externalDatabase:
   port: 5432
   database: keycloak
   user: keycloak
-  existingSecret: keycloak-cnpg-superuser-creds
+  existingSecret: keycloak-cnpg-creds
   existingSecretPasswordKey: password
 postgresql:
   enabled: false
