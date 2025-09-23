@@ -37,31 +37,14 @@ metrics:
       - action: replace
         sourceLabels: [namespace]
         targetLabel: kubernetes_namespace
+externalDatabase:
+  host: keycloak-cnpg-rw.keycloak.svc.cluster.local
+  port: 5432
+  database: keycloak
+  user: keycloak
+  existingSecret: keycloak-cnpg-superuser-creds
+  existingSecretPasswordKey: password
 postgresql:
-  image:
-    repository: bitnamilegacy/postgresql
-  volumePermissions:
-    image:
-      repository: bitnamilegacy/os-shell
-  global:
-    security:
-      allowInsecureImages: true
-    imagePullSecrets:
-      - name: dockerhub
-  primary:
-    persistence:
-      storageClass: managed-csi-premium
-      size: 5Gi
-  metrics:
-    image:
-      repository: bitnamilegacy/postgres-exporter
-    enabled: true
-  serviceMonitor:
-    enabled: true
-    namespace: keycloak
-    relabelings:
-      - action: replace
-        sourceLabels: [namespace]
-        targetLabel: kubernetes_namespace
+  enabled: false
 podAnnotations:
     instrumentation.opentelemetry.io/inject-java: "monitoring/java-instrumentation"
