@@ -6,7 +6,7 @@ externalSqncNode:
 auth:
   clientId: 'l3'
   publicIdpOrigin: "https://auth.dsch-l3.com"
-  internalIdpOrigin: "http://keycloak.keycloak.svc.cluster.local"
+  internalIdpOrigin: "http://keycloak-http.keycloak.svc.cluster.local"
   idpPathPrefix: ""
   oauth2Realm: order
   internalRealm: order-internal
