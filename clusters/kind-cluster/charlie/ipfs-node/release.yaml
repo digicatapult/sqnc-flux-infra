@@ -16,7 +16,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: digicatapult
-      version: "4.1.7"
+      version: "4.1.8"
   valuesFrom:
   - kind: ConfigMap
     name: charlie-values
