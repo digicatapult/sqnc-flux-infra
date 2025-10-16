@@ -21,6 +21,9 @@ prometheus:
     podMonitorSelector:
       matchLabels:
         app.kubernetes.io/component: monitoring
+prometheusOperator:
+  strategy:
+    type: Recreate
 grafana:
   defaultDashboardsEnabled: true
   serviceMonitor:
