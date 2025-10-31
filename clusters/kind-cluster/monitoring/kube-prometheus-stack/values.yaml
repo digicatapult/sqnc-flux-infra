@@ -28,6 +28,8 @@ grafana:
     namespace: monitoring
   persistence:
     enabled: true
+  initChownData:
+    enabled: false
   adminPassword: grafana
   plugins:
     - camptocamp-prometheus-alertmanager-datasource
