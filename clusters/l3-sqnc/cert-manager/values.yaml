@@ -20,3 +20,4 @@ strategy:
 podDisruptionBudget:
   enabled: true
   minAvailable: 1
+replicaCount: 2
