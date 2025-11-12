@@ -1,4 +1,4 @@
 manager:
   collectorImage:
     repository: otel/opentelemetry-collector-k8s
-    tag: 0.129.1
+    tag: 0.139.0
