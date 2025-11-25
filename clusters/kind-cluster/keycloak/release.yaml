@@ -17,7 +17,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: codecentric
-      version: "7.1.4"
+      version: "7.1.5"
   interval: 10m0s
   # Default values
   # https://github.com/codecentric/helm-charts/blob/master/charts/keycloakx/values.yaml
