@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: monitoring
-      version: "6.46.0"
+      version: "6.48.0"
   valuesFrom:
     - kind: ConfigMap
       name: monitoring-values
