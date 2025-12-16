@@ -17,9 +17,9 @@ hostNetwork: true
 dnsPolicy: ClusterFirstWithHostNet
 service:
   type: NodePort
-nodeSelector:
-  ingress-ready: "true"
-  kubernetes.io/os: linux
+# nodeSelector:
+#   ingress-ready: "true"
+#   kubernetes.io/os: linux
 # tolerations:
 #   - effect: NoSchedule
 #     key: node-role.kubernetes.io/master
