@@ -1,14 +1,14 @@
 # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
 updateStrategy:
   type: Recreate
-ingressClass:
-  enabled: true
-  isDefaultClass: false
-  name: traefik
+# ingressClass:
+#   enabled: true
+#   isDefaultClass: false
+#   name: traefik
 providers:
   kubernetesIngressNginx:
     enabled: true
-    ingressClass: traefik
+    ingressClass: nginx
     watchIngressWithoutClass: true
     publishService:
       enabled: false
