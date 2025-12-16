@@ -27,10 +27,6 @@ service:
 #   - effect: NoSchedule
 #     key: node-role.kubernetes.io/control-plane
 #     operator: Equal
-web:
-  containerPort: 80
-websecure:
-  containerPort: 443
 metrics:
   prometheus:
     serviceMonitor:
