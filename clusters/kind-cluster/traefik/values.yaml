@@ -9,7 +9,7 @@ providers:
   kubernetesIngressNginx:
     enabled: true
     ingressClass: traefik
-    watchIngressWithoutClass: false
+    watchIngressWithoutClass: true
     publishService:
       enabled: false
     publishStatusAddress: localhost
