@@ -13,8 +13,8 @@ providers:
     publishService:
       enabled: false
     publishStatusAddress: localhost
-hostNetwork: true
-dnsPolicy: ClusterFirstWithHostNet
+# hostNetwork: true
+# dnsPolicy: ClusterFirstWithHostNet
 service:
   type: NodePort
 # nodeSelector:
