@@ -21,6 +21,8 @@ ingress:
     - path: /alice/(v1/attachment(/.*)?)
       pathType: Prefix
   annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: "web"
+    traefik.ingress.kubernetes.io/router.tls: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 authzWebhook: http://alice-sqnc-matchmaker-api.alice.svc.cluster.local:3000/v1/authz
