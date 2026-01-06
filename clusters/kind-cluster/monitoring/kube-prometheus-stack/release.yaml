@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
-      version: "80.12.1"
+      version: "80.13.0"
   interval: 10m
   install:
     crds: CreateReplace
