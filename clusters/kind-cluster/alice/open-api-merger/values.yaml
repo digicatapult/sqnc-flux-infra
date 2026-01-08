@@ -17,7 +17,6 @@ ingress:
     - path: /alice/swagger
       pathType: Prefix
   annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: alice-traefik-strip-prefix@kubernetescrd
     traefik.ingress.kubernetes.io/router.entrypoints: "web"
     traefik.ingress.kubernetes.io/router.tls: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
