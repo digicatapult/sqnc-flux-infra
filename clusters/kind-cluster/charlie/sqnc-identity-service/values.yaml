@@ -13,13 +13,14 @@ auth:
 ingress:
   hostname: localhost
   paths:
-    - path: /charlie/(v1/members(/.*)?)
+    - path: /charlie/v1/members
       pathType: Prefix
-    - path: /charlie/(v1/self(/.*)?)
+    - path: /charlie/v1/self
       pathType: Prefix
-    - path: /charlie/(v1/roles(/.*)?)
+    - path: /charlie/v1/roles
       pathType: Prefix
   annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: charlie-traefik-strip-prefix@kubernetescrd
     traefik.ingress.kubernetes.io/router.entrypoints: "web"
     traefik.ingress.kubernetes.io/router.tls: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /$1

@@ -24,15 +24,16 @@ auth:
 ingress:
   hostname: localhost
   paths:
-    - path: /charlie/(v1/demandA(/.*)?)
+    - path: /charlie/v1/demandA
       pathType: Prefix
-    - path: /charlie/(v1/demandB(/.*)?)
+    - path: /charlie/v1/demandB
       pathType: Prefix
-    - path: /charlie/(v1/match2(/.*)?)
+    - path: /charlie/v1/match2
       pathType: Prefix
-    - path: /charlie/(v1/transaction(/.*)?)
+    - path: /charlie/v1/transaction
       pathType: Prefix
   annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: charlie-traefik-strip-prefix@kubernetescrd
     traefik.ingress.kubernetes.io/router.entrypoints: "web"
     traefik.ingress.kubernetes.io/router.tls: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /$1

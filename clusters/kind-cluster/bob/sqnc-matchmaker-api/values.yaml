@@ -24,15 +24,16 @@ auth:
 ingress:
   hostname: localhost
   paths:
-    - path: /bob/(v1/demandA(/.*)?)
+    - path: /bob/v1/demandA
       pathType: Prefix
-    - path: /bob/(v1/demandB(/.*)?)
+    - path: /bob/v1/demandB
       pathType: Prefix
-    - path: /bob/(v1/match2(/.*)?)
+    - path: /bob/v1/match2
       pathType: Prefix
-    - path: /bob/(v1/transaction(/.*)?)
+    - path: /bob/v1/transaction
       pathType: Prefix
   annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: bob-traefik-strip-prefix@kubernetescrd
     traefik.ingress.kubernetes.io/router.entrypoints: "web"
     traefik.ingress.kubernetes.io/router.tls: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /$1

@@ -18,9 +18,10 @@ auth:
 ingress:
   hostname: localhost
   paths:
-    - path: /bob/(v1/attachment(/.*)?)
+    - path: /bob/v1/attachment
       pathType: Prefix
   annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: bob-traefik-strip-prefix@kubernetescrd
     traefik.ingress.kubernetes.io/router.entrypoints: "web"
     traefik.ingress.kubernetes.io/router.tls: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
