@@ -8,8 +8,8 @@ spec:
   stripPrefix:
     forceSlash: false
     prefixes:
-      - /alice/(v1/api-docs(/.*)?)
-      - /alice/(v1/swagger(/.*)?)
+      - /alice/api-docs
+      - /alice/swagger
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
@@ -20,9 +20,9 @@ spec:
   stripPrefix:
     forceSlash: false
     prefixes:
-      - /alice/(v1/members(/.*)?)
-      - /alice/(v1/self(/.*)?)
-      - /alice/(v1/roles(/.*)?)
+      - /alice/members
+      - /alice/self
+      - /alice/roles
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
@@ -33,7 +33,7 @@ spec:
   stripPrefix:
     forceSlash: false
     prefixes:
-      - /alice/(v1/attachment(/.*)?)
+      - /alice/attachment
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
@@ -44,7 +44,7 @@ spec:
   stripPrefix:
     forceSlash: false
     prefixes:
-      - /alice/(v1/demandA(/.*)?)
-      - /alice/(v1/demandB(/.*)?)
-      - /alice/(v1/match2(/.*)?)
-      - /alice/(v1/transaction(/.*)?)
+      - /alice/demandA
+      - /alice/demandB
+      - /alice/match2
+      - /alice/transaction
