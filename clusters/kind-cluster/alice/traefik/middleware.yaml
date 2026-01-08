@@ -1,0 +1,49 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: openapi-merger-traefik-stripprefix
+  namespace: alice
+spec:
+  stripPrefix:
+    forceSlash: false
+    prefixes:
+      - /alice/(v1/api-docs(/.*)?)
+      - /alice/(v1/swagger(/.*)?)
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: identity-service-traefik-stripprefix
+  namespace: alice
+spec:
+  stripPrefix:
+    forceSlash: false
+    prefixes:
+      - /alice/(v1/members(/.*)?)
+      - /alice/(v1/self(/.*)?)
+      - /alice/(v1/roles(/.*)?)
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: attachment-api-traefik-stripprefix
+  namespace: alice
+spec:
+  stripPrefix:
+    forceSlash: false
+    prefixes:
+      - /alice/(v1/attachment(/.*)?)
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: matchmaker-api-traefik-stripprefix
+  namespace: alice
+spec:
+  stripPrefix:
+    forceSlash: false
+    prefixes:
+      - /alice/(v1/demandA(/.*)?)
+      - /alice/(v1/demandB(/.*)?)
+      - /alice/(v1/match2(/.*)?)
+      - /alice/(v1/transaction(/.*)?)

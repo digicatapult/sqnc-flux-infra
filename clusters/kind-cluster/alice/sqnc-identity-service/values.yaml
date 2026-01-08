@@ -20,6 +20,7 @@ ingress:
     - path: /alice/(v1/roles(/.*)?)
       pathType: Prefix
   annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: alice-identity-service-traefik-stripprefix@kubernetescrd
     traefik.ingress.kubernetes.io/router.entrypoints: "web"
     traefik.ingress.kubernetes.io/router.tls: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
