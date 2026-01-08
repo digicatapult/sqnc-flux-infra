@@ -24,13 +24,13 @@ auth:
 ingress:
   hostname: localhost
   paths:
-    - path: /alice/demandA
+    - path: /alice/v1/demandA
       pathType: Prefix
-    - path: /alice/demandB
+    - path: /alice/v1/demandB
       pathType: Prefix
-    - path: /alice/match2
+    - path: /alice/v1/match2
       pathType: Prefix
-    - path: /alice/transaction
+    - path: /alice/v1/transaction
       pathType: Prefix
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: "web"

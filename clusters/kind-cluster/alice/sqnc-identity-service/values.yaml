@@ -13,11 +13,11 @@ auth:
 ingress:
   hostname: localhost
   paths:
-    - path: /alice/members
+    - path: /alice/v1/members
       pathType: Prefix
-    - path: /alice/self
+    - path: /alice/v1/self
       pathType: Prefix
-    - path: /alice/roles
+    - path: /alice/v1/roles
       pathType: Prefix
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: "web"

@@ -18,7 +18,7 @@ auth:
 ingress:
   hostname: localhost
   paths:
-    - path: /alice/attachment
+    - path: /alice/v1/attachment
       pathType: Prefix
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: "web"
