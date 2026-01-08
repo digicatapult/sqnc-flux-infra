@@ -24,16 +24,15 @@ auth:
 ingress:
   hostname: localhost
   paths:
-    - path: /alice/(v1/demandA(/.*)?)
+    - path: /alice/demandA
       pathType: Prefix
-    - path: /alice/(v1/demandB(/.*)?)
+    - path: /alice/demandB
       pathType: Prefix
-    - path: /alice/(v1/match2(/.*)?)
+    - path: /alice/match2
       pathType: Prefix
-    - path: /alice/(v1/transaction(/.*)?)
+    - path: /alice/transaction
       pathType: Prefix
   annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: alice-matchmaker-api-traefik-stripprefix@kubernetescrd
     traefik.ingress.kubernetes.io/router.entrypoints: "web"
     traefik.ingress.kubernetes.io/router.tls: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /$1

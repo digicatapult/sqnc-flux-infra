@@ -12,12 +12,11 @@ oauthUsePkce: true
 ingress:
   hostname: localhost
   paths:
-    - path: /alice/(api-docs(/.*)?)
+    - path: /alice/api-docs
       pathType: Prefix
-    - path: /alice/(swagger(/.*)?)
+    - path: /alice/swagger
       pathType: Prefix
   annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: alice-openapi-merger-traefik-stripprefix@kubernetescrd
     traefik.ingress.kubernetes.io/router.entrypoints: "web"
     traefik.ingress.kubernetes.io/router.tls: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /$1

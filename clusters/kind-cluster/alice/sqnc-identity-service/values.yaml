@@ -13,14 +13,13 @@ auth:
 ingress:
   hostname: localhost
   paths:
-    - path: /alice/(v1/members(/.*)?)
+    - path: /alice/members
       pathType: Prefix
-    - path: /alice/(v1/self(/.*)?)
+    - path: /alice/self
       pathType: Prefix
-    - path: /alice/(v1/roles(/.*)?)
+    - path: /alice/roles
       pathType: Prefix
   annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: alice-identity-service-traefik-stripprefix@kubernetescrd
     traefik.ingress.kubernetes.io/router.entrypoints: "web"
     traefik.ingress.kubernetes.io/router.tls: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
