@@ -9,6 +9,7 @@ resources:
   - sqnc-matchmaker-api
   - sqnc-attachment-api
   - open-api-merger
+  - traefik
 configMapGenerator:
   - name: charlie-values
     files:
