@@ -69,4 +69,4 @@ postgresql:
 podAnnotations:
   instrumentation.opentelemetry.io/inject-nodejs: "monitoring/nodejs-instrumentation"
 roles:
-  - optimiser
+  - member-a
