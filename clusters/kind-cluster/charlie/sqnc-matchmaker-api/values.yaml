@@ -68,3 +68,5 @@ postgresql:
           targetLabel: kubernetes_namespace
 podAnnotations:
   instrumentation.opentelemetry.io/inject-nodejs: "monitoring/nodejs-instrumentation"
+roles:
+  - member-b
