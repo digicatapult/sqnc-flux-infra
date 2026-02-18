@@ -9,6 +9,7 @@ resources:
   - sqnc-node
   - ipfs-node
   - open-api-merger
+  - traefik
 configMapGenerator:
   - name: alice-values
     files:

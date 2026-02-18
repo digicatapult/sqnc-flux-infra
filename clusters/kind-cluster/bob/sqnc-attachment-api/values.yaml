@@ -18,11 +18,13 @@ auth:
 ingress:
   hostname: localhost
   paths:
-    - path: /bob/(v1/attachment(/.*)?)
+    - path: /bob/v1/attachment
       pathType: Prefix
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    traefik.ingress.kubernetes.io/router.middlewares: bob-traefik-strip-prefix@kubernetescrd
+    traefik.ingress.kubernetes.io/router.entrypoints: "web"
+    traefik.ingress.kubernetes.io/router.tls: "false"
+  ingressClassName: traefik
 authzWebhook: http://bob-sqnc-matchmaker-api.bob.svc.cluster.local:3000/v1/authz
 tests:
   auth:
