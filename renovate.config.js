@@ -36,6 +36,15 @@ module.exports = (config = {}) => {
     packageRules: [
       {
         matchManagers: [
+          "github-actions",
+        ],
+        matchPackageNames: [
+          "helm/kind-action"
+        ],
+        enabled: false
+      },
+      {
+        matchManagers: [
           "flux",
         ],
         pinDigests: false
