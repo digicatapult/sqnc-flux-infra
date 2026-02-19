@@ -9,7 +9,7 @@ spec:
   interval: 1m
   url: oci://registry-1.docker.io/bitnamicharts
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: cloudnative-pg
@@ -18,7 +18,7 @@ spec:
   interval: 10m
   url: https://cloudnative-pg.github.io/charts
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: codecentric
