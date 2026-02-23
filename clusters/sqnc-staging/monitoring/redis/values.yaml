@@ -1,8 +1,0 @@
-architecture: "standalone"
-auth:
-  enabled: false
-global:
-  security:
-    allowInsecureImages: true
-image:
-  repository: bitnamilegacy/redis
