@@ -46,8 +46,9 @@ module.exports = (config = {}) => {
         pinDigests: false
       },
       {
+        matchManagers: ["flux"],
         schedule: [
-          "0 9-17 * * *"
+          "*/0 9-17 * * *"
         ]
       },
       {
